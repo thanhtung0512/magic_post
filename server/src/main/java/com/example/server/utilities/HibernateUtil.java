@@ -25,7 +25,7 @@ public class HibernateUtil {
     private static String port = "3306";
     private static String pass = "3NasSaj0OS8vmH9ZpPbY";
     private static String user = "utxn8kpxkal81q5c";
-    private static String host = "bblipzsuaomfkih4bdzx-mysql.services.clever-cloud.com";
+    private static String host = "jdbc:mysql://bblipzsuaomfkih4bdzx-mysql.services.clever-cloud.com:";
 
 
     private static SessionFactory sessionFactory;
@@ -33,7 +33,7 @@ public class HibernateUtil {
     public static Session getSession(String concreteDatabase, Class<?>... annotatedClass) {
         if (sessionFactory == null) {
             Configuration configuration = new Configuration()
-                    .setProperty("hibernate.connection.url", host + concreteDatabase)
+                    .setProperty("hibernate.connection.url", host  + port + "/" + concreteDatabase)
                     .setProperty("hibernate.connection.username", "hbstudent")
                     .setProperty("hibernate.connection.password", "hbstudent")
                     .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect"); // add your entity classes here
@@ -48,7 +48,7 @@ public class HibernateUtil {
     public static Session getSession(String concreteDatabase, String port, String user, String password, Class<?>... annotatedClass) {
         if (sessionFactory == null) {
             Configuration configuration = new Configuration()
-                    .setProperty("hibernate.connection.url", "jdbc:mysql://localhost:" + port + "/" + concreteDatabase)
+                    .setProperty("hibernate.connection.url", host  + port + "/" + concreteDatabase)
                     .setProperty("hibernate.connection.username", user)
                     .setProperty("hibernate.connection.password", password)
                     .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect")
@@ -64,7 +64,7 @@ public class HibernateUtil {
     public static SessionFactory getSessionFactory(String concreteDatabase, String port, String user, String password, Class<?>... annotatedClass) {
         if (sessionFactory == null) {
             Configuration configuration = new Configuration()
-                    .setProperty("hibernate.connection.url", "jdbc:mysql://localhost:" + port + "/" + concreteDatabase)
+                    .setProperty("hibernate.connection.url", host  + port + "/" + concreteDatabase)
                     .setProperty("hibernate.connection.username", user)
                     .setProperty("hibernate.connection.password", password)
                     .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect")
