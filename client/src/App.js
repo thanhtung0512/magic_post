@@ -1,34 +1,16 @@
+// App.js
 import React from "react";
-import { ChakraProvider, CSSReset, extendTheme } from "@chakra-ui/react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Switch,
-} from "react-router-dom";
-
-import CombinedHeaderAndSidebar from "./Components/CombinedHeaderAndSidebar";
-const theme = extendTheme({
-  colors: {
-    brand: {
-      500: '#3182CE', // Blue color
-    },
-  },
-});
-
-const App = () => {
-  const handleLogout = () => {
-    // Implement logout logic
-    console.log('Logout clicked');
-  };
-
+import MainLayout from "./Screens/MainLayout";
+import HeaderBar from "./Components/HeaderBar";
+import { ChakraProvider, CSSReset } from '@chakra-ui/react';
+function App() {
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider>
       <CSSReset />
-      {/* ... Your other components ... */}
-      <CombinedHeaderAndSidebar/>
-      {/* ... Rest of your application ... */}
+      <MainLayout/>
+      {/* Your other components */}
     </ChakraProvider>
   );
-};
+}
+
 export default App;

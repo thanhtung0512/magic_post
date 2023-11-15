@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import { VStack, Button, ChakraProvider, CSSReset, extendTheme } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+
 const theme = extendTheme({
   colors: {
     brand: {
@@ -12,13 +13,8 @@ const theme = extendTheme({
     },
   },
 });
-const SideBar = ({ userRole }) => {
-  const [activeNavItem, setActiveNavItem] = useState(null);
 
-  const handleNavItemClick = (navItem) => {
-    setActiveNavItem(navItem);
-  };
-
+const SideBar = ({ userRole, activeNavItem, onNavItemClick }) => {
   const sidebarItems = getSidebarItems(userRole);
 
   return (
@@ -26,7 +22,12 @@ const SideBar = ({ userRole }) => {
       <CSSReset />
       <VStack align="start" spacing={3} p={4} bg="#2C5282" color="white" h="120vh" w="270px" position="fixed" left={0} top={20}>
         {sidebarItems.map((item) => (
-          <NavItem key={item.to} to={item.to} activeNavItem={activeNavItem} onClick={() => handleNavItemClick(item.to)}>
+          <NavItem
+            key={item.to}
+            to={item.to}
+            activeNavItem={activeNavItem}
+            onClick={() => onNavItemClick(item.to)}
+          >
             {item.label}
           </NavItem>
         ))}
@@ -63,13 +64,7 @@ const getSidebarItems = (userRole) => {
       return [
         { to: '/grant-teller-accounts', label: 'Grant Teller Accounts' },
         { to: '/transaction-point-statistics', label: 'Transaction Point Statistics' },
-        { to: '/record-goods', label: 'Record Goods' },
-        { to: '/create-delivery-orders', label: 'Create Delivery Orders' },
-        { to: '/confirmation-arriving-at-collection', label: 'Confirmation at Collection Point' },
-        { to: '/create-orders-recipient', label: 'Create Orders for Recipient' },
-        { to: '/confirmation-delivered-recipient', label: 'Confirmation of Delivered Goods' },
-        { to: '/failed-delivery-handling', label: 'Failed Delivery Handling' },
-        { to: '/statistics-transferred-rows', label: 'Statistics on Transferred Rows' },
+        
       ];
     case 'tellerTransaction':
       return [

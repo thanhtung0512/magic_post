@@ -17,8 +17,8 @@ const HeaderBar = ({ role, userName, onLogout }) => {
       as="header"
       align="center"
       justify="space-between"
-      height={79}
       p={4}
+      height='80px'
       bg="white"
       borderBottom="2px solid #3182CE" // Blue color
       rounded="md"
