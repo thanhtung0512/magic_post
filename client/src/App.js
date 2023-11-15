@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { ChakraProvider, CSSReset, extendTheme } from "@chakra-ui/react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Switch,
+} from "react-router-dom";
+import HeaderBar from "./Components/HeaderBar";
+import Homepage from "./Screens/Homepage";
+import SideBar from "./Components/SideBar";
+import CombinedHeaderAndSidebar from "./Components/CombinedHeaderAndSidebar";
+const theme = extendTheme({
+  colors: {
+    brand: {
+      500: '#3182CE', // Blue color
+    },
+  },
+});
 
-function App() {
+const App = () => {
+  const handleLogout = () => {
+    // Implement logout logic
+    console.log('Logout clicked');
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider theme={theme}>
+      <CSSReset />
+      {/* ... Your other components ... */}
+      <CombinedHeaderAndSidebar/>
+      {/* ... Rest of your application ... */}
+    </ChakraProvider>
   );
-}
-
+};
 export default App;
