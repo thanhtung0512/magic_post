@@ -1,0 +1,3 @@
+If role is Company Leaders: SideBar list is :  Dashboard ,Manage Points, Manage Account Managers, View Statistics.
+If role is PointLeader_Transaction: SideBar  list is : Grant Teller Account , View Statistics.
+If role is Teller_Transaction:  SideBar list is Record Goods, Create Delivery Orders, Orders Arriving, 

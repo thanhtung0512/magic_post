@@ -12,7 +12,7 @@ const CombinedHeaderAndSidebar = () => {
   return (
     <Flex direction="column" h="100vh">
       <HeaderBar role="companyLeader" userName="John Doe" onLogout={handleLogout} />
-      <SideBar />
+      <SideBar userRole="companyLeader"/>
     </Flex>
   );
 };

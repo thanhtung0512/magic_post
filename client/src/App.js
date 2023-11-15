@@ -6,9 +6,7 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-import HeaderBar from "./Components/HeaderBar";
-import Homepage from "./Screens/Homepage";
-import SideBar from "./Components/SideBar";
+
 import CombinedHeaderAndSidebar from "./Components/CombinedHeaderAndSidebar";
 const theme = extendTheme({
   colors: {
