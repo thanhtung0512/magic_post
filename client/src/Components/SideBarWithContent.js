@@ -13,7 +13,7 @@ const SideBarWithContent = () => {
 
   return (
     <Flex>
-      <SideBar userRole="companyLeader" activeNavItem={activeNavItem} onNavItemClick={handleNavItemClick} />
+      <SideBar userRole="pointLeaderTransaction" activeNavItem={activeNavItem} onNavItemClick={handleNavItemClick} />
       <ContentPage title={activeNavItem} />
     </Flex>
   );
