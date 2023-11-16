@@ -6,12 +6,14 @@ import jakarta.persistence.*;
 
 @Entity
 @Data
+@Table(name = "Goods")
 public class Goods {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "GoodsID")
     private Long goodsId;
 
-    @Column(nullable = false)
+    @Column(name = "Description", nullable = false)
     private String description;
 }

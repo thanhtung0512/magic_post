@@ -11,11 +11,11 @@ function App() {
   return (
     <ChakraProvider>
       <CSSReset />
-
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<MainLayout />} />
+        <Route path="/" element={<MainLayout />} />
         <Route path="/manage-points" element={<MainLayout />} />
         <Route path="/manage-account-managers" element={<MainLayout />} />
         <Route path="/view-statistics" element={<MainLayout />} />

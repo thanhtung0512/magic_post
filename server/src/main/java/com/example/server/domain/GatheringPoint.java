@@ -6,17 +6,18 @@ import jakarta.persistence.*;
 
 @Entity
 @Data
-@Entity
+@Table(name = "GatheringPoint")
 public class GatheringPoint {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "GatheringPointID")
     private Long gatheringPointId;
 
-    @Column(nullable = false)
+    @Column(name = "Name", nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "Address", nullable = false)
     private String address;
 
     // Getters and setters

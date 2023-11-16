@@ -5,8 +5,8 @@ import lombok.*;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "PointLeaderAtGatheringPoint")
 @Data
+@Table(name = "PointLeaderAtGatheringPoint")
 public class PointLeaderAtGatheringPoint {
 
     @Id

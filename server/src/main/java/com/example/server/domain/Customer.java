@@ -6,15 +6,18 @@ import jakarta.persistence.*;
 
 @Entity
 @Data
+@Table(name="Customer")
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CustomerID")
     private Long customerId;
 
-    @Column(nullable = false)
-    private String username;
+    @OneToOne
+    @JoinColumn(name="userId")
+    private User user;
 
-    @Column(nullable = false)
-    private String password;
+    @Column(name = "CustomerName")
+    private String customerName;
 }

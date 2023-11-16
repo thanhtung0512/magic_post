@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Data
+@Table(name = "DeliveryOrder" )
 public class DeliveryOrder {
 
     @Id
@@ -31,9 +32,9 @@ public class DeliveryOrder {
     @Column(nullable = false)
     private String status;
 
-    @Column
+    @Column(name = "SenderAddress")
     private String senderAddress;
 
-    @Column
+    @Column(name = "RecipientAddress")
     private String recipientAddress;
 }
