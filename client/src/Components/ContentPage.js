@@ -8,6 +8,7 @@ import CompanyLeaderManagePoints from "./RoleContent/CompanyLeader/CompanyLeader
 import ManagePointsPage from "./ManagePointsPage";
 import MapWithMarkers from "./MapWithMarkers";
 import GrantTellerAccount from "./RoleContent/PointLeaderTransaction/GrantTellerAccount";
+import TransactionStatistic from "./RoleContent/PointLeaderTransaction/TransactionStatistic";
 const ContentPage = ({ title }) => {
   console.log("title", title);
   const generateChartData = () => {
@@ -56,11 +57,11 @@ const ContentPage = ({ title }) => {
   const renderContent = () => {
     switch (title) {
       case "/dashboard":
-        return <CompanyLeaderDashboard/> ;
+        return <CompanyLeaderDashboard />;
       case "/manage-points":
-        return <ManagePointsPage/>;
+        return <ManagePointsPage />;
       case "/manage-account-managers":
-        return <></> ;
+        return <></>;
       case "/view-statistics":
         return (
           <Box>
@@ -74,7 +75,22 @@ const ContentPage = ({ title }) => {
           </Box>
         );
       case "/grant-teller-accounts":
-        return (<><GrantTellerAccount/></>)
+        return (
+          <>
+            <GrantTellerAccount />
+          </>
+        );
+      case "/transaction-point-statistics":
+        return (
+          <>
+            {/* <TransactionStatistic /> */}
+            <ComplexChart data={deliveryOrderDataWithPendingCancelled} />
+            <BeautifulChart
+              data={deliveryOrderDataWithPendingCancelled}
+              colors={customColors}
+            />
+          </>
+        );
       // Add more cases as needed
       default:
         return <Text>MagicPost</Text>;

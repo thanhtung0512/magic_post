@@ -69,7 +69,7 @@ const GrantTellerAccount = () => {
   };
 
   return (
-    <Box p={4} overflowY="scroll" maxH="80vh" >
+    <Box p={4} overflowY="scroll" maxH="80vh">
       <Heading as="h2" size="xl" mb={4}>
         Grant Teller Account
       </Heading>

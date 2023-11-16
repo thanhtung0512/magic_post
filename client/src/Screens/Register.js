@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Flex,
@@ -9,7 +9,7 @@ import {
   Heading,
   Text,
   Link as ChakraLink,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 const Register = () => {
   return (
@@ -18,7 +18,13 @@ const Register = () => {
       <Text fontSize="3xl" fontWeight="bold" mb={4}>
         MagicPost
       </Text>
-      <Box p={8} maxWidth="400px" borderWidth={1} borderRadius={8} boxShadow="lg">
+      <Box
+        p={8}
+        maxWidth="400px"
+        borderWidth={1}
+        borderRadius={8}
+        boxShadow="lg"
+      >
         <Heading mb={4}>Register</Heading>
         <form>
           <FormControl mb={4}>
@@ -31,13 +37,13 @@ const Register = () => {
             <Input type="password" placeholder="Enter your password" />
           </FormControl>
 
-          <Button colorScheme="orange" type="submit" width="full">
+          <Button colorScheme="blue" type="submit" width="full">
             Sign Up
           </Button>
         </form>
         <Box mt={4}>
-          Already have an account?{' '}
-          <ChakraLink color="orange" href="/login">
+          Already have an account?{" "}
+          <ChakraLink color="#769FCD" href="/login">
             Login here.
           </ChakraLink>
         </Box>
