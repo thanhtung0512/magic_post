@@ -30,8 +30,8 @@ const SideBar = ({ userRole, activeNavItem, onNavItemClick }) => {
         align="start"
         spacing={3}
         p={4}
-        bg="#2C5282"
-        color="white"
+        bg="teal"
+        color="#F5F0BB"
         h="120vh"
         w="270px"
         position="fixed"
@@ -59,8 +59,9 @@ const NavItem = ({ to, children, activeNavItem, onClick }) => (
       w="230px"
       textAlign="left"
       color="white"
-      bg={activeNavItem === to ? "#2C5282" : "transparent"}
-      _hover={{ color: "#D6E6F2", bg: "#769FCD" }}
+      border={activeNavItem === to ? "2px solid white" : "none"}
+      bg={activeNavItem === to ? "transparent" : "transparent"}
+      _hover={{ color: "teal", bg: "white" }}
       onClick={() => onClick(to)}
     >
       {children}

@@ -9,6 +9,7 @@ import ManagePointsPage from "./ManagePointsPage";
 import MapWithMarkers from "./MapWithMarkers";
 import GrantTellerAccount from "./RoleContent/PointLeaderTransaction/GrantTellerAccount";
 import TransactionStatistic from "./RoleContent/PointLeaderTransaction/TransactionStatistic";
+import UserTracking from "./RoleContent/User/UserTracking";
 const ContentPage = ({ title }) => {
   console.log("title", title);
   const generateChartData = () => {
@@ -91,6 +92,13 @@ const ContentPage = ({ title }) => {
             />
           </>
         );
+      case "/lookup-status":
+        return (
+          <>
+            <UserTracking />
+          </>
+        );
+
       // Add more cases as needed
       default:
         return <Text>MagicPost</Text>;

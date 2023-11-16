@@ -24,6 +24,7 @@ function App() {
         <Route path="/view-statistics" element={<MainLayout />} />
         <Route path="/grant-teller-accounts" element={<MainLayout />} />
         <Route path="/transaction-point-statistics" element={<MainLayout />} />
+        <Route path="/lookup-status" element={<MainLayout />} />
       </Routes>
     </ChakraProvider>
   );

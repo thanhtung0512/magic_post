@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 const theme = extendTheme({
   colors: {
     brand: {
-      500: "#3182CE", // Blue color
+      500: "teal", // Blue color
     },
   },
 });
@@ -28,12 +28,12 @@ const HeaderBar = ({ role, userName, onLogout }) => {
       p={4}
       height="80px"
       bg="white"
-      borderBottom="2px solid #3182CE" // Blue color
+      borderBottom="3px solid teal" // Blue color
       rounded="md"
       boxShadow="md" // Add box shadow for a subtle lift
     >
       <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-        <Text fontSize="xl" fontWeight="bold" _hover={{ color: "#3182CE" }}>
+        <Text fontSize="xl" fontWeight="bold" _hover={{ color: "teal" }}>
           MagicPost
         </Text>
       </Link>
@@ -46,16 +46,16 @@ const HeaderBar = ({ role, userName, onLogout }) => {
           mx="auto" // Center the search bar
           w="50%" // Set the width to 50%
           rounded="full"
-          borderColor="#3182CE"
-          _focus={{ borderColor: "#3182CE", boxShadow: "0 0 0 2px #3182CE" }} // Add a subtle box shadow on focus
+          borderColor="teal"
+          _focus={{ borderColor: "teal", boxShadow: "0 0 0 2px #3182CE" }} // Add a subtle box shadow on focus
         />
-        <Text mx={2} fontWeight="bold" color="#3182CE">
+        <Text mx={2} fontWeight="bold" color="teal">
           {userName}
         </Text>
         <Button
           onClick={onLogout}
           rounded="full"
-          bg="#3182CE"
+          bg="teal"
           color="white"
           _hover={{ bg: "#2C5282" }}
         >
