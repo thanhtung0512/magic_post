@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Heading, Table, Thead, Tbody, Tr, Th, Td, Text } from '@chakra-ui/react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
+import MapWithMarkers from '../../MapWithMarkers';
 const CompanyLeaderDashboard = () => {
   // Mock data
   const systemSummary = {
@@ -115,10 +115,16 @@ const CompanyLeaderDashboard = () => {
   };
 
   return (
+    
     <Box overflowY="scroll" maxH="80vh" p={4}>
       <Heading as="h2" size="xl" mb={4}>
         Company Leader Dashboard
       </Heading>
+
+      
+        
+      
+
 
       <Box mb={6} p={4} borderWidth="1px" borderRadius="lg" boxShadow="lg">
         <Heading as="h3" size="lg" mb={2}>

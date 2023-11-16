@@ -1,13 +1,13 @@
 // ContentPage.js
 import React from "react";
 import { Box, Text } from "@chakra-ui/react";
-import { Bar } from "react-chartjs-2";
-import Chart from "./SimpleChart";
 import ComplexChart from "./ComplexChart";
 import BeautifulChart from "./BeautifulChart";
-import CompanyLeaderDashboard from "./CompanyLeaderDashboard";
-import CompanyLeaderManagePoints from "./CompanyLeaderManagePoints";
+import CompanyLeaderDashboard from "./RoleContent/CompanyLeader/CompanyLeaderDashboard";
+import CompanyLeaderManagePoints from "./RoleContent/CompanyLeader/CompanyLeaderManagePoints";
 import ManagePointsPage from "./ManagePointsPage";
+import MapWithMarkers from "./MapWithMarkers";
+import GrantTellerAccount from "./RoleContent/PointLeaderTransaction/GrantTellerAccount";
 const ContentPage = ({ title }) => {
   console.log("title", title);
   const generateChartData = () => {
@@ -73,6 +73,8 @@ const ContentPage = ({ title }) => {
             />
           </Box>
         );
+      case "/grant-teller-accounts":
+        return (<><GrantTellerAccount/></>)
       // Add more cases as needed
       default:
         return <Text>MagicPost</Text>;
