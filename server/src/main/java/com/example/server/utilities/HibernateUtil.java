@@ -25,7 +25,7 @@ public class HibernateUtil {
     private static String port = "3306";
     private static String pass = "3NasSaj0OS8vmH9ZpPbY";
     private static String user = "utxn8kpxkal81q5c";
-    private static String host = "jdbc:mysql://bblipzsuaomfkih4bdzx-mysql.services.clever-cloud.com:";
+    private static String host = "jdbc:mysql://utxn8kpxkal81q5c:3NasSaj0OS8vmH9ZpPbY@bblipzsuaomfkih4bdzx-mysql.services.clever-cloud.com::";
 
 
     private static SessionFactory sessionFactory;

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Data
+@Entity
 public class TransactionPoint {
 
     @Id
@@ -14,4 +15,9 @@ public class TransactionPoint {
 
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private String address;
+
+    // Getters and setters
 }

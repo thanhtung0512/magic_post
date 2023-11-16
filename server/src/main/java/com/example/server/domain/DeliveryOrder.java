@@ -30,4 +30,10 @@ public class DeliveryOrder {
 
     @Column(nullable = false)
     private String status;
+
+    @Column
+    private String senderAddress;
+
+    @Column
+    private String recipientAddress;
 }
