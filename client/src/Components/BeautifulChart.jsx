@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Text } from '@chakra-ui/react';
+import React from "react";
+import { Box, Text } from "@chakra-ui/react";
 import {
   BarChart,
   Bar,
@@ -9,12 +9,12 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from 'recharts';
+} from "recharts";
 
 const BeautifulChart = ({ data, colors }) => {
   const getDataKeys = () => {
     if (data.length > 0) {
-      return Object.keys(data[0]).filter((key) => key !== 'month');
+      return Object.keys(data[0]).filter((key) => key !== "month");
     }
     return [];
   };
@@ -23,7 +23,12 @@ const BeautifulChart = ({ data, colors }) => {
     const dataKeys = getDataKeys();
 
     return dataKeys.map((key, index) => (
-      <Bar key={index} dataKey={key} fill={colors[index % colors.length]} stackId="stack" />
+      <Bar
+        key={index}
+        dataKey={key}
+        fill={colors[index % colors.length]}
+        stackId="stack"
+      />
     ));
   };
 

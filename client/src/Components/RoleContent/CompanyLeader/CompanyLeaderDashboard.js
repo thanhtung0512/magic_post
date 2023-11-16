@@ -1,7 +1,26 @@
-import React from 'react';
-import { Box, Heading, Table, Thead, Tbody, Tr, Th, Td, Text } from '@chakra-ui/react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import MapWithMarkers from '../../MapWithMarkers';
+import React from "react";
+import {
+  Box,
+  Heading,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  Text,
+} from "@chakra-ui/react";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import MapWithMarkers from "../../MapWithMarkers";
 const CompanyLeaderDashboard = () => {
   // Mock data
   const systemSummary = {
@@ -17,32 +36,32 @@ const CompanyLeaderDashboard = () => {
   };
 
   const performanceMetrics = {
-    averageDeliveryTime: '2 days',
-    successfulDeliveryPercentage: '92%',
+    averageDeliveryTime: "2 days",
+    successfulDeliveryPercentage: "92%",
     // Add more performance metrics as needed
   };
 
   const transactionPoints = [
-    { location: 'City A', performanceMetric: 90 },
-    { location: 'City B', performanceMetric: 85 },
+    { location: "City A", performanceMetric: 90 },
+    { location: "City B", performanceMetric: 85 },
     // Add more transaction points as needed
   ];
 
   const gatheringPoints = [
-    { location: 'City X', performanceMetric: 95 },
-    { location: 'City Y', performanceMetric: 80 },
+    { location: "City X", performanceMetric: 95 },
+    { location: "City Y", performanceMetric: 80 },
     // Add more gathering points as needed
   ];
 
   const recentReports = [
-    { title: 'Goods Handling Report', date: '2023-11-15' },
-    { title: 'Successful Transfers Report', date: '2023-11-14' },
+    { title: "Goods Handling Report", date: "2023-11-15" },
+    { title: "Successful Transfers Report", date: "2023-11-14" },
     // Add more recent reports as needed
   ];
 
   const notifications = [
-    'System maintenance scheduled for tomorrow',
-    'New feature rollout coming next week',
+    "System maintenance scheduled for tomorrow",
+    "New feature rollout coming next week",
     // Add more notifications as needed
   ];
 
@@ -87,17 +106,19 @@ const CompanyLeaderDashboard = () => {
   const renderRecentReports = () => (
     <Box>
       {recentReports.map((report, index) => (
-        <Text key={index}>{report.title} - {report.date}</Text>
+        <Text key={index}>
+          {report.title} - {report.date}
+        </Text>
       ))}
     </Box>
   );
 
   const renderChart = () => {
     const data = [
-      { location: 'City A', performanceMetric: 90 },
-      { location: 'City B', performanceMetric: 85 },
-      { location: 'City X', performanceMetric: 95 },
-      { location: 'City Y', performanceMetric: 80 },
+      { location: "City A", performanceMetric: 90 },
+      { location: "City B", performanceMetric: 85 },
+      { location: "City X", performanceMetric: 95 },
+      { location: "City Y", performanceMetric: 80 },
     ];
 
     return (
@@ -115,23 +136,21 @@ const CompanyLeaderDashboard = () => {
   };
 
   return (
-    
     <Box overflowY="scroll" maxH="80vh" p={4}>
       <Heading as="h2" size="xl" mb={4}>
         Company Leader Dashboard
       </Heading>
 
-      
-        
-      
-
-
       <Box mb={6} p={4} borderWidth="1px" borderRadius="lg" boxShadow="lg">
         <Heading as="h3" size="lg" mb={2}>
           System Summary
         </Heading>
-        <Text>Total Transaction Points: {systemSummary.totalTransactionPoints}</Text>
-        <Text>Total Gathering Points: {systemSummary.totalGatheringPoints}</Text>
+        <Text>
+          Total Transaction Points: {systemSummary.totalTransactionPoints}
+        </Text>
+        <Text>
+          Total Gathering Points: {systemSummary.totalGatheringPoints}
+        </Text>
         <Text>Active Users: {systemSummary.activeUsers}</Text>
       </Box>
 
@@ -140,15 +159,22 @@ const CompanyLeaderDashboard = () => {
           Nationwide Statistics
         </Heading>
         <Text>Total Goods Sent: {nationwideStatistics.totalGoodsSent}</Text>
-        <Text>Total Goods Received: {nationwideStatistics.totalGoodsReceived}</Text>
+        <Text>
+          Total Goods Received: {nationwideStatistics.totalGoodsReceived}
+        </Text>
       </Box>
 
       <Box mb={6} p={4} borderWidth="1px" borderRadius="lg" boxShadow="lg">
         <Heading as="h3" size="lg" mb={2}>
           Performance Metrics
         </Heading>
-        <Text>Average Delivery Time: {performanceMetrics.averageDeliveryTime}</Text>
-        <Text>Successful Delivery Percentage: {performanceMetrics.successfulDeliveryPercentage}</Text>
+        <Text>
+          Average Delivery Time: {performanceMetrics.averageDeliveryTime}
+        </Text>
+        <Text>
+          Successful Delivery Percentage:{" "}
+          {performanceMetrics.successfulDeliveryPercentage}
+        </Text>
       </Box>
 
       <Box mb={6} p={4} borderWidth="1px" borderRadius="lg" boxShadow="lg">
