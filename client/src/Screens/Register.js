@@ -97,8 +97,8 @@ const Register = () => {
           setSuccessful(true);
           setMessage(response.data.message);
           setTimeout(() => {
-            navigate("/login");
-          }, 2000); // Redirect to login after 2 seconds
+            navigate("/");
+          }, 1000); // Redirect to login after 2 seconds
         },
         (error) => {
           setLoading(false);
@@ -202,7 +202,7 @@ const Register = () => {
 
         <Box mt={4}>
           Already have an account?{" "}
-          <ChakraLink color="teal" href="/login">
+          <ChakraLink color="teal" href="/">
             Login here.
           </ChakraLink>
         </Box>
