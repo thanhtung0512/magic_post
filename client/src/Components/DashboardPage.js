@@ -1,16 +1,14 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
-  Grid,
-  GridItem,
+  Flex,
   Heading,
   Stat,
   StatLabel,
   StatNumber,
   StatArrow,
   StatHelpText,
-  Text,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 import {
   BarChart,
   Bar,
@@ -19,97 +17,105 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from 'recharts';
-
+} from "recharts";
+import StatusCircleChart from "./StatusCircleChart";
+import TransactionPlaceTable from './TransactionPlaceTable'
 const mockMonthlyOrdersData = [
-  { month: 'Jan', orders: 120 },
-  { month: 'Feb', orders: 150 },
-  { month: 'Mar', orders: 80 },
-  { month: 'Apr', orders: 200 },
-  { month: 'May', orders: 180 },
-  { month: 'Jun', orders: 250 },
-  { month: 'Jul', orders: 300 },
-  { month: 'Aug', orders: 280 },
-  { month: 'Sep', orders: 220 },
-  { month: 'Oct', orders: 190 },
-  { month: 'Nov', orders: 210 },
-  { month: 'Dec', orders: 180 },
+  { month: "Jan", orders: 120 },
+  { month: "Feb", orders: 150 },
+  { month: "Mar", orders: 80 },
+  { month: "Apr", orders: 200 },
+  { month: "May", orders: 180 },
+  { month: "Jun", orders: 250 },
+  { month: "Jul", orders: 300 },
+  { month: "Aug", orders: 280 },
+  { month: "Sep", orders: 220 },
+  { month: "Oct", orders: 190 },
+  { month: "Nov", orders: 210 },
+  { month: "Dec", orders: 180 },
 ];
 
 const generateRandomPercentageChange = () => {
-  const randomValue = Math.random() * 10;
-  return randomValue >= 5 ? `+${randomValue.toFixed(2)}%` : `-${randomValue.toFixed(2)}%`;
+  const randomValue = (Math.random() - 0.5) * 10; // Generate a random value between -5 and 5
+  return randomValue;
 };
 
 const DashboardPage = () => {
   return (
-    <Box p={8}>
-      <Grid templateColumns="repeat(4, 4fr)" gap={6} mb={8}>
-        {/* Card 1 */}
-        <GridItem rowSpan={1} colSpan={1}>
-          <Stat>
+    <Box overflowY="scroll" maxH="80vh" p={4}>
+      <Flex justify="space-between" mb={9}>
+        {[1, 2, 3, 4].map((index) => (
+          <Stat
+            key={index}
+            p={4}
+            mr={2}
+            borderRadius="lg"
+            borderWidth="2px"
+            boxShadow="xl"
+            bg="white"
+            width="50%"
+          >
             <StatLabel>Total Revenue</StatLabel>
             <StatNumber>$4,233</StatNumber>
             <StatHelpText>
-              <StatArrow type="increase" />
-              {generateRandomPercentageChange()}
+              <StatArrow
+                type={
+                  generateRandomPercentageChange() > 0.0
+                    ? "increase"
+                    : "decrease"
+                }
+              />
+              {`${generateRandomPercentageChange().toFixed(2)}%`}
             </StatHelpText>
           </Stat>
-        </GridItem>
+        ))}
+      </Flex>
 
-        <GridItem rowSpan={1} colSpan={2}>
-          <Stat>
-            <StatLabel>Total Revenue</StatLabel>
-            <StatNumber>$4,233</StatNumber>
-            <StatHelpText>
-              <StatArrow type="increase" />
-              {generateRandomPercentageChange()}
-            </StatHelpText>
-          </Stat>
-        </GridItem>
+      <Heading as="h2" size="lg" mb={4} color="black">
+        Monthly Orders
+      </Heading>
 
-        <GridItem rowSpan={1} colSpan={3}>
-          <Stat>
-            <StatLabel>Total Revenue</StatLabel>
-            <StatNumber>$4,233</StatNumber>
-            <StatHelpText>
-              <StatArrow type="increase" />
-              {generateRandomPercentageChange()}
-            </StatHelpText>
-          </Stat>
-        </GridItem>
+      <Flex justify="space-between" mb={9}>
+        <ResponsiveContainer
+          width="70%"
+          height={350}
+          style={{
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            borderWidth: "2px",
+            borderColor: "#E2E8F0",
+            borderStyle: "solid",
+            borderRadius: "8px",
+            marginRight: "0px",
+            // Optional: Add border radius for rounded corners
+          }}
+        >
+          <BarChart data={mockMonthlyOrdersData}>
+            <XAxis dataKey="month" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="orders" fill="#3182CE" />
+          </BarChart>
+        </ResponsiveContainer>
 
-        <GridItem rowSpan={2} colSpan={3}>
-          <Stat>
-            <StatLabel>Total Revenue</StatLabel>
-            <StatNumber>$4,233</StatNumber>
-            <StatHelpText>
-              <StatArrow type="increase" />
-              {generateRandomPercentageChange()}
-            </StatHelpText>
-          </Stat>
-        </GridItem>
+        <ResponsiveContainer
+          width="30%"
+          height={350}
+          style={{
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            borderWidth: "2px",
+            borderColor: "#E2E8F0",
+            borderStyle: "solid",
+            borderRadius: "8px",
+            marginRight: "0px",
+            // Optional: Add border radius for rounded corners
+          }}
+        >
+          <StatusCircleChart />
+        </ResponsiveContainer>
+      </Flex>
 
-        {/* Card 2 */}
-        {/* Add similar GridItems for other cards */}
-
-        {/* Statistic Chart (Card 5) */}
-        <GridItem colSpan={4}>
-          <Heading as="h2" size="lg" mb={4}>
-            Monthly Orders
-          </Heading>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={mockMonthlyOrdersData}>
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="orders" fill="#3182CE" />
-            </BarChart>
-          </ResponsiveContainer>
-        </GridItem>
-      </Grid>
-
+      <TransactionPlaceTable/>
       {/* Add components for Card 6 (Circle Chart) and Card 7 (Table) */}
     </Box>
   );

@@ -29,7 +29,7 @@ const ContentPage = ({ title, isSideBarOpening }) => {
   const renderContent = () => {
     switch (title) {
       case "/dashboard":
-        return <CompanyLeaderDashboard />;
+        return <DashboardPage />;
       case "/manage-points":
         return <ManagePointsPage />;
       case "/manage-account-managers":
@@ -82,7 +82,7 @@ const ContentPage = ({ title, isSideBarOpening }) => {
         return (
           <>
             <Text>MagicPost</Text>
-            <DashboardPage/>
+            {/* <DashboardPage/> */}
           </>
         );
     }
