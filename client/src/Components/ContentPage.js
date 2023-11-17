@@ -11,7 +11,7 @@ import TransactionStatistic from "./RoleContent/PointLeaderTransaction/Transacti
 import UserTracking from "./RoleContent/User/UserTracking";
 import Profile from "./Profile";
 
-const ContentPage = ({ title }) => {
+const ContentPage = ({ title, isSideBarOpening }) => {
   const fontSize = useBreakpointValue({ base: "md", md: "xl" });
   const deliveryOrderDataWithPendingCancelled = [
     { month: "Jan", completed: 10, pending: 5, cancelled: 2 },
@@ -84,11 +84,14 @@ const ContentPage = ({ title }) => {
     <Box
       flex="1"
       p={4}
-      ml={{ base: 0, md: "270px" }} // Adjust margin-left for the sidebar width
       borderLeft={{ base: "none", md: "1px solid #E2E8F0" }}
+      position="relative"
+      left={isSideBarOpening ? 270 : 0}
+      maxWidth={isSideBarOpening ? "85%" : "100%"}
+      transition="left 0.3s ease-in-out"
     >
       <Text fontSize={fontSize} fontWeight="bold" mb={4}>
-        {title}
+        {title} - SideBar Open: {isSideBarOpening === true ? "Yes" : "No"}
       </Text>
       {renderContent()}
     </Box>

@@ -6,9 +6,10 @@ import ContentPage from "./ContentPage";
 
 const SideBarWithContent = () => {
   const [activeNavItem, setActiveNavItem] = useState(null);
-
-  const handleNavItemClick = (navItem) => {
+  const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+  const handleNavItemClick = (navItem, isSideBarOpen) => {
     setActiveNavItem(navItem);
+    setIsSideBarOpen(isSideBarOpen);
   };
 
   return (
@@ -20,9 +21,14 @@ const SideBarWithContent = () => {
           userRole="companyLeader"
           activeNavItem={activeNavItem}
           onNavItemClick={handleNavItemClick}
+          isSideBarOpening={isSideBarOpen}
         />
       </Box>
-      <ContentPage title={activeNavItem} flex="1" />
+      <ContentPage
+        title={activeNavItem}
+        flex="1"
+        isSideBarOpening={isSideBarOpen}
+      />
     </Flex>
   );
 };

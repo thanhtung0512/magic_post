@@ -6,6 +6,8 @@ import {
   CSSReset,
   extendTheme,
   useMediaQuery,
+  Text,
+  color,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import AuthService from "../services/auth.service";
@@ -20,8 +22,16 @@ const theme = extendTheme({
 });
 
 const SideBar = ({ userRole, activeNavItem, onNavItemClick }) => {
-  const sidebarItems = getSidebarItems(userRole);
   const [isLargerThanMD] = useMediaQuery("(min-width: 48em)");
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const sidebarItems = getSidebarItems(userRole);
+
+  const toggleSidebar = () => {
+    onNavItemClick(activeNavItem, !isSidebarOpen);
+    setSidebarOpen(!isSidebarOpen);
+    // Pass isSidebarOpen to the parent component through onNavItemClick
+    
+  };
 
   return (
     <ChakraProvider theme={theme}>
@@ -31,21 +41,34 @@ const SideBar = ({ userRole, activeNavItem, onNavItemClick }) => {
         spacing={3}
         p={4}
         bg="teal"
-        color="#F5F0BB"
+        color="black"
         h="120vh"
         w={isLargerThanMD ? "270px" : "100%"}
         position="fixed"
-        left={0}
+        left={isSidebarOpen ? 0 : "-270px"}
         top={20}
         zIndex={999} // Ensure it overlays other content
+        transition="left 0.3s ease-in-out"
       >
+        <Button
+          onClick={toggleSidebar}
+          bg="teal"
+          position="absolute"
+          left="250px"
+          top="830px"
+          _hover={{ color: "white", bg: "teal" }}
+        >
+          <Text fontSize={23} color="white" fontWeight="bold">
+            {isSidebarOpen ? "←" : "→"}
+          </Text>
+        </Button>
         {sidebarItems.map((item) => (
           <NavItem
             key={item.to}
             to={item.to}
             activeNavItem={activeNavItem}
-            onClick={() => onNavItemClick(item.to)}
-            isLargerThanMD={isLargerThanMD} // Pass the isLargerThanMD prop
+            onClick={() => onNavItemClick(item.to, isSidebarOpen)}
+            isLargerThanMD={isLargerThanMD}
           >
             {item.label}
           </NavItem>
@@ -54,7 +77,6 @@ const SideBar = ({ userRole, activeNavItem, onNavItemClick }) => {
     </ChakraProvider>
   );
 };
-
 const NavItem = ({ to, children, activeNavItem, onClick, isLargerThanMD }) => (
   <Link to={to} style={{ textDecoration: "none", color: "white" }}>
     <Button
@@ -70,6 +92,7 @@ const NavItem = ({ to, children, activeNavItem, onClick, isLargerThanMD }) => (
     </Button>
   </Link>
 );
+
 const getSidebarItems = (userRole) => {
   const currentUser = AuthService.getCurrentUser();
   const currentRole = currentUser.roles[0];
