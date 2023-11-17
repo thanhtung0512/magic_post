@@ -8,6 +8,7 @@ import Register from "./Screens/Register";
 import { Route, Routes } from "react-router-dom";
 import MapWithMarkers from "./Components/MapWithMarkers";
 import GrantTellerAccount from "./Components/RoleContent/PointLeaderTransaction/GrantTellerAccount";
+import Profile from "./Components/Profile";
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
         <Route path="/manage-employee-accounts" element={<MainLayout />} />
         <Route path="/gathering-point-statistics" element={<MainLayout />} />
 
+
+        <Route path="/profile" element={<MainLayout />} />
 
       </Routes>
     </ChakraProvider>

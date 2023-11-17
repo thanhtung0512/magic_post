@@ -9,6 +9,7 @@ import MapWithMarkers from "./MapWithMarkers";
 import GrantTellerAccount from "./RoleContent/PointLeaderTransaction/GrantTellerAccount";
 import TransactionStatistic from "./RoleContent/PointLeaderTransaction/TransactionStatistic";
 import UserTracking from "./RoleContent/User/UserTracking";
+import Profile from "./Profile";
 
 const ContentPage = ({ title }) => {
   const fontSize = useBreakpointValue({ base: "md", md: "xl" });
@@ -30,7 +31,7 @@ const ContentPage = ({ title }) => {
       case "/manage-points":
         return <ManagePointsPage />;
       case "/manage-account-managers":
-        return <>  </>;
+        return <> </>;
       case "/view-statistics":
         return (
           <Box>
@@ -63,6 +64,13 @@ const ContentPage = ({ title }) => {
         return (
           <>
             <UserTracking />
+          </>
+        );
+
+      case "/profile":
+        return (
+          <>
+            <Profile />
           </>
         );
 

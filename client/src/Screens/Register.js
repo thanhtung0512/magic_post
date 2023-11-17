@@ -9,6 +9,7 @@ import {
   Heading,
   Text,
   Link as ChakraLink,
+  Spinner,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import Form from "react-validation/build/form";
@@ -51,6 +52,7 @@ const vpassword = (value) => {
     );
   }
 };
+
 const Register = () => {
   const form = useRef();
   const checkBtn = useRef();
@@ -58,8 +60,11 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const onChangeUsername = (e) => {
     const username = e.target.value;
@@ -81,16 +86,22 @@ const Register = () => {
 
     setMessage("");
     setSuccessful(false);
+    setLoading(true);
 
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.register(username, email, password).then(
         (response) => {
-          setMessage(response.data.message);
+          setLoading(false);
           setSuccessful(true);
+          setMessage(response.data.message);
+          setTimeout(() => {
+            navigate("/login");
+          }, 2000); // Redirect to login after 2 seconds
         },
         (error) => {
+          setLoading(false);
           const resMessage =
             (error.response &&
               error.response.data &&
@@ -102,6 +113,8 @@ const Register = () => {
           setSuccessful(false);
         }
       );
+    } else {
+      setLoading(false);
     }
   };
 
@@ -157,17 +170,27 @@ const Register = () => {
                   validations={[required, vpassword]}
                 />
               </FormControl>
-              <Button colorScheme="teal" type="submit" width="full">
-                Sign Up
+              <Button
+                colorScheme="teal"
+                type="submit"
+                width="full"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    Loading... <Spinner size="sm" ml={2} />
+                  </>
+                ) : (
+                  "Sign Up"
+                )}
               </Button>
             </div>
           )}
           {message && (
             <div className="form-group">
               <div
-                className={
-                  successful ? "alert alert-success" : "alert alert-danger"
-                }
+                style={{ color: successful ? "teal" : "red" }}
+                className="alert"
                 role="alert"
               >
                 {message}
