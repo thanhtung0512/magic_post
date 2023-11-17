@@ -1,4 +1,4 @@
-package com.example.server.controllers;
+package com.example.server.springjwt.payload.response;
 
 import jakarta.validation.constraints.NotBlank;
 

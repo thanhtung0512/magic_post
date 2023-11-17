@@ -29,6 +29,7 @@ import com.example.server.repositories.RoleRepository;
 import com.example.server.repositories.UserRepository;
 import com.example.server.security.jwt.JwtUtils;
 import com.example.server.security.services.UserDetailsImpl;
+import com.example.server.springjwt.payload.response.LoginRequest;
 import com.example.server.springjwt.payload.response.MessageResponse;
 import com.example.server.springjwt.payload.response.SignupRequest;
 import com.example.server.springjwt.payload.response.UserInfoResponse;
@@ -61,6 +62,7 @@ public class AuthController {
             System.out.println("Existed in database");
           
         }
+        String encodedPassword = encoder.encode(requestPassword);
         System.out.println("Start login: Username = " + requestUsername + "\n Password: " + requestPassword + "\n");
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(requestUsername,
