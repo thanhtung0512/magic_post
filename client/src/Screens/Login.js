@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import {
   Box,
   Flex,
@@ -10,8 +10,73 @@ import {
   Link as ChakraLink,
   Text,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import Form from "react-validation/build/form";
+import CheckButton from "react-validation/build/button";
+import AuthService from "../services/auth.service";
+
+const required = (value) => {
+  if (!value) {
+    return (
+      <div>
+        This field is required!
+      </div>
+    );
+  }
+};
 
 const Login = () => {
+  const form = useRef();
+  const checkBtn = useRef();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  const onChangeUsername = (e) => {
+    const username = e.target.value;
+    setUsername(username);
+  };
+
+  const onChangePassword = (e) => {
+    const password = e.target.value;
+    setPassword(password);
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    setMessage("");
+    setLoading(true);
+
+    form.current.validateAll();
+
+    if (checkBtn.current.context._errors.length === 0) {
+      AuthService.login(username, password).then(
+        () => {
+          navigate("/profile");
+          window.location.reload();
+        },
+        (error) => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+          setLoading(false);
+          setMessage(resMessage);
+        }
+      );
+    } else {
+      setLoading(false);
+    }
+  };
+
   return (
     <Flex direction="column" align="center" justify="center" height="100vh">
       {/* Logo */}
@@ -26,24 +91,46 @@ const Login = () => {
         boxShadow="lg"
       >
         <Heading mb={4}>Login</Heading>
-        <form>
-          <FormControl mb={4}>
-            <FormLabel>Email address</FormLabel>
-            <Input type="email" placeholder="Enter your email" />
+        
+          <Form onSubmit={handleLogin} ref={form}>
+          <FormControl mb={4} >
+            <FormLabel>Username</FormLabel>
+            <Input
+              type="text"
+              placeholder="Enter your username"
+              name="username"
+              value={username}
+              onChange={onChangeUsername}
+              validations={[required]}
+            />
           </FormControl>
 
           <FormControl mb={4}>
             <FormLabel>Password</FormLabel>
-            <Input type="password" placeholder="Enter your password" />
+            <Input type="password" placeholder="Enter your password" name="password"
+              value={password}
+              onChange={onChangePassword}
+              validations={[required]} />
           </FormControl>
 
-          <Button colorScheme="blue" type="submit" width="full">
+          <Button colorScheme="teal" type="submit" width="full"  >
             Sign In
           </Button>
-        </form>
+
+          {message && (
+            <div className="form-group">
+              <div className="alert alert-danger" role="alert">
+                {message}
+              </div>
+            </div>
+          )}
+          <CheckButton style={{ display: "none" }} ref={checkBtn} />
+          </Form>
+          
+ 
         <Box mt={4}>
           Don't have an account?{" "}
-          <ChakraLink color="#769FCD" href="/register">
+          <ChakraLink color="teal" href="/register">
             Register here.
           </ChakraLink>
         </Box>
