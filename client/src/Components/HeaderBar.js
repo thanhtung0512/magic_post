@@ -10,7 +10,7 @@ import {
   extendTheme,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-
+import AuthService from "../services/auth.service";
 const theme = extendTheme({
   colors: {
     brand: {
@@ -20,6 +20,8 @@ const theme = extendTheme({
 });
 
 const HeaderBar = ({ role, userName, onLogout }) => {
+  
+ 
   return (
     <Flex
       as="header"

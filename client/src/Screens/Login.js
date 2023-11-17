@@ -9,6 +9,7 @@ import {
   Heading,
   Link as ChakraLink,
   Text,
+  Spinner,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import Form from "react-validation/build/form";
@@ -17,11 +18,7 @@ import AuthService from "../services/auth.service";
 
 const required = (value) => {
   if (!value) {
-    return (
-      <div>
-        This field is required!
-      </div>
-    );
+    return <div>This field is required!</div>;
   }
 };
 
@@ -57,8 +54,13 @@ const Login = () => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(username, password).then(
         () => {
-          navigate("/profile");
-          window.location.reload();
+          setLoading(false);
+          setMessage("Signed in successfully");
+          setTimeout(() => {
+            setMessage("");
+            navigate("/");
+            window.location.reload();
+          }, 2000); // Display success message for 2 seconds
         },
         (error) => {
           const resMessage =
@@ -91,9 +93,9 @@ const Login = () => {
         boxShadow="lg"
       >
         <Heading mb={4}>Login</Heading>
-        
-          <Form onSubmit={handleLogin} ref={form}>
-          <FormControl mb={4} >
+
+        <Form onSubmit={handleLogin} ref={form}>
+          <FormControl mb={4}>
             <FormLabel>Username</FormLabel>
             <Input
               type="text"
@@ -107,27 +109,42 @@ const Login = () => {
 
           <FormControl mb={4}>
             <FormLabel>Password</FormLabel>
-            <Input type="password" placeholder="Enter your password" name="password"
+            <Input
+              type="password"
+              placeholder="Enter your password"
+              name="password"
               value={password}
               onChange={onChangePassword}
-              validations={[required]} />
+              validations={[required]}
+            />
           </FormControl>
 
-          <Button colorScheme="teal" type="submit" width="full"  >
-            Sign In
+          <Button
+            colorScheme="teal"
+            type="submit"
+            width="full"
+            disabled={loading}
+          >
+            {loading ? (
+              <>
+                Loading... <Spinner size="sm" ml={2} />
+              </>
+            ) : (
+              "Sign In"
+            )}
           </Button>
 
           {message && (
-            <div className="form-group">
-              <div className="alert alert-danger" role="alert">
+            <Flex justifyContent="center" alignItems="center" mt={2}>
+              <Text color="teal" fontSize="md">
                 {message}
-              </div>
-            </div>
+              </Text>
+            </Flex>
           )}
+
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
-          </Form>
-          
- 
+        </Form>
+
         <Box mt={4}>
           Don't have an account?{" "}
           <ChakraLink color="teal" href="/register">

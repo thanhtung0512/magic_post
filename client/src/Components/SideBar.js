@@ -8,6 +8,7 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import AuthService from "../services/auth.service";
 
 const theme = extendTheme({
   colors: {
@@ -70,6 +71,27 @@ const NavItem = ({ to, children, activeNavItem, onClick, isLargerThanMD }) => (
   </Link>
 );
 const getSidebarItems = (userRole) => {
+  const currentUser = AuthService.getCurrentUser();
+  const currentRole = currentUser.roles[0];
+  console.log(currentRole);
+  switch (currentRole) {
+    case "ROLE_BOSS":
+      userRole = "companyLeader";
+      break;
+    case "ROLE_POINTLEADER":
+      userRole = "pointLeaderTransaction";
+      break;
+    case "ROLE_CUSTOMER":
+      userRole = "customer";
+      break;
+    // Other role logic
+    case "ROLE_POINTLEADER":
+      userRole = "pointLeaderTransaction";
+      break;
+    case "ROLE_STAFF":
+      userRole = "staffGathering";
+      break;
+  }
   switch (userRole) {
     case "companyLeader":
       return [
@@ -77,6 +99,10 @@ const getSidebarItems = (userRole) => {
         { to: "/manage-points", label: "Manage Points" },
         { to: "/manage-account-managers", label: "Manage Account Managers" },
         { to: "/view-statistics", label: "View Statistics" },
+        {
+          to: "/profile",
+          label: "Profile",
+        },
       ];
     case "pointLeaderTransaction":
       return [
@@ -84,6 +110,10 @@ const getSidebarItems = (userRole) => {
         {
           to: "/transaction-point-statistics",
           label: "Transaction Point Statistics",
+        },
+        {
+          to: "/profile",
+          label: "Profile",
         },
       ];
     case "tellerTransaction":
@@ -107,6 +137,10 @@ const getSidebarItems = (userRole) => {
           to: "/statistics-transferred-rows",
           label: "Statistics on Transferred Rows",
         },
+        {
+          to: "/profile",
+          label: "Profile",
+        },
       ];
     case "pointLeaderGathering":
       return [
@@ -114,6 +148,10 @@ const getSidebarItems = (userRole) => {
         {
           to: "/gathering-point-statistics",
           label: "Gathering Point Statistics",
+        },
+        {
+          to: "/profile",
+          label: "Profile",
         },
       ];
     case "staffGathering":
@@ -134,9 +172,19 @@ const getSidebarItems = (userRole) => {
           to: "/create-delivery-orders-destination-transaction",
           label: "Create Delivery Orders (Destination Transaction)",
         },
+        {
+          to: "/profile",
+          label: "Profile",
+        },
       ];
     case "customer":
-      return [{ to: "/lookup-status", label: "Lookup Status" }];
+      return [
+        { to: "/lookup-status", label: "Lookup Status" },
+        {
+          to: "/profile",
+          label: "Profile",
+        },
+      ];
     default:
       return [];
   }
