@@ -65,6 +65,7 @@ const ContentPage = ({ title, isSideBarOpening }) => {
         return (
           <>
             <UserTracking />
+            <LeafletMap />
           </>
         );
 
@@ -77,10 +78,12 @@ const ContentPage = ({ title, isSideBarOpening }) => {
 
       // Add more cases as needed
       default:
-        return <>
-          <Text>MagicPost</Text>
-          <LeafletMap/>
-        </>;
+        return (
+          <>
+            <Text>MagicPost</Text>
+            <LeafletMap />
+          </>
+        );
     }
   };
 
