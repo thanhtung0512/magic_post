@@ -55,9 +55,16 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
+        String requestUsername = loginRequest.getUsername();
+        String requestPassword = loginRequest.getPassword();
+        if (userRepository.existsByUsername(requestUsername)) {
+            System.out.println("Existed in database");
+          
+        }
+        System.out.println("Start login: Username = " + requestUsername + "\n Password: " + requestPassword + "\n");
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
-                        loginRequest.getPassword()));
+                .authenticate(new UsernamePasswordAuthenticationToken(requestUsername,
+                        requestPassword));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -81,8 +88,9 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+        System.out.println("Start find in database");
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            System.out.println("Existed in database" );
+            System.out.println("Existed in database");
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
         }
 
