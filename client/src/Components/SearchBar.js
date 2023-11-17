@@ -11,7 +11,7 @@ const SearchBar = () => {
         mx="auto" // Center the search bar
         w="50%" // Set the width to 50%
         rounded="full"
-        borderColor="#3182CE"
+        borderColor="teal"
         _focus={{ borderColor: "#3182CE", boxShadow: "0 0 0 2px #3182CE" }} // Add a subtle box shadow on focus
       />
     </div>

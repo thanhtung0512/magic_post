@@ -13,7 +13,7 @@ function App() {
   return (
     <ChakraProvider>
       <CSSReset />
-
+      {/* <MapWithMarkers/> */}
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -25,6 +25,20 @@ function App() {
         <Route path="/grant-teller-accounts" element={<MainLayout />} />
         <Route path="/transaction-point-statistics" element={<MainLayout />} />
         <Route path="/lookup-status" element={<MainLayout />} />
+
+
+        <Route path="/record-goods" element={<MainLayout />} />
+        <Route path="/create-delivery-orders" element={<MainLayout />} />
+        <Route path="/confirmation-arriving-at-collection" element={<MainLayout />} />
+        <Route path="/create-orders-recipient" element={<MainLayout />} />
+        <Route path="/confirmation-delivered-recipient" element={<MainLayout />} />
+        <Route path="/failed-delivery-handling" element={<MainLayout />} />
+        <Route path="/statistics-transferred-rows" element={<MainLayout />} />
+
+        <Route path="/manage-employee-accounts" element={<MainLayout />} />
+        <Route path="/gathering-point-statistics" element={<MainLayout />} />
+
+
       </Routes>
     </ChakraProvider>
   );

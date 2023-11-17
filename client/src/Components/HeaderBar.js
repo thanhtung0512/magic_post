@@ -47,7 +47,7 @@ const HeaderBar = ({ role, userName, onLogout }) => {
           w="50%" // Set the width to 50%
           rounded="full"
           borderColor="teal"
-          _focus={{ borderColor: "teal", boxShadow: "0 0 0 2px #3182CE" }} // Add a subtle box shadow on focus
+          _focus={{ borderColor: "teal", boxShadow: "0 0 0 3px teal" }} // Add a subtle box shadow on focus
         />
         <Text mx={2} fontWeight="bold" color="teal">
           {userName}

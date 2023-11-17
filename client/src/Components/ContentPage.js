@@ -1,6 +1,5 @@
-// ContentPage.js
 import React from "react";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, useBreakpointValue } from "@chakra-ui/react";
 import ComplexChart from "./ComplexChart";
 import BeautifulChart from "./BeautifulChart";
 import CompanyLeaderDashboard from "./RoleContent/CompanyLeader/CompanyLeaderDashboard";
@@ -10,40 +9,9 @@ import MapWithMarkers from "./MapWithMarkers";
 import GrantTellerAccount from "./RoleContent/PointLeaderTransaction/GrantTellerAccount";
 import TransactionStatistic from "./RoleContent/PointLeaderTransaction/TransactionStatistic";
 import UserTracking from "./RoleContent/User/UserTracking";
+
 const ContentPage = ({ title }) => {
-  console.log("title", title);
-  const generateChartData = () => {
-    // Generate sample data for the bar chart
-    const data = {
-      labels: [
-        "Category 1",
-        "Category 2",
-        "Category 3",
-        "Category 4",
-        "Category 5",
-      ],
-      datasets: [
-        {
-          label: "Data Set 1",
-          backgroundColor: "#3182CE",
-          borderColor: "#3182CE",
-          borderWidth: 1,
-          hoverBackgroundColor: "#2C5282",
-          hoverBorderColor: "#2C5282",
-          data: [12, 19, 3, 5, 2],
-        },
-      ],
-    };
-    return data;
-  };
-
-  const deliveryOrderData = [
-    { month: "Jan", count: 10 },
-    { month: "Feb", count: 15 },
-    { month: "Mar", count: 8 },
-    // ... more data
-  ];
-
+  const fontSize = useBreakpointValue({ base: "md", md: "xl" });
   const deliveryOrderDataWithPendingCancelled = [
     { month: "Jan", completed: 10, pending: 5, cancelled: 2 },
     { month: "Feb", completed: 15, pending: 3, cancelled: 1 },
@@ -62,11 +30,11 @@ const ContentPage = ({ title }) => {
       case "/manage-points":
         return <ManagePointsPage />;
       case "/manage-account-managers":
-        return <></>;
+        return <>  </>;
       case "/view-statistics":
         return (
           <Box>
-            <Text>Chart</Text>
+            <Text fontSize={fontSize}>Chart</Text>
 
             <ComplexChart data={deliveryOrderDataWithPendingCancelled} />
             <BeautifulChart
@@ -84,7 +52,6 @@ const ContentPage = ({ title }) => {
       case "/transaction-point-statistics":
         return (
           <>
-            {/* <TransactionStatistic /> */}
             <ComplexChart data={deliveryOrderDataWithPendingCancelled} />
             <BeautifulChart
               data={deliveryOrderDataWithPendingCancelled}
@@ -106,10 +73,13 @@ const ContentPage = ({ title }) => {
   };
 
   return (
-    <Box flex="1" p={4} ml="270px" borderLeft="1px solid #E2E8F0">
-      {" "}
-      {/* Adjust margin-left for the sidebar width */}
-      <Text fontSize="xl" fontWeight="bold" mb={4}>
+    <Box
+      flex="1"
+      p={4}
+      ml={{ base: 0, md: "270px" }} // Adjust margin-left for the sidebar width
+      borderLeft={{ base: "none", md: "1px solid #E2E8F0" }}
+    >
+      <Text fontSize={fontSize} fontWeight="bold" mb={4}>
         {title}
       </Text>
       {renderContent()}
