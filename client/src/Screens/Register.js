@@ -178,7 +178,7 @@ const Register = () => {
               >
                 {loading ? (
                   <>
-                    Loading... <Spinner size="sm" ml={2} />
+                    Signing up... <Spinner size="sm" ml={2} />
                   </>
                 ) : (
                   "Sign Up"

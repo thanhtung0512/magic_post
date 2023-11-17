@@ -11,6 +11,7 @@ import TransactionStatistic from "./RoleContent/PointLeaderTransaction/Transacti
 import UserTracking from "./RoleContent/User/UserTracking";
 import Profile from "./Profile";
 import LeafletMap from "./LeafletMap";
+import DashboardPage from "./DashboardPage";
 
 const ContentPage = ({ title, isSideBarOpening }) => {
   const fontSize = useBreakpointValue({ base: "md", md: "xl" });
@@ -28,7 +29,7 @@ const ContentPage = ({ title, isSideBarOpening }) => {
   const renderContent = () => {
     switch (title) {
       case "/dashboard":
-        return <CompanyLeaderDashboard />;
+        return <DashboardPage />;
       case "/manage-points":
         return <ManagePointsPage />;
       case "/manage-account-managers":
@@ -65,6 +66,7 @@ const ContentPage = ({ title, isSideBarOpening }) => {
         return (
           <>
             <UserTracking />
+            <LeafletMap />
           </>
         );
 
@@ -77,10 +79,12 @@ const ContentPage = ({ title, isSideBarOpening }) => {
 
       // Add more cases as needed
       default:
-        return <>
-          <Text>MagicPost</Text>
-          <LeafletMap/>
-        </>;
+        return (
+          <>
+            <Text>MagicPost</Text>
+            {/* <DashboardPage/> */}
+          </>
+        );
     }
   };
 
