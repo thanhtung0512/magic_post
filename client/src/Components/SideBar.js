@@ -71,25 +71,26 @@ const NavItem = ({ to, children, activeNavItem, onClick, isLargerThanMD }) => (
   </Link>
 );
 const getSidebarItems = (userRole) => {
-
   const currentUser = AuthService.getCurrentUser();
   const currentRole = currentUser.roles[0];
   console.log(currentRole);
-  switch(currentRole) {
+  switch (currentRole) {
     case "ROLE_BOSS":
       userRole = "companyLeader";
       break;
-    case "ROLE_POINTLEADER": 
-      userRole = 'pointLeaderTransaction';
-      break;
-    case "ROLE_CUSTOMER":
-      userRole = 'customer';
-      break;
-      // Other role logic 
     case "ROLE_POINTLEADER":
       userRole = "pointLeaderTransaction";
       break;
-
+    case "ROLE_CUSTOMER":
+      userRole = "customer";
+      break;
+    // Other role logic
+    case "ROLE_POINTLEADER":
+      userRole = "pointLeaderTransaction";
+      break;
+    case "ROLE_STAFF":
+      userRole = "staffGathering";
+      break;
   }
   switch (userRole) {
     case "companyLeader":

@@ -17,7 +17,8 @@ const MainLayout = () => {
     console.log("Logout clicked");
     AuthService.logout();
     setCurrentUser(undefined);
-    navigate("/login");
+    navigate("/");
+    window.location.reload();
   };
 
   return (
