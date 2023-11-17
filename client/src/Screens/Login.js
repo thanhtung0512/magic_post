@@ -127,7 +127,7 @@ const Login = () => {
           >
             {loading ? (
               <>
-                Loading... <Spinner size="sm" ml={2} />
+                Signing you in... <Spinner size="sm" ml={2} />
               </>
             ) : (
               "Sign In"

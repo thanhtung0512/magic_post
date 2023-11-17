@@ -93,7 +93,7 @@ const UserTracking = () => {
         />
       </FormControl>
       <Button colorScheme="teal" onClick={handleSearch}>
-        Track Package
+        View details
       </Button>
 
       {error && <Text color="red">{error}</Text>}
