@@ -1,6 +1,3 @@
-// Sidebar.js
-
-// ... (imports and theme definition remain the same)
 import React, { useState } from "react";
 import {
   VStack,
@@ -8,6 +5,7 @@ import {
   ChakraProvider,
   CSSReset,
   extendTheme,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
@@ -22,6 +20,7 @@ const theme = extendTheme({
 
 const SideBar = ({ userRole, activeNavItem, onNavItemClick }) => {
   const sidebarItems = getSidebarItems(userRole);
+  const [isLargerThanMD] = useMediaQuery("(min-width: 48em)");
 
   return (
     <ChakraProvider theme={theme}>
@@ -30,13 +29,14 @@ const SideBar = ({ userRole, activeNavItem, onNavItemClick }) => {
         align="start"
         spacing={3}
         p={4}
-        bg="#2C5282"
-        color="white"
+        bg="teal"
+        color="#F5F0BB"
         h="120vh"
-        w="270px"
+        w={isLargerThanMD ? "270px" : "100%"}
         position="fixed"
         left={0}
         top={20}
+        zIndex={999} // Ensure it overlays other content
       >
         {sidebarItems.map((item) => (
           <NavItem
@@ -44,6 +44,7 @@ const SideBar = ({ userRole, activeNavItem, onNavItemClick }) => {
             to={item.to}
             activeNavItem={activeNavItem}
             onClick={() => onNavItemClick(item.to)}
+            isLargerThanMD={isLargerThanMD} // Pass the isLargerThanMD prop
           >
             {item.label}
           </NavItem>
@@ -53,21 +54,21 @@ const SideBar = ({ userRole, activeNavItem, onNavItemClick }) => {
   );
 };
 
-const NavItem = ({ to, children, activeNavItem, onClick }) => (
+const NavItem = ({ to, children, activeNavItem, onClick, isLargerThanMD }) => (
   <Link to={to} style={{ textDecoration: "none", color: "white" }}>
     <Button
-      w="230px"
+      w={isLargerThanMD ? "230px" : "100%"}
       textAlign="left"
       color="white"
-      bg={activeNavItem === to ? "#2C5282" : "transparent"}
-      _hover={{ color: "#D6E6F2", bg: "#769FCD" }}
+      border={activeNavItem === to ? "2px solid white" : "none"}
+      bg={activeNavItem === to ? "transparent" : "transparent"}
+      _hover={{ color: "teal", bg: "white" }}
       onClick={() => onClick(to)}
     >
       {children}
     </Button>
   </Link>
 );
-
 const getSidebarItems = (userRole) => {
   switch (userRole) {
     case "companyLeader":

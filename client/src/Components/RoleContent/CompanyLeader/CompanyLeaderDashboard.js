@@ -9,6 +9,7 @@ import {
   Th,
   Td,
   Text,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import {
   BarChart,
@@ -21,6 +22,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import MapWithMarkers from "../../MapWithMarkers";
+
 const CompanyLeaderDashboard = () => {
   // Mock data
   const systemSummary = {
@@ -135,6 +137,7 @@ const CompanyLeaderDashboard = () => {
     );
   };
 
+  const fontSize = useBreakpointValue({ base: "md", md: "xl" });
   return (
     <Box overflowY="scroll" maxH="80vh" p={4}>
       <Heading as="h2" size="xl" mb={4}>

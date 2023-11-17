@@ -14,6 +14,7 @@ public class Role {
     @Column(name = "RoleID")
     private Long roleId;
 
-    @Column(name = "RoleName", nullable = false)
-    private String roleName;
+    @Column(name = "RoleName", nullable = false, length = 20)
+    @Enumerated(EnumType.STRING)
+    private ERole roleName;
 }
