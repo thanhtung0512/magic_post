@@ -1,4 +1,5 @@
 package com.example.server.security.jwt;
+
 import java.security.Key;
 import java.util.Date;
 
@@ -42,7 +43,8 @@ public class JwtUtils {
 
   public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
     String jwt = generateTokenFromUsername(userPrincipal.getUsername());
-    ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).build();
+    ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true)
+        .build();
     return cookie;
   }
 
@@ -55,7 +57,7 @@ public class JwtUtils {
     return Jwts.parserBuilder().setSigningKey(key()).build()
         .parseClaimsJws(token).getBody().getSubject();
   }
-  
+
   private Key key() {
     return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
   }
@@ -76,13 +78,13 @@ public class JwtUtils {
 
     return false;
   }
-  
-  public String generateTokenFromUsername(String username) {   
+
+  public String generateTokenFromUsername(String username) {
     return Jwts.builder()
-              .setSubject(username)
-              .setIssuedAt(new Date())
-              .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-              .signWith(key(), SignatureAlgorithm.HS256)
-              .compact();
+        .setSubject(username)
+        .setIssuedAt(new Date())
+        .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+        .signWith(key(), SignatureAlgorithm.HS256)
+        .compact();
   }
 }

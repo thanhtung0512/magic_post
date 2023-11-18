@@ -1,6 +1,5 @@
 package com.example.server.security.services;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.server.domain.User;
 import com.example.server.repositories.UserRepository;
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
   @Autowired

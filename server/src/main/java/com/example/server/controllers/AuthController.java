@@ -60,7 +60,7 @@ public class AuthController {
         String requestPassword = loginRequest.getPassword();
         if (userRepository.existsByUsername(requestUsername)) {
             System.out.println("Existed in database");
-          
+
         }
         String encodedPassword = encoder.encode(requestPassword);
         System.out.println("Start login: Username = " + requestUsername + "\n Password: " + requestPassword + "\n");

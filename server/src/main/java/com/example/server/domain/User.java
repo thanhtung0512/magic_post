@@ -54,7 +54,7 @@ public class User {
             System.out.println(role);
         }
         role = array[0];
-        
+
     }
 
     public User(String username2, String email2, String encode) {
