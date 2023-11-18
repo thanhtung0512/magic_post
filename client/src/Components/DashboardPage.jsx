@@ -21,6 +21,8 @@ import {
 import StatusCircleChart from "./StatusCircleChart";
 import TransactionPlaceTable from "./TransactionPlaceTable";
 import ComplexChart from "./ComplexChart";
+import CustomStat from "./CustomStat";
+
 const mockMonthlyOrdersData = [
   { month: "Jan", orders: 120 },
   { month: "Feb", orders: 150 },
@@ -59,7 +61,7 @@ const DashboardPage = () => {
   return (
     <Box overflowY="scroll" maxH="80vh" p={4}>
       <Flex justify="space-between" mb={9}>
-        {[1, 2, 3, 4].map((index) => (
+        {/* {[1, 2, 3, 4].map((index) => (
           <Stat
             key={index}
             p={4}
@@ -72,18 +74,36 @@ const DashboardPage = () => {
           >
             <StatLabel>Total Revenue</StatLabel>
             <StatNumber>$4,233</StatNumber>
+
             <StatHelpText>
-              <StatArrow
-                type={
-                  generateRandomPercentageChange() > 0.0
-                    ? "increase"
-                    : "decrease"
-                }
-              />
-              {`${generateRandomPercentageChange().toFixed(2)}%`}
+              {(() => {
+                const val = generateRandomPercentageChange();
+                return (
+                  <>
+                    {val > 0.0 ? (
+                      <>
+                        <StatArrow type="increase" />
+                        {`${val.toFixed(2)}%`}
+                      </>
+                    ) : (
+                      <>
+                        <StatArrow type="decrease" />
+                        {`${val.toFixed(2)}%`}
+                      </>
+                    )}
+                  </>
+                );
+              })()}
             </StatHelpText>
           </Stat>
-        ))}
+        ))} */}
+        <CustomStat label="Total Orders" value="128" imageLink="/assests/images/totalOrder.png"/>
+
+        <CustomStat label="Total Delivered" value="112"  imageLink="/assests/images/totalDelivered.png"/>
+
+        <CustomStat label="Total Cancelled" value="10" imageLink="/assests/images/totalCancel.png" />
+
+        <CustomStat label="Total Revenue" value="$4,233" imageLink="/assests/images/totalRevenue.png"/>
       </Flex>
 
       <Heading as="h2" size="lg" mb={4} color="black">
