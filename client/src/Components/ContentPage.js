@@ -84,7 +84,7 @@ const ContentPage = ({ title, isSideBarOpening }) => {
       default:
         return (
           <>
-            <Text>MagicPost</Text>
+            {/* <Text>MagicPost</Text> */}
             {currentRole === "ROLE_BOSS" ? (
               <DashboardPage />
             ) : currentRole == "ROLE_CUSTOMER" ? (

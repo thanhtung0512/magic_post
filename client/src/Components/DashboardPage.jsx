@@ -72,15 +72,26 @@ const DashboardPage = () => {
           >
             <StatLabel>Total Revenue</StatLabel>
             <StatNumber>$4,233</StatNumber>
+
             <StatHelpText>
-              <StatArrow
-                type={
-                  generateRandomPercentageChange() > 0.0
-                    ? "increase"
-                    : "decrease"
-                }
-              />
-              {`${generateRandomPercentageChange().toFixed(2)}%`}
+              {(() => {
+                const val = generateRandomPercentageChange();
+                return (
+                  <>
+                    {val > 0.0 ? (
+                      <>
+                        <StatArrow type="increase" />
+                        {`${val.toFixed(2)}%`}
+                      </>
+                    ) : (
+                      <>
+                        <StatArrow type="decrease" />
+                        {`${val.toFixed(2)}%`}
+                      </>
+                    )}
+                  </>
+                );
+              })()}
             </StatHelpText>
           </Stat>
         ))}
