@@ -12,7 +12,7 @@ import UserTracking from "./RoleContent/User/UserTracking";
 import Profile from "./Profile";
 import LeafletMap from "./LeafletMap";
 import DashboardPage from "./DashboardPage";
-
+import AuthService from "../services/auth.service";
 const ContentPage = ({ title, isSideBarOpening }) => {
   const fontSize = useBreakpointValue({ base: "md", md: "xl" });
   const deliveryOrderDataWithPendingCancelled = [
@@ -27,6 +27,9 @@ const ContentPage = ({ title, isSideBarOpening }) => {
 
   const customColors = ["#3182CE", "#E53E3E", "#48BB78"];
   const renderContent = () => {
+    const currentUser = AuthService.getCurrentUser();
+    const currentRole = currentUser.roles[0];
+
     switch (title) {
       case "/dashboard":
         return <DashboardPage />;
@@ -82,7 +85,16 @@ const ContentPage = ({ title, isSideBarOpening }) => {
         return (
           <>
             <Text>MagicPost</Text>
-            {/* <DashboardPage/> */}
+            {currentRole === "ROLE_BOSS" ? (
+              <DashboardPage />
+            ) : currentRole == "ROLE_CUSTOMER" ? (
+              <>
+                <UserTracking />
+                <LeafletMap />
+              </>
+            ) : (
+              <></>
+            )}
           </>
         );
     }

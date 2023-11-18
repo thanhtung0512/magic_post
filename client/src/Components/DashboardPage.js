@@ -19,7 +19,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import StatusCircleChart from "./StatusCircleChart";
-import TransactionPlaceTable from './TransactionPlaceTable'
+import TransactionPlaceTable from "./TransactionPlaceTable";
+import ComplexChart from "./ComplexChart";
 const mockMonthlyOrdersData = [
   { month: "Jan", orders: 120 },
   { month: "Feb", orders: 150 },
@@ -34,7 +35,21 @@ const mockMonthlyOrdersData = [
   { month: "Nov", orders: 210 },
   { month: "Dec", orders: 180 },
 ];
-
+const deliveryOrderDataWithPendingCancelled = [
+  { month: "Jan", completed: 10, pending: 5, cancelled: 2 },
+  { month: "Feb", completed: 15, pending: 3, cancelled: 1 },
+  { month: "Mar", completed: 8, pending: 2, cancelled: 0 },
+  { month: "Apr", completed: 22, pending: 1, cancelled: 0 },
+  { month: "May", completed: 30, pending: 19, cancelled: 7 },
+  { month: "Jun", completed: 7, pending: 1, cancelled: 0 },
+  { month: "Jul", completed: 21, pending: 2, cancelled: 1 },
+  { month: "Aug", completed: 12, pending: 7, cancelled: 1 },
+  { month: "Sep", completed: 9, pending: 3, cancelled: 3 },
+  { month: "Oct", completed: 4, pending: 2, cancelled: 6 },
+  { month: "Nov", completed: 18, pending: 0, cancelled: 10 },
+  { month: "Dec", completed: 20, pending: 1, cancelled: 12 },
+  // ... more data
+];
 const generateRandomPercentageChange = () => {
   const randomValue = (Math.random() - 0.5) * 10; // Generate a random value between -5 and 5
   return randomValue;
@@ -89,13 +104,15 @@ const DashboardPage = () => {
             // Optional: Add border radius for rounded corners
           }}
         >
-          <BarChart data={mockMonthlyOrdersData}>
+          {/* <BarChart data={mockMonthlyOrdersData}>
             <XAxis dataKey="month" />
             <YAxis />
             <Tooltip />
             <Legend />
             <Bar dataKey="orders" fill="#3182CE" />
-          </BarChart>
+          </BarChart> */}
+
+          <ComplexChart data={deliveryOrderDataWithPendingCancelled} />
         </ResponsiveContainer>
 
         <ResponsiveContainer
@@ -115,7 +132,38 @@ const DashboardPage = () => {
         </ResponsiveContainer>
       </Flex>
 
-      <TransactionPlaceTable/>
+      <ResponsiveContainer
+        width="100%"
+        height={400}
+        style={{
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          borderWidth: "2px",
+          borderColor: "#E2E8F0",
+          borderStyle: "solid",
+          borderRadius: "8px",
+          marginRight: "0px",
+          marginLeft: "0px",
+          marginBottom: "20px",
+          display: "flex",
+          justifyContent: "center", // Center horizontally
+          alignItems: "center", // Center vertically
+          // Optional: Add border radius for rounded corners
+        }}
+      >
+        <BarChart
+          data={mockMonthlyOrdersData}
+          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+        >
+          {/* Adjust the margin values based on your design */}
+          <XAxis dataKey="month" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="orders" fill="teal" barSize={60} />
+        </BarChart>
+      </ResponsiveContainer>
+
+      <TransactionPlaceTable />
       {/* Add components for Card 6 (Circle Chart) and Card 7 (Table) */}
     </Box>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTable, useSortBy } from 'react-table';
+import { Box } from '@chakra-ui/react'; // Import Box from Chakra UI
 
 // Mock data
 const mockData = [
@@ -12,16 +13,15 @@ const mockData = [
 ];
 
 const TransactionPlaceTable = () => {
-    const columns = React.useMemo(
-        () => [
-          { Header: 'Name', accessor: 'name' },
-          { Header: 'Address', accessor: 'address' },
-          { Header: 'Num Orders', accessor: 'numOrders' },
-          { Header: 'Rating', accessor: 'rating' }, // Corrected accessor
-        ],
-        []
-      );
-      
+  const columns = React.useMemo(
+    () => [
+      { Header: 'Name', accessor: 'name' },
+      { Header: 'Address', accessor: 'address' },
+      { Header: 'Num Orders', accessor: 'numOrders' },
+      { Header: 'Rating', accessor: 'rating' },
+    ],
+    []
+  );
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
     { columns, data: mockData },
@@ -29,36 +29,45 @@ const TransactionPlaceTable = () => {
   );
 
   return (
-    <table {...getTableProps()} style={{ borderCollapse: 'collapse', width: '100%' }}>
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps(column.getSortByToggleProps())} style={{ borderBottom: '2px solid #ddd', padding: '8px', textAlign: 'left' }}>
-                {column.render('Header')}
-                <span style={{ marginLeft: '5px' }}>
-                  {column.isSorted ? (column.isSortedDesc ? ' ' : ' ') : ''}
-                </span>
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map(row => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()} key={row.id}>
-              {row.cells.map(cell => (
-                <td {...cell.getCellProps()} style={{ border: '1px solid #ddd', padding: '8px' }}>
-                  {cell.render('Cell')}
-                </td>
+    <Box
+      borderRadius="lg"
+      boxShadow="2xl"
+      overflow="hidden"
+      borderColor='teal'
+      borderWidth='1px'
+      p={4}
+    >
+      <table {...getTableProps()} style={{ borderCollapse: 'collapse', width: '100%' }}>
+        <thead>
+          {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                <th {...column.getHeaderProps(column.getSortByToggleProps())} style={{ borderBottom: '2px solid #ddd', padding: '8px', textAlign: 'left' }}>
+                  {column.render('Header')}
+                  <span style={{ marginLeft: '5px' }}>
+                    {column.isSorted ? (column.isSortedDesc ? ' ' : ' ') : ''}
+                  </span>
+                </th>
               ))}
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map(row => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()} key={row.id}>
+                {row.cells.map(cell => (
+                  <td {...cell.getCellProps()} style={{ border: '1px solid #ddd', padding: '8px' }}>
+                    {cell.render('Cell')}
+                  </td>
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </Box>
   );
 };
 
