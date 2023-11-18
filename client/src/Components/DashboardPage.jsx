@@ -21,6 +21,8 @@ import {
 import StatusCircleChart from "./StatusCircleChart";
 import TransactionPlaceTable from "./TransactionPlaceTable";
 import ComplexChart from "./ComplexChart";
+import CustomStat from "./CustomStat";
+
 const mockMonthlyOrdersData = [
   { month: "Jan", orders: 120 },
   { month: "Feb", orders: 150 },
@@ -59,7 +61,7 @@ const DashboardPage = () => {
   return (
     <Box overflowY="scroll" maxH="80vh" p={4}>
       <Flex justify="space-between" mb={9}>
-        {[1, 2, 3, 4].map((index) => (
+        {/* {[1, 2, 3, 4].map((index) => (
           <Stat
             key={index}
             p={4}
@@ -94,7 +96,14 @@ const DashboardPage = () => {
               })()}
             </StatHelpText>
           </Stat>
-        ))}
+        ))} */}
+        <CustomStat label="Total Orders" value="128" imageLink="/assests/images/totalOrder.png"/>
+
+        <CustomStat label="Total Delivered" value="112"  imageLink="/assests/images/totalDelivered.png"/>
+
+        <CustomStat label="Total Cancelled" value="10" imageLink="/assests/images/totalCancel.png" />
+
+        <CustomStat label="Total Revenue" value="$4,233" imageLink="/assests/images/totalRevenue.png"/>
       </Flex>
 
       <Heading as="h2" size="lg" mb={4} color="black">
