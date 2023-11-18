@@ -23,7 +23,7 @@ const theme = extendTheme({
 
 const SideBar = ({ userRole, activeNavItem, onNavItemClick }) => {
   const [isLargerThanMD] = useMediaQuery("(min-width: 48em)");
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const sidebarItems = getSidebarItems(userRole);
 
   const toggleSidebar = () => {

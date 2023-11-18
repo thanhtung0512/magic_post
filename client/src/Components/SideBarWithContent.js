@@ -6,7 +6,7 @@ import ContentPage from "./ContentPage";
 
 const SideBarWithContent = () => {
   const [activeNavItem, setActiveNavItem] = useState(null);
-  const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const handleNavItemClick = (navItem, isSideBarOpen) => {
     setActiveNavItem(navItem);
     setIsSideBarOpen(isSideBarOpen);
