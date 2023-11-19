@@ -1,4 +1,6 @@
 import React, { useState, useRef } from "react";
+import { Link } from "react-router-dom";
+import style from "./Login.module.css";
 import {
   Box,
   Flex,
@@ -14,7 +16,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import Form from "react-validation/build/form";
 import CheckButton from "react-validation/build/button";
-import AuthService from "../services/auth.service";
+import AuthService from "../../services/auth.service";
 
 const required = (value) => {
   if (!value) {
@@ -80,60 +82,49 @@ const Login = () => {
   };
 
   return (
-    <Flex direction="column" align="center" justify="center" height="100vh">
-      {/* Logo */}
-      <Text fontSize="3xl" fontWeight="bold" mb={4}>
-        MagicPost
-      </Text>
-      <Box
-        p={8}
-        maxWidth="400px"
-        borderWidth={1}
-        borderRadius={8}
-        boxShadow="lg"
-      >
-        <Heading mb={4}>Login</Heading>
-
-        <Form onSubmit={handleLogin} ref={form}>
-          <FormControl mb={4}>
-            <FormLabel>Username</FormLabel>
-            <Input
-              type="text"
-              placeholder="Enter your username"
-              name="username"
-              value={username}
-              onChange={onChangeUsername}
-              validations={[required]}
-            />
-          </FormControl>
-
-          <FormControl mb={4}>
-            <FormLabel>Password</FormLabel>
-            <Input
-              type="password"
-              placeholder="Enter your password"
-              name="password"
-              value={password}
-              onChange={onChangePassword}
-              validations={[required]}
-            />
-          </FormControl>
-
-          <Button
-            colorScheme="teal"
-            type="submit"
-            width="full"
-            disabled={loading}
-          >
+    <div className={style.container}>
+      <div className={style.logo}>
+        <img
+          src="Screenshot_2023-11-15_143213-removebg-preview.png"
+          width="200"
+          height="200"
+        ></img>
+        <div className={style.CompanyName}>Magic Post</div>
+      </div>
+      <h2 className={style.title}>Đăng Nhập</h2>
+      <form className={style.form} onSubmit={handleLogin} ref={form}>
+        <div className={style.group}>
+          <label htmlFor="account">Tên tài khoản</label>
+          <input
+            id="account"
+            type="text"
+            name="username"
+            value={username}
+            onChange={onChangeUsername}
+            validations={[required]}
+          />
+        </div>
+        <div className={style.group}>
+          <label htmlFor="password">Mật Khẩu</label>
+          <input
+            id="password"
+            type="password"
+            name="password"
+            value={password}
+            onChange={onChangePassword}
+            validations={[required]}
+          />
+        </div>
+        <div className={style.group}>
+          <button ref={checkBtn} disabled={loading}> 
             {loading ? (
               <>
                 Signing you in... <Spinner size="sm" ml={2} />
               </>
             ) : (
-              "Sign In"
+              "Đăng nhập"
             )}
-          </Button>
-
+          </button>
           {message && (
             <Flex justifyContent="center" alignItems="center" mt={2}>
               <Text color="teal" fontSize="md">
@@ -142,17 +133,18 @@ const Login = () => {
             </Flex>
           )}
 
-          <CheckButton style={{ display: "none" }} ref={checkBtn} />
-        </Form>
-
-        <Box mt={4}>
-          Don't have an account?{" "}
-          <ChakraLink color="teal" href="/register">
-            Register here.
-          </ChakraLink>
-        </Box>
-      </Box>
-    </Flex>
+          {/* <CheckButton style={{ display: "none" }} ref={checkBtn} /> */}
+        </div>
+      </form>
+      <div className={style.redirect}>
+        <p>Bạn chưa có tài khoản ?</p>
+        <Link to="/register">Tạo Tài khoản</Link>
+      </div>
+      <div className={style.license}>
+        Khi đăng nhập, tôi đồng ý với các Điều khoản sử dụng và Chính sách bảo
+        mật của MagicPost.
+      </div>
+    </div>
   );
 };
 
