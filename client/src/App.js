@@ -3,8 +3,9 @@ import React from "react";
 import MainLayout from "./pages/MainLayout";
 import HeaderBar from "./Components/HeaderBar";
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+// import Login from "./pages/Login";
+// import Register from "./pages/Register";
+import {Login, Register} from './pages'
 import { Route, Routes } from "react-router-dom";
 import MapWithMarkers from "./Components/MapWithMarkers";
 import GrantTellerAccount from "./Components/RoleContent/PointLeaderTransaction/GrantTellerAccount";
@@ -17,13 +18,14 @@ function App() {
       <CSSReset />
       {/* <MapWithMarkers/> */}
       <Routes>
-        {/* <Route path="/login" element={<Login />} /> */}
+        {/* <Route path="/Register" element={<Login />} /> */}
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<MainLayout />} />
-        <Route
+        {/* <Route
           path="/"
           element={isAuthenticated ? <MainLayout /> : <Login />}
-        />
+        /> */}
+        <Route path="/login" element={<Login/>}/>
         <Route path="/manage-points" element={<MainLayout />} />
         <Route path="/manage-account-managers" element={<MainLayout />} />
         <Route path="/view-statistics" element={<MainLayout />} />
