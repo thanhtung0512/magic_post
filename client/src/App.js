@@ -21,11 +21,10 @@ function App() {
         {/* <Route path="/Register" element={<Login />} /> */}
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<MainLayout />} />
-        {/* <Route
+        <Route
           path="/"
           element={isAuthenticated ? <MainLayout /> : <Login />}
-        /> */}
-        <Route path="/login" element={<Login/>}/>
+        />
         <Route path="/manage-points" element={<MainLayout />} />
         <Route path="/manage-account-managers" element={<MainLayout />} />
         <Route path="/view-statistics" element={<MainLayout />} />
