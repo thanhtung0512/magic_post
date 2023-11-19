@@ -1,6 +1,3 @@
-// Sidebar.js
-
-// ... (imports and theme definition remain the same)
 import React, { useState } from "react";
 import {
   VStack,
@@ -8,8 +5,12 @@ import {
   ChakraProvider,
   CSSReset,
   extendTheme,
+  useMediaQuery,
+  Text,
+  color,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import AuthService from "../services/auth.service";
 
 const theme = extendTheme({
   colors: {
@@ -21,7 +22,16 @@ const theme = extendTheme({
 });
 
 const SideBar = ({ userRole, activeNavItem, onNavItemClick }) => {
+  const [isLargerThanMD] = useMediaQuery("(min-width: 48em)");
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const sidebarItems = getSidebarItems(userRole);
+
+  const toggleSidebar = () => {
+    onNavItemClick(activeNavItem, !isSidebarOpen);
+    setSidebarOpen(!isSidebarOpen);
+    // Pass isSidebarOpen to the parent component through onNavItemClick
+    
+  };
 
   return (
     <ChakraProvider theme={theme}>
@@ -30,20 +40,35 @@ const SideBar = ({ userRole, activeNavItem, onNavItemClick }) => {
         align="start"
         spacing={3}
         p={4}
-        bg="#2C5282"
-        color="white"
+        bg="teal"
+        color="black"
         h="120vh"
-        w="270px"
+        w={isLargerThanMD ? "270px" : "100%"}
         position="fixed"
-        left={0}
+        left={isSidebarOpen ? 0 : "-270px"}
         top={20}
+        zIndex={999} // Ensure it overlays other content
+        transition="left 0.3s ease-in-out"
       >
+        <Button
+          onClick={toggleSidebar}
+          bg="teal"
+          position="absolute"
+          left="250px"
+          top="830px"
+          _hover={{ color: "white", bg: "teal" }}
+        >
+          <Text fontSize={23} color="white" fontWeight="bold">
+            {isSidebarOpen ? "←" : "→"}
+          </Text>
+        </Button>
         {sidebarItems.map((item) => (
           <NavItem
             key={item.to}
             to={item.to}
             activeNavItem={activeNavItem}
-            onClick={() => onNavItemClick(item.to)}
+            onClick={() => onNavItemClick(item.to, isSidebarOpen)}
+            isLargerThanMD={isLargerThanMD}
           >
             {item.label}
           </NavItem>
@@ -52,15 +77,15 @@ const SideBar = ({ userRole, activeNavItem, onNavItemClick }) => {
     </ChakraProvider>
   );
 };
-
-const NavItem = ({ to, children, activeNavItem, onClick }) => (
+const NavItem = ({ to, children, activeNavItem, onClick, isLargerThanMD }) => (
   <Link to={to} style={{ textDecoration: "none", color: "white" }}>
     <Button
-      w="230px"
+      w={isLargerThanMD ? "230px" : "100%"}
       textAlign="left"
       color="white"
-      bg={activeNavItem === to ? "#2C5282" : "transparent"}
-      _hover={{ color: "#D6E6F2", bg: "#769FCD" }}
+      border={activeNavItem === to ? "2px solid white" : "none"}
+      bg={activeNavItem === to ? "transparent" : "transparent"}
+      _hover={{ color: "teal", bg: "white" }}
       onClick={() => onClick(to)}
     >
       {children}
@@ -69,6 +94,27 @@ const NavItem = ({ to, children, activeNavItem, onClick }) => (
 );
 
 const getSidebarItems = (userRole) => {
+  const currentUser = AuthService.getCurrentUser();
+  const currentRole = currentUser.roles[0];
+  console.log(currentRole);
+  switch (currentRole) {
+    case "ROLE_BOSS":
+      userRole = "companyLeader";
+      break;
+    case "ROLE_POINTLEADER":
+      userRole = "pointLeaderTransaction";
+      break;
+    case "ROLE_CUSTOMER":
+      userRole = "customer";
+      break;
+    // Other role logic
+    case "ROLE_POINTLEADER":
+      userRole = "pointLeaderTransaction";
+      break;
+    case "ROLE_STAFF":
+      userRole = "staffGathering";
+      break;
+  }
   switch (userRole) {
     case "companyLeader":
       return [
@@ -76,6 +122,10 @@ const getSidebarItems = (userRole) => {
         { to: "/manage-points", label: "Manage Points" },
         { to: "/manage-account-managers", label: "Manage Account Managers" },
         { to: "/view-statistics", label: "View Statistics" },
+        {
+          to: "/profile",
+          label: "Profile",
+        },
       ];
     case "pointLeaderTransaction":
       return [
@@ -83,6 +133,10 @@ const getSidebarItems = (userRole) => {
         {
           to: "/transaction-point-statistics",
           label: "Transaction Point Statistics",
+        },
+        {
+          to: "/profile",
+          label: "Profile",
         },
       ];
     case "tellerTransaction":
@@ -106,6 +160,10 @@ const getSidebarItems = (userRole) => {
           to: "/statistics-transferred-rows",
           label: "Statistics on Transferred Rows",
         },
+        {
+          to: "/profile",
+          label: "Profile",
+        },
       ];
     case "pointLeaderGathering":
       return [
@@ -113,6 +171,10 @@ const getSidebarItems = (userRole) => {
         {
           to: "/gathering-point-statistics",
           label: "Gathering Point Statistics",
+        },
+        {
+          to: "/profile",
+          label: "Profile",
         },
       ];
     case "staffGathering":
@@ -133,9 +195,19 @@ const getSidebarItems = (userRole) => {
           to: "/create-delivery-orders-destination-transaction",
           label: "Create Delivery Orders (Destination Transaction)",
         },
+        {
+          to: "/profile",
+          label: "Profile",
+        },
       ];
     case "customer":
-      return [{ to: "/lookup-status", label: "Lookup Status" }];
+      return [
+        { to: "/lookup-status", label: "Lookup Status" },
+        {
+          to: "/profile",
+          label: "Profile",
+        },
+      ];
     default:
       return [];
   }
