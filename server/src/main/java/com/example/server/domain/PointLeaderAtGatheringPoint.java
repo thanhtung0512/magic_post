@@ -10,12 +10,16 @@ import jakarta.persistence.*;
 public class PointLeaderAtGatheringPoint {
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "leaderId")
-    private CompanyLeader companyLeader;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "LeaderID")
+    private int pointLeaderId;
 
     @Id
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "gatheringPointId")
     private GatheringPoint gatheringPoint;
+
+    @OneToOne
+    @JoinColumn(name="userId")
+    private User user;
 }

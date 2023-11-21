@@ -17,4 +17,8 @@ public class StaffAtGatheringPoint {
     @ManyToOne
     @JoinColumn(name = "gatheringPointId")
     private GatheringPoint gatheringPoint;
+
+    @OneToOne
+    @JoinColumn(name="userId")
+    private User user;
 }
