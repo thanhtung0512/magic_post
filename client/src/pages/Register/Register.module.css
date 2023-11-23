@@ -70,7 +70,7 @@
   border: 1px solid var(--input-border);
   border-radius: 6px;
 }
-.group button {
+.form button {
   background-color: #138d75;
   color: white;
   width: 100%;
