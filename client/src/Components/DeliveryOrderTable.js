@@ -62,7 +62,7 @@ const DeliveryOrderTable = () => {
                   <option value="Delivered">Delivered</option>
                   <option value="Processing">Processing</option>
                   <option value="Pending">Pending</option>
-                  <option value="Failed">Failed</option>
+                  <option value="Cancelled">Cancelled</option>
                 </Select>
                 <Button
                   size="sm"
@@ -153,7 +153,7 @@ const DeliveryOrderTable = () => {
         return "blue";
       case "Pending":
         return "orange";
-      case "Failed":
+      case "Cancelled":
         return "red";
       default:
         return "black";

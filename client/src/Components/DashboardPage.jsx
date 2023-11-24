@@ -61,42 +61,7 @@ const DashboardPage = () => {
   return (
     <Box overflowY="scroll" maxH="80vh" p={4}>
       <Flex justify="space-between" mb={9}>
-        {/* {[1, 2, 3, 4].map((index) => (
-          <Stat
-            key={index}
-            p={4}
-            mr={2}
-            borderRadius="lg"
-            borderWidth="2px"
-            boxShadow="xl"
-            bg="white"
-            width="50%"
-          >
-            <StatLabel>Total Revenue</StatLabel>
-            <StatNumber>$4,233</StatNumber>
-
-            <StatHelpText>
-              {(() => {
-                const val = generateRandomPercentageChange();
-                return (
-                  <>
-                    {val > 0.0 ? (
-                      <>
-                        <StatArrow type="increase" />
-                        {`${val.toFixed(2)}%`}
-                      </>
-                    ) : (
-                      <>
-                        <StatArrow type="decrease" />
-                        {`${val.toFixed(2)}%`}
-                      </>
-                    )}
-                  </>
-                );
-              })()}
-            </StatHelpText>
-          </Stat>
-        ))} */}
+        
         <CustomStat
           label="Total Orders"
           value="128"
