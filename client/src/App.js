@@ -1,7 +1,7 @@
 // App.js
 import React from "react";
 import MainLayout from "./pages/MainLayout";
-import HeaderBar from "./Components/HeaderBar";
+import Header from "../src/Components";
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 // import Login from "./pages/Login";
 // import Register from "./pages/Register";
