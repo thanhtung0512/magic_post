@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.server.domain.DeliveryOrder;
 import com.example.server.services.DeliveryOrderService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +19,7 @@ public class DeliveryOrderController {
 
     // Get all delivery orders
     @GetMapping
-    public List<DeliveryOrder> getAllDeliveryOrders() {
+    public List<DeliveryOrder> getAllDeliveryOrders() throws JsonProcessingException {
         return deliveryOrderService.getAllDeliveryOrders();
     }
 
