@@ -28,11 +28,14 @@ public class DeliveryOrderService {
     public Optional<DeliveryOrder> getDeliveryOrderById(Long orderID) {
         try {
             return cacheUtility.getDeliveryOrderById(orderID);
-
         } catch (Exception e) {
             System.out.println("Order not found with ID: " + orderID);
         }
         return null;
 
+    }
+
+    public void saveDeliveryOrder(DeliveryOrder deliveryOrder) {
+        deliveryOrderRepository.save(deliveryOrder);
     }
 }

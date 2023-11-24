@@ -13,6 +13,7 @@ import Profile from "./Profile";
 import LeafletMap from "./LeafletMap";
 import DashboardPage from "./DashboardPage";
 import AuthService from "../services/auth.service";
+import DeliveryOrderTable from "./DeliveryOrderTable";
 const ContentPage = ({ title, isSideBarOpening }) => {
   const fontSize = useBreakpointValue({ base: "md", md: "xl" });
   const deliveryOrderDataWithPendingCancelled = [
@@ -42,11 +43,12 @@ const ContentPage = ({ title, isSideBarOpening }) => {
           <Box>
             <Text fontSize={fontSize}>Chart</Text>
 
-            <ComplexChart data={deliveryOrderDataWithPendingCancelled} />
+            {/* <ComplexChart data={deliveryOrderDataWithPendingCancelled} />
             <BeautifulChart
               data={deliveryOrderDataWithPendingCancelled}
               colors={customColors}
-            />
+            /> */}
+            <DeliveryOrderTable/>
           </Box>
         );
       case "/grant-teller-accounts":
