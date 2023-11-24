@@ -59,7 +59,7 @@ const generateRandomPercentageChange = () => {
 
 const DashboardPage = () => {
   return (
-    <Box overflowY="scroll" maxH="80vh" p={4}>
+    <Box width='100%' p={4}>
       <Flex justify="space-between" mb={9}>
         {/* {[1, 2, 3, 4].map((index) => (
           <Stat
@@ -97,13 +97,29 @@ const DashboardPage = () => {
             </StatHelpText>
           </Stat>
         ))} */}
-        <CustomStat label="Total Orders" value="128" imageLink="/assests/images/totalOrder.png"/>
+        <CustomStat
+          label="Total Orders"
+          value="128"
+          imageLink="/assests/images/totalOrder.png"
+        />
 
-        <CustomStat label="Total Delivered" value="112"  imageLink="/assests/images/totalDelivered.png"/>
+        <CustomStat
+          label="Total Delivered"
+          value="112"
+          imageLink="/assests/images/totalDelivered.png"
+        />
 
-        <CustomStat label="Total Cancelled" value="10" imageLink="/assests/images/totalCancel.png" />
+        <CustomStat
+          label="Total Cancelled"
+          value="10"
+          imageLink="/assests/images/totalCancel.png"
+        />
 
-        <CustomStat label="Total Revenue" value="$4,233" imageLink="/assests/images/totalRevenue.png"/>
+        <CustomStat
+          label="Total Revenue"
+          value="$4,233"
+          imageLink="/assests/images/totalRevenue.png"
+        />
       </Flex>
 
       <Heading as="h2" size="lg" mb={4} color="black">

@@ -1,10 +1,10 @@
-// SideBarWithContent.js
 import React, { useState } from "react";
 import { Flex, Box } from "@chakra-ui/react";
-import SideBar from "./SideBar";
-import ContentPage from "./ContentPage";
+import SideBar from "../SideBar";
+import ContentPage from "../ContentPage";
+import style from './Content.module.css'
 
-const SideBarWithContent = () => {
+const Content = () => {
   const [activeNavItem, setActiveNavItem] = useState(null);
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const handleNavItemClick = (navItem, isSideBarOpen) => {
@@ -13,24 +13,23 @@ const SideBarWithContent = () => {
   };
 
   return (
-    <div>
-      <Box
-        display={{ base: "none", md: "block" }} // Hide on small screens, show on medium and larger screens
-      >
+    <div className={style.container}>
+      <div className={style.SideBar}>
         <SideBar
           userRole="companyLeader"
           activeNavItem={activeNavItem}
           onNavItemClick={handleNavItemClick}
           isSideBarOpening={isSideBarOpen}
         />
-      </Box>
-      <ContentPage
-        title={activeNavItem}
-        flex="1"
-        isSideBarOpening={isSideBarOpen}
-      />
+      </div>
+      <div className={style.ContentPage}>
+        <ContentPage
+          title={activeNavItem}
+        //   flex="1"
+          isSideBarOpening={isSideBarOpen}
+        />
+      </div>
     </div>
   );
 };
-
-export default SideBarWithContent;
+export default Content;
