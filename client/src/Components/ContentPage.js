@@ -101,8 +101,8 @@ const ContentPage = ({ title, isSideBarOpening }) => {
   };
 
   return (
-    <Flex className="container" width='100%'>
-      <Box
+    <Flex className="container" >
+       <Box
         flex="1"
         p={4}
         borderLeft={{ base: "none", md: "1px solid #E2E8F0" }}
@@ -115,9 +115,9 @@ const ContentPage = ({ title, isSideBarOpening }) => {
           {title} - SideBar Open: {isSideBarOpening === true ? "Yes" : "No"}
         </Text>
 
-        {/* {renderContent()} */}
-      </Box>
-      <Flex width='100%'>{renderContent()}</Flex>
+        {renderContent()}
+      </Box> 
+      {/* <Flex width='100%' className="ContentPagetest">{renderContent()}</Flex> */}
     </Flex>
   );
 };

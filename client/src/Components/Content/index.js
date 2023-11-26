@@ -3,6 +3,7 @@ import { Flex, Box } from "@chakra-ui/react";
 import SideBar from "../SideBar";
 import ContentPage from "../ContentPage";
 import style from './Content.module.css'
+import SideBarCT from "../SideBarCT";
 
 const Content = () => {
   const [activeNavItem, setActiveNavItem] = useState(null);
@@ -15,12 +16,14 @@ const Content = () => {
   return (
     <div className={style.container}>
       <div className={style.SideBar}>
-        <SideBar
-          userRole="companyLeader"
-          activeNavItem={activeNavItem}
-          onNavItemClick={handleNavItemClick}
-          isSideBarOpening={isSideBarOpen}
-        />
+          <SideBar
+            userRole="companyLeader"
+            activeNavItem={activeNavItem}
+            onNavItemClick={handleNavItemClick}
+            isSideBarOpening={isSideBarOpen}
+          />
+        {/* <SideBarCT/> */}
+
       </div>
       <div className={style.ContentPage}>
         <ContentPage

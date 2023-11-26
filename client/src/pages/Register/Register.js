@@ -295,6 +295,11 @@ const Register = () => {
       className={style.container}
     >
       {/* Logo */}
+      <img
+        src="/assests/images/Screenshot_2023-11-15_143213-removebg-preview.png"
+        width="200"
+        height="200"
+      ></img>
       <Text
         fontSize="3xl"
         fontWeight="bold"

@@ -4,5 +4,9 @@
     flex-direction: row;
 }
 .ContentPage{
-    width: 100%;
+    flex: 1;
+}
+.SideBar{
+    width: 100px;
+    
 }

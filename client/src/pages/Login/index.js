@@ -18,6 +18,7 @@ import Form from "react-validation/build/form";
 import CheckButton from "react-validation/build/button";
 import AuthService from "../../services/auth.service";
 
+
 const required = (value) => {
   if (!value) {
     return <div>This field is required!</div>;
@@ -153,7 +154,7 @@ const Login = () => {
     >
       {/* Logo */}
       <img
-        src="Screenshot_2023-11-15_143213-removebg-preview.png"
+        src="/assests/images/Screenshot_2023-11-15_143213-removebg-preview.png"
         width="200"
         height="200"
       ></img>
