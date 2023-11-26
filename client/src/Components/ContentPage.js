@@ -111,9 +111,9 @@ const ContentPage = ({ title, isSideBarOpening }) => {
         maxWidth={isSideBarOpening ? "85%" : "100%"}
         transition="left 0.3s ease-in-out"
       >
-        <Text fontSize={fontSize} fontWeight="bold" mb={4}>
+        {/* <Text fontSize={fontSize} fontWeight="bold" mb={4}>
           {title} - SideBar Open: {isSideBarOpening === true ? "Yes" : "No"}
-        </Text>
+        </Text> */}
 
         {renderContent()}
       </Box> 

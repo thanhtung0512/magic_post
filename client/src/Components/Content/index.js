@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Flex, Box } from "@chakra-ui/react";
-import SideBar from "../SideBar";
 import ContentPage from "../ContentPage";
-import style from './Content.module.css'
+import style from "./Content.module.css";
 import SideBarCT from "../SideBarCT";
 
 const Content = () => {
@@ -16,19 +15,17 @@ const Content = () => {
   return (
     <div className={style.container}>
       <div className={style.SideBar}>
-          <SideBar
-            userRole="companyLeader"
-            activeNavItem={activeNavItem}
-            onNavItemClick={handleNavItemClick}
-            isSideBarOpening={isSideBarOpen}
-          />
-        {/* <SideBarCT/> */}
-
+        <SideBarCT
+          userRole="companyLeader"
+          activeNavItem={activeNavItem}
+          onNavItemClick={handleNavItemClick}
+          isSideBarOpening={isSideBarOpen}
+        />
       </div>
       <div className={style.ContentPage}>
         <ContentPage
           title={activeNavItem}
-        //   flex="1"
+          //   flex="1"
           isSideBarOpening={isSideBarOpen}
         />
       </div>

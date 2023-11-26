@@ -73,13 +73,14 @@ const SideBar = ({ userRole, activeNavItem, onNavItemClick }) => {
           position="absolute"
           // left="270px"
           left={isSidebarOpen ? '0px':'270px'}
-          top='10px'
+          top='0px'
           width='40px'
           height='40px'
           textAlign='center'
           alignItems='center'
           transition="left 0.3s ease-in-out"
-          backgroundColor= {isSidebarOpen ? 'teal':'teal'}
+          // borderRadius='50%'
+          // backgroundColor= {isSidebarOpen ? 'teal':'white'}
           // _hover='none'
 
 
