@@ -5,7 +5,7 @@ import Header from "../src/Components";
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 // import Login from "./pages/Login";
 // import Register from "./pages/Register";
-import {Login, Register} from './pages'
+import {Login, Register, StartedPage} from './pages'
 import { Route, Routes } from "react-router-dom";
 import MapWithMarkers from "./Components/MapWithMarkers";
 import GrantTellerAccount from "./Components/RoleContent/PointLeaderTransaction/GrantTellerAccount";
@@ -19,6 +19,8 @@ function App() {
       {/* <MapWithMarkers/> */}
       <Routes>
         {/* <Route path="/Register" element={<Login />} /> */}
+        <Route path="/" element= {<StartedPage/>}/>
+        <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<MainLayout />} />
         <Route
