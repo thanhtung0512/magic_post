@@ -2,7 +2,7 @@
     display: flex;
     width: 100%;
     height: 270px;
-    background-color: teal;
+    background-color: black;
     justify-content: center;
     padding: 20px;
 }
@@ -60,4 +60,9 @@
 .ul1 p:hover{
     text-decoration: underline;
     cursor: pointer;
+}
+
+.Icons{
+    display: flex;
+    gap: 8px;
 }

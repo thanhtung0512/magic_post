@@ -1,4 +1,9 @@
 import style from "./Footer.module.css";
+import { FaFacebookF } from "react-icons/fa";
+import { HiUserGroup } from "react-icons/hi2";
+import { FaGithub } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+import { IoIosMail } from "react-icons/io";
 
 const Footer = () => {
   return (
@@ -24,6 +29,14 @@ const Footer = () => {
               <p>Quy định chung</p>
               <p>Chính sách bảo mật</p>
             </div>
+          </div>
+          <div className={style.Icons}>
+          <FaFacebookF />
+          <HiUserGroup />
+          <FaGithub />
+          <FaInstagram />
+          <IoIosMail />
+
           </div>
         </div>
         <div className={style.contentRight}>
@@ -55,11 +68,10 @@ const Footer = () => {
             </span>
           </div>
           <div>
-            <span>
-              Địa chỉ trụ sở chính: Tòa nhà VTV, số 8 Phạm Hùng, phường Mễ Trì,
-              quận Nam Từ Liêm, thành phố Hà Nội, Việt Nam
-            </span>
-            <span>Hotline: 0775313999</span>
+            <a className={style.location} href="https://maps.app.goo.gl/YdCFgqYGTQN4RpANA" >
+              Địa chỉ trụ sở chính: Tòa E3, số 144 Xuân Thủy, phường Dịch Vọng Hậu, quận Cầu Giấy, thành phố Hà Nội, Việt Nam
+            </a>
+            <span>Hotline: 024 3754 8864</span>
           </div>
         </div>
       </div>
