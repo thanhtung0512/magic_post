@@ -1,0 +1,11 @@
+.container{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
+.ContentPage{
+    flex: 1;
+}
+.SideBar{
+    width: 0px;
+}
