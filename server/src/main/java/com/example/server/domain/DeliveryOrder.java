@@ -2,6 +2,8 @@ package com.example.server.domain;
 
 import lombok.*;
 
+import java.sql.Date;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -37,4 +39,13 @@ public class DeliveryOrder {
 
     @Column(name = "RecipientAddress")
     private String recipientAddress;
+
+    @Column(name="Date")
+    private Date date;
+
+    @Column(name = "Vendor")
+    private String vendor; // payment method: mastercard, cod, momo, ...
+
+    @Column(name="Price")
+    private int price;
 }

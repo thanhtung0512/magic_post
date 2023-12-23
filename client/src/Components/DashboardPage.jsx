@@ -61,6 +61,18 @@ const DashboardPage = () => {
   return (
     <Box width='100%' paddingTop={2} >
       <Flex justify="space-between" mb={9}>
+        
+        <CustomStat
+          label="Total Orders"
+          value="128"
+          imageLink="/assests/images/totalOrder.png"
+        />
+
+        <CustomStat
+          label="Total Delivered"
+          value="112"
+          imageLink="/assests/images/totalDelivered.png"
+        />
         <CustomStat
           label="Total Orders"
           value="128"
@@ -73,15 +85,23 @@ const DashboardPage = () => {
         />
 
         <CustomStat
+         
           label="Total Cancelled"
+         
           value="10"
+         
           imageLink="/assests/images/totalCancel.png"
+       
         />
 
         <CustomStat
+         
           label="Total Revenue"
+         
           value="$4,233"
+         
           imageLink="/assests/images/totalRevenue.png"
+        
         />
       </Flex>
 
