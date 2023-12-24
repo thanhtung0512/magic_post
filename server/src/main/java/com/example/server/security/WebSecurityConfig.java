@@ -64,6 +64,8 @@ public class WebSecurityConfig {
             .requestMatchers("/api/transaction-points").permitAll()
             .requestMatchers("/api/gathering-points").permitAll()
             .requestMatchers("/api/test/**").permitAll()
+            .requestMatchers("/api/point-leaders").permitAll()
+            .requestMatchers("/api/point-leaders/**").permitAll()
             .anyRequest().authenticated());
 
     http.authenticationProvider(authenticationProvider());

@@ -12,27 +12,44 @@ import {
   Tr,
   Th,
   Td,
-  Select, // Import Select component
+  Select,
 } from "@chakra-ui/react";
 
 const GrantPointLeaderAccount = () => {
-  const [newTeller, setNewTeller] = useState({
+  const [newPointLeader, setNewPointLeader] = useState({
     name: "",
     username: "",
     password: "",
+    phoneNumber: "", // New field added
+    point: null, // New field added
   });
-  const [editTeller, setEditTeller] = useState(null);
-  const [tellers, setTellers] = useState([
-    { id: 1, name: "John Doe", username: "john_doe", password: "********" },
-    { id: 2, name: "Jane Doe", username: "jane_doe", password: "********" },
-    // Add more tellers as needed
-  ]);
-
+  const [editPointLeader, setEditPointLeader] = useState(null);
+  const [pointLeaders, setPointLeaders] = useState([]);
   const [transactionPoints, setTransactionPoints] = useState([]);
   const [gatheringPoints, setGatheringPoints] = useState([]);
   const [selectedPoint, setSelectedPoint] = useState(null);
 
   useEffect(() => {
+    fetch("http://localhost:8080/api/point-leaders")
+      .then((response) => response.json())
+      .then((data) => {
+        // Extract transaction and gathering points separately
+        const transactionPoints = data
+          .filter((pointLeader) => pointLeader.transactionPoint)
+          .map((pointLeader) => pointLeader.transactionPoint);
+
+        const gatheringPoints = data
+          .filter((pointLeader) => pointLeader.gatheringPoint)
+          .map((pointLeader) => pointLeader.gatheringPoint);
+
+        // Set the state
+        setPointLeaders(data);
+        // setTransactionPoints(transactionPoints);
+        // setGatheringPoints(gatheringPoints);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
     // Fetch data from APIs
     fetch("http://localhost:8080/api/transaction-points")
       .then((response) => response.json())
@@ -45,70 +62,102 @@ const GrantPointLeaderAccount = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewTeller((prevTeller) => ({ ...prevTeller, [name]: value }));
+    setNewPointLeader((prevPointLeader) => ({
+      ...prevPointLeader,
+      [name]: value,
+    }));
   };
+
   const handleSelectPoint = (e) => {
     const selectedValue = e.target.value;
-    console.log(selectedValue)
     setSelectedPoint(selectedValue !== "" ? parseInt(selectedValue) : null);
   };
+
   const handleGrantAccount = () => {
     // Add validation logic here
     if (
-      !newTeller.name ||
-      !newTeller.username ||
-      !newTeller.password ||
+      !newPointLeader.name ||
+      !newPointLeader.username ||
+      !newPointLeader.password ||
+      !newPointLeader.phoneNumber || // Validate phone number
       !selectedPoint
     ) {
       // Handle validation error, maybe show an alert or toast message
       return;
     }
 
-    // Add logic to send the new teller data to the server or update state as needed
+    // Add logic to send the new pointLeader data to the server or update state as needed
     // For now, let's just add it to the local state
-    if (editTeller) {
-      // If editing an existing teller, update the existing entry
-      setTellers((prevTellers) =>
-        prevTellers.map((teller) =>
-          teller.id === editTeller.id ? { ...newTeller, id: teller.id } : teller
+    if (editPointLeader) {
+      console.log("Selected point :", selectedPoint);
+      // If editing an existing pointLeader, update the existing entry
+      setPointLeaders((prevPointLeaders) =>
+        prevPointLeaders.map((pointLeader) =>
+          pointLeader.id === editPointLeader.id
+            ? {
+                ...newPointLeader,
+                id: pointLeader.id,
+                point: selectedPoint,
+                username: pointLeader.user.username,
+              }
+            : pointLeader
         )
       );
-      setEditTeller(null);
+      setEditPointLeader(null);
     } else {
-      // If adding a new teller, add it to the local state
-      setTellers((prevTellers) => [
-        ...prevTellers,
-        { ...newTeller, id: prevTellers.length + 1, point: selectedPoint },
+      // If adding a new pointLeader, add it to the local state
+      setPointLeaders((prevPointLeaders) => [
+        ...prevPointLeaders,
+        {
+          ...newPointLeader,
+          id: prevPointLeaders.length + 1,
+          point: selectedPoint,
+        },
       ]);
     }
 
     // Reset the form
-    setNewTeller({ name: "", username: "", password: "" });
+    setNewPointLeader({
+      name: "",
+      username: "",
+      password: "",
+      phoneNumber: "",
+    });
     setSelectedPoint(null);
   };
 
-  const handleEditAccount = (teller) => {
-    // Set the current teller to the edit state
-    setEditTeller(teller);
-    // Fill the form with the existing teller's data
-    setNewTeller(teller);
+  const handleEditAccount = (pointLeader) => {
+    // Set the current pointLeader to the edit state
+    setEditPointLeader(pointLeader);
+    // Fill the form with the existing pointLeader's data
+    setNewPointLeader({
+      name: pointLeader.name,
+      username: pointLeader.user.username,
+      password: pointLeader.user.password,
+      phoneNumber: pointLeader.phoneNumber,
+    });
     // Set the selected point for edit
-    setSelectedPoint(teller.point);
+    setSelectedPoint(
+      pointLeader.transactionPoint
+        ? pointLeader.transactionPoint.transactionPointId
+        : pointLeader.gatheringPoint.gatheringPointId + transactionPoints.length
+    );
+    console.log("selectedPoint:", selectedPoint);
   };
 
   return (
     <Box p={4} overflowY="scroll" maxH="80vh">
       <Heading as="h2" size="xl" mb={4}>
-        Manage Point Leader Account
+        Manage Point Leader Account: {selectedPoint}
       </Heading>
       <FormControl mb={4}>
         <FormLabel>Name</FormLabel>
         <Input
           type="text"
           name="name"
-          value={newTeller.name}
+          value={newPointLeader.name}
           onChange={handleInputChange}
-          placeholder="Enter Teller's Name"
+          placeholder="Enter Point Leader's Name"
         />
       </FormControl>
       <FormControl mb={4}>
@@ -116,7 +165,7 @@ const GrantPointLeaderAccount = () => {
         <Input
           type="text"
           name="username"
-          value={newTeller.username}
+          value={newPointLeader.username}
           onChange={handleInputChange}
           placeholder="Enter Username"
         />
@@ -126,9 +175,19 @@ const GrantPointLeaderAccount = () => {
         <Input
           type="password"
           name="password"
-          value={newTeller.password}
+          value={newPointLeader.password}
           onChange={handleInputChange}
           placeholder="Enter Password"
+        />
+      </FormControl>
+      <FormControl mb={4}>
+        <FormLabel>Phone Number</FormLabel>
+        <Input
+          type="tel"
+          name="phoneNumber"
+          value={newPointLeader.phoneNumber}
+          onChange={handleInputChange}
+          placeholder="Enter Phone Number"
         />
       </FormControl>
       <FormControl mb={4}>
@@ -159,7 +218,7 @@ const GrantPointLeaderAccount = () => {
         </Select>
       </FormControl>
       <Button colorScheme="teal" onClick={handleGrantAccount}>
-        {editTeller ? "Update Account" : "Grant Account"}
+        {editPointLeader ? "Update Account" : "Grant Account"}
       </Button>
       <Box mt={8}>
         <Heading as="h3" size="lg" mb={4}>
@@ -172,23 +231,29 @@ const GrantPointLeaderAccount = () => {
               <Th>Name</Th>
               <Th>Username</Th>
               <Th>Password</Th>
-              <Th>Point Manage</Th>
+              <Th>Phone Number</Th>
+              <Th>Point</Th>
               <Th>Edit</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {tellers.map((teller) => (
-              <Tr key={teller.id}>
-                <Td>{teller.id}</Td>
-                <Td>{teller.name}</Td>
-                <Td>{teller.username}</Td>
-                <Td>{teller.password}</Td>
-                <Td>{teller.point ? teller.point.name : "-"}</Td>
+            {pointLeaders.map((pointLeader) => (
+              <Tr key={pointLeader.id}>
+                <Td>{pointLeader.id}</Td>
+                <Td>{pointLeader.name}</Td>
+                <Td>{pointLeader.user.username}</Td>
+                <Td>{pointLeader.user.password}</Td>
+                <Td>{pointLeader.phoneNumber}</Td>
+                <Td>
+                  {pointLeader.transactionPoint
+                    ? pointLeader.transactionPoint.name
+                    : pointLeader.gatheringPoint.name}
+                </Td>
                 <Td>
                   <Button
                     colorScheme="teal"
                     size="sm"
-                    onClick={() => handleEditAccount(teller)}
+                    onClick={() => handleEditAccount(pointLeader)}
                   >
                     Edit
                   </Button>
