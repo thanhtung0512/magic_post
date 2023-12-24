@@ -104,31 +104,6 @@ const GrantPointLeaderAccount = () => {
             : pointLeader
         )
       );
-      // fetch("http://localhost:8080/api/users/update", {
-      //   method: "PUT",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     currentUsername: "editPointLeader.user.username",
-      //     newUsername: newPointLeader.username,
-      //     newPassword: newPointLeader.password,
-      //     newEmail: newPointLeader.email,
-      //     phoneNumber: newPointLeader.phoneNumber,
-      //     pointID: selectedPoint,
-      //   }),
-      // })
-      //   .then((response) => {
-      //     if (!response.ok) {
-      //       throw new Error("Failed to update user");
-      //     }
-      //     // Handle success, e.g., show a success message
-      //     console.log("User updated successfully");
-      //   })
-      //   .catch((error) => {
-      //     // Handle error, e.g., show an error message
-      //     console.error("Error updating user:", error);
-      //   });
 
       setEditPointLeader(null);
     } else {
@@ -152,6 +127,7 @@ const GrantPointLeaderAccount = () => {
       email: "",
     });
     setSelectedPoint(null);
+  
   };
 
   const handleEditAccount = (pointLeader) => {
@@ -282,15 +258,17 @@ const GrantPointLeaderAccount = () => {
               <Tr key={pointLeader.pointLeaderId}>
                 <Td>{pointLeader.pointLeaderId}</Td>
                 <Td>{pointLeader.name}</Td>
-                <Td>{pointLeader.user.username}</Td>
-                <Td>{pointLeader.user.password}</Td>
+                <Td>{pointLeader.user ? pointLeader.user.username : ""}</Td>
+                <Td>{pointLeader.user ? pointLeader.user.password : ""}</Td>
                 <Td>{pointLeader.phoneNumber}</Td>
                 <Td>
                   {pointLeader.transactionPoint
                     ? pointLeader.transactionPoint.name
-                    : pointLeader.gatheringPoint.name}
+                    : pointLeader.gatheringPoint
+                    ? pointLeader.gatheringPoint.name
+                    : ""}
                 </Td>
-                <Td>{pointLeader.user.email}</Td>
+                <Td>{pointLeader.user ? pointLeader.user.email : ""}</Td>
                 <Td>
                   <Button
                     colorScheme="teal"
