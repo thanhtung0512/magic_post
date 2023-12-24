@@ -19,6 +19,7 @@ const GrantPointLeaderAccount = () => {
   const [newPointLeader, setNewPointLeader] = useState({
     name: "",
     username: "",
+    email: "",
     password: "",
     phoneNumber: "", // New field added
     point: null, // New field added
@@ -78,6 +79,7 @@ const GrantPointLeaderAccount = () => {
     if (
       !newPointLeader.name ||
       !newPointLeader.username ||
+      !newPointLeader.email ||
       !newPointLeader.password ||
       !newPointLeader.phoneNumber || // Validate phone number
       !selectedPoint
@@ -98,11 +100,36 @@ const GrantPointLeaderAccount = () => {
                 ...newPointLeader,
                 id: pointLeader.id,
                 point: selectedPoint,
-                username: pointLeader.user.username,
               }
             : pointLeader
         )
       );
+      // fetch("http://localhost:8080/api/users/update", {
+      //   method: "PUT",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     currentUsername: "editPointLeader.user.username",
+      //     newUsername: newPointLeader.username,
+      //     newPassword: newPointLeader.password,
+      //     newEmail: newPointLeader.email,
+      //     phoneNumber: newPointLeader.phoneNumber,
+      //     pointID: selectedPoint,
+      //   }),
+      // })
+      //   .then((response) => {
+      //     if (!response.ok) {
+      //       throw new Error("Failed to update user");
+      //     }
+      //     // Handle success, e.g., show a success message
+      //     console.log("User updated successfully");
+      //   })
+      //   .catch((error) => {
+      //     // Handle error, e.g., show an error message
+      //     console.error("Error updating user:", error);
+      //   });
+
       setEditPointLeader(null);
     } else {
       // If adding a new pointLeader, add it to the local state
@@ -122,6 +149,7 @@ const GrantPointLeaderAccount = () => {
       username: "",
       password: "",
       phoneNumber: "",
+      email: "",
     });
     setSelectedPoint(null);
   };
@@ -135,6 +163,7 @@ const GrantPointLeaderAccount = () => {
       username: pointLeader.user.username,
       password: pointLeader.user.password,
       phoneNumber: pointLeader.phoneNumber,
+      email: pointLeader.user.email,
     });
     // Set the selected point for edit
     setSelectedPoint(
@@ -168,6 +197,17 @@ const GrantPointLeaderAccount = () => {
           value={newPointLeader.username}
           onChange={handleInputChange}
           placeholder="Enter Username"
+        />
+      </FormControl>
+
+      <FormControl mb={4}>
+        <FormLabel>Email</FormLabel>
+        <Input
+          type="email"
+          name="email"
+          value={newPointLeader.email}
+          onChange={handleInputChange}
+          placeholder="Enter Email"
         />
       </FormControl>
       <FormControl mb={4}>
@@ -233,13 +273,14 @@ const GrantPointLeaderAccount = () => {
               <Th>Password</Th>
               <Th>Phone Number</Th>
               <Th>Point</Th>
+              <Th>Email</Th>
               <Th>Edit</Th>
             </Tr>
           </Thead>
           <Tbody>
             {pointLeaders.map((pointLeader) => (
-              <Tr key={pointLeader.id}>
-                <Td>{pointLeader.id}</Td>
+              <Tr key={pointLeader.pointLeaderId}>
+                <Td>{pointLeader.pointLeaderId}</Td>
                 <Td>{pointLeader.name}</Td>
                 <Td>{pointLeader.user.username}</Td>
                 <Td>{pointLeader.user.password}</Td>
@@ -249,6 +290,7 @@ const GrantPointLeaderAccount = () => {
                     ? pointLeader.transactionPoint.name
                     : pointLeader.gatheringPoint.name}
                 </Td>
+                <Td>{pointLeader.user.email}</Td>
                 <Td>
                   <Button
                     colorScheme="teal"
