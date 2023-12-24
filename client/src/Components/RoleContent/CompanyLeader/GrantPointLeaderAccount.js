@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Heading,
@@ -12,6 +12,7 @@ import {
   Tr,
   Th,
   Td,
+  Select, // Import Select component
 } from "@chakra-ui/react";
 
 const GrantPointLeaderAccount = () => {
@@ -27,14 +28,38 @@ const GrantPointLeaderAccount = () => {
     // Add more tellers as needed
   ]);
 
+  const [transactionPoints, setTransactionPoints] = useState([]);
+  const [gatheringPoints, setGatheringPoints] = useState([]);
+  const [selectedPoint, setSelectedPoint] = useState(null);
+
+  useEffect(() => {
+    // Fetch data from APIs
+    fetch("http://localhost:8080/api/transaction-points")
+      .then((response) => response.json())
+      .then((data) => setTransactionPoints(data));
+
+    fetch("http://localhost:8080/api/gathering-points")
+      .then((response) => response.json())
+      .then((data) => setGatheringPoints(data));
+  }, []);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewTeller((prevTeller) => ({ ...prevTeller, [name]: value }));
   };
-
+  const handleSelectPoint = (e) => {
+    const selectedValue = e.target.value;
+    console.log(selectedValue)
+    setSelectedPoint(selectedValue !== "" ? parseInt(selectedValue) : null);
+  };
   const handleGrantAccount = () => {
     // Add validation logic here
-    if (!newTeller.name || !newTeller.username || !newTeller.password) {
+    if (
+      !newTeller.name ||
+      !newTeller.username ||
+      !newTeller.password ||
+      !selectedPoint
+    ) {
       // Handle validation error, maybe show an alert or toast message
       return;
     }
@@ -53,12 +78,13 @@ const GrantPointLeaderAccount = () => {
       // If adding a new teller, add it to the local state
       setTellers((prevTellers) => [
         ...prevTellers,
-        { ...newTeller, id: prevTellers.length + 1 },
+        { ...newTeller, id: prevTellers.length + 1, point: selectedPoint },
       ]);
     }
 
     // Reset the form
     setNewTeller({ name: "", username: "", password: "" });
+    setSelectedPoint(null);
   };
 
   const handleEditAccount = (teller) => {
@@ -66,6 +92,8 @@ const GrantPointLeaderAccount = () => {
     setEditTeller(teller);
     // Fill the form with the existing teller's data
     setNewTeller(teller);
+    // Set the selected point for edit
+    setSelectedPoint(teller.point);
   };
 
   return (
@@ -103,6 +131,33 @@ const GrantPointLeaderAccount = () => {
           placeholder="Enter Password"
         />
       </FormControl>
+      <FormControl mb={4}>
+        <FormLabel>Point Manage</FormLabel>
+        <Select
+          value={selectedPoint !== null ? selectedPoint.toString() : ""}
+          onChange={handleSelectPoint}
+        >
+          <option value="" disabled>
+            Select a point
+          </option>
+          {transactionPoints.map((point) => (
+            <option
+              key={`transaction_${point.transactionPointId}`}
+              value={point.transactionPointId}
+            >
+              {point.name}
+            </option>
+          ))}
+          {gatheringPoints.map((point) => (
+            <option
+              key={`gathering_${point.gatheringPointId}`}
+              value={point.gatheringPointId + transactionPoints.length}
+            >
+              {point.name}
+            </option>
+          ))}
+        </Select>
+      </FormControl>
       <Button colorScheme="teal" onClick={handleGrantAccount}>
         {editTeller ? "Update Account" : "Grant Account"}
       </Button>
@@ -117,6 +172,7 @@ const GrantPointLeaderAccount = () => {
               <Th>Name</Th>
               <Th>Username</Th>
               <Th>Password</Th>
+              <Th>Point Manage</Th>
               <Th>Edit</Th>
             </Tr>
           </Thead>
@@ -127,6 +183,7 @@ const GrantPointLeaderAccount = () => {
                 <Td>{teller.name}</Td>
                 <Td>{teller.username}</Td>
                 <Td>{teller.password}</Td>
+                <Td>{teller.point ? teller.point.name : "-"}</Td>
                 <Td>
                   <Button
                     colorScheme="teal"

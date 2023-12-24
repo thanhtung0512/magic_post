@@ -22,4 +22,10 @@ public class PointLeaderAtTransactionPoint {
     @OneToOne
     @JoinColumn(name="userId")
     private User user;
+
+    @Column(name = "Name")
+    private String name;
+
+    @Column(name = "PhoneNumber")
+    private String phoneNumber;
 }
