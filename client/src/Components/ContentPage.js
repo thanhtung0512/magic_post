@@ -15,6 +15,7 @@ import LeafletMap from "./LeafletMap";
 import DashboardPage from "./DashboardPage";
 import AuthService from "../services/auth.service";
 import DeliveryOrderTable from "./DeliveryOrderTable";
+import GrantPointLeaderAccount from "./RoleContent/CompanyLeader/GrantPointLeaderAccount";
 const ContentPage = ({ title, isSideBarOpening }) => {
   const fontSize = useBreakpointValue({ base: "md", md: "xl" });
   const deliveryOrderDataWithPendingCancelled = [
@@ -38,7 +39,12 @@ const ContentPage = ({ title, isSideBarOpening }) => {
       case "/manage-points":
         return <ManagePointsPage />;
       case "/manage-account-managers":
-        return <> </>;
+        return (
+          <>
+            {" "}
+            <GrantPointLeaderAccount />{" "}
+          </>
+        );
       case "/view-statistics":
         return (
           <Box>
@@ -49,7 +55,7 @@ const ContentPage = ({ title, isSideBarOpening }) => {
               data={deliveryOrderDataWithPendingCancelled}
               colors={customColors}
             /> */}
-            <DeliveryOrderTable/>
+            <DeliveryOrderTable />
           </Box>
         );
       case "/grant-teller-accounts":

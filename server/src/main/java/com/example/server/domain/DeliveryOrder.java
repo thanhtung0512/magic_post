@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Data
-@Table(name = "DeliveryOrder" )
+@Table(name = "DeliveryOrder")
 public class DeliveryOrder {
 
     @Id
@@ -40,12 +40,30 @@ public class DeliveryOrder {
     @Column(name = "RecipientAddress")
     private String recipientAddress;
 
-    @Column(name="Date")
+    @Column(name = "Date")
     private Date date;
 
     @Column(name = "Vendor")
     private String vendor; // payment method: mastercard, cod, momo, ...
 
-    @Column(name="Price")
+    @Column(name = "Price")
     private int price;
+
+    @Column(name = "PostCode")
+    private int postCode;
+
+    @Column(name = "SpecialService")
+    private String specialService;
+
+    @Column(name = " SenderGuide ")
+    private String senderGuide;
+
+    @Column(name = "Fare")
+    private int fare;
+
+    @Column(name = "PlusFare")
+    private int plusFare;
+
+    @Column(name = "Weight")
+    private int weight;
 }

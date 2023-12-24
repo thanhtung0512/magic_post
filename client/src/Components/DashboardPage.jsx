@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Flex,
@@ -58,6 +58,36 @@ const generateRandomPercentageChange = () => {
 };
 
 const DashboardPage = () => {
+
+  const [data, setData] = useState([]);
+  
+
+  useEffect(() => {
+    // Fetch data from the API when the component mounts
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/api/delivery-orders",
+          {
+            method: "GET",
+            credentials: "include",
+            headers: { "Access-Control-Allow-Origin": "*" },
+            // other options...
+          }
+        );
+        const jsonData = await response.json();
+        setData(jsonData);
+        console.log("Data from API:", jsonData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+ 
+
   return (
     <Box width='100%' paddingTop={2} >
       <Flex justify="space-between" mb={9}>

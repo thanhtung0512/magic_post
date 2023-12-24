@@ -7,12 +7,13 @@ import jakarta.persistence.*;
 @Entity
 @Data
 @Table(name = "PointLeaderAtGatheringPoint")
-public class PointLeaderAtGatheringPoint {
+@IdClass(PointLeaderAtGatheringPointId.class)
+public class PointLeaderAtGatheringPoint extends PointLeader {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "LeaderID")
-    private int pointLeaderId;
+    private Long pointLeaderId;
 
     @Id
     @OneToOne
@@ -20,6 +21,12 @@ public class PointLeaderAtGatheringPoint {
     private GatheringPoint gatheringPoint;
 
     @OneToOne
-    @JoinColumn(name="userId")
+    @JoinColumn(name = "userId")
     private User user;
+
+    @Column(name = "Name")
+    private String name;
+
+    @Column(name = "PhoneNumber")
+    private String phoneNumber;
 }
