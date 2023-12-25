@@ -1,11 +1,12 @@
 // App.js
 import React from "react";
-import MainLayout from "./pages/MainLayout";
+// import MainLayout from "./pages/MainLayout";
+
 import Header from "../src/Components";
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 // import Login from "./pages/Login";
 // import Register from "./pages/Register";
-import {Login, Register, StartedPage} from './pages'
+import {Login, Register, StartedPage, MainLayout} from './pages'
 import { Route, Routes } from "react-router-dom";
 import MapWithMarkers from "./Components/MapWithMarkers";
 import GrantTellerAccount from "./Components/RoleContent/PointLeaderTransaction/GrantTellerAccount";
