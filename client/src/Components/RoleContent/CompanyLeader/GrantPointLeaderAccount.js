@@ -13,6 +13,9 @@ import {
   Th,
   Td,
   Select,
+  Spinner, // Import Spinner for loading
+  Alert, // Import Alert for success message
+  AlertIcon,
 } from "@chakra-ui/react";
 
 const GrantPointLeaderAccount = () => {
@@ -21,37 +24,19 @@ const GrantPointLeaderAccount = () => {
     username: "",
     email: "",
     password: "",
-    phoneNumber: "", // New field added
-    point: null, // New field added
+    phoneNumber: "",
+    point: null,
   });
   const [editPointLeader, setEditPointLeader] = useState(null);
   const [pointLeaders, setPointLeaders] = useState([]);
   const [transactionPoints, setTransactionPoints] = useState([]);
   const [gatheringPoints, setGatheringPoints] = useState([]);
   const [selectedPoint, setSelectedPoint] = useState(null);
+  const [loading, setLoading] = useState(false); // Loading state
+  const [successMessage, setSuccessMessage] = useState(null); // Success message state
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/point-leaders")
-      .then((response) => response.json())
-      .then((data) => {
-        // Extract transaction and gathering points separately
-        const transactionPoints = data
-          .filter((pointLeader) => pointLeader.transactionPoint)
-          .map((pointLeader) => pointLeader.transactionPoint);
-
-        const gatheringPoints = data
-          .filter((pointLeader) => pointLeader.gatheringPoint)
-          .map((pointLeader) => pointLeader.gatheringPoint);
-
-        // Set the state
-        setPointLeaders(data);
-        // setTransactionPoints(transactionPoints);
-        // setGatheringPoints(gatheringPoints);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-    // Fetch data from APIs
+    fetchPointLeaders();
     fetch("http://localhost:8080/api/transaction-points")
       .then((response) => response.json())
       .then((data) => setTransactionPoints(data));
@@ -60,6 +45,15 @@ const GrantPointLeaderAccount = () => {
       .then((response) => response.json())
       .then((data) => setGatheringPoints(data));
   }, []);
+
+  const fetchPointLeaders = () => {
+    fetch("http://localhost:8080/api/point-leaders")
+      .then((response) => response.json())
+      .then((data) => setPointLeaders(data))
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -75,39 +69,51 @@ const GrantPointLeaderAccount = () => {
   };
 
   const handleGrantAccount = () => {
-    // Add validation logic here
     if (
       !newPointLeader.name ||
       !newPointLeader.username ||
       !newPointLeader.email ||
       !newPointLeader.password ||
-      !newPointLeader.phoneNumber || // Validate phone number
+      !newPointLeader.phoneNumber ||
       !selectedPoint
     ) {
-      // Handle validation error, maybe show an alert or toast message
       return;
     }
 
-    // Add logic to send the new pointLeader data to the server or update state as needed
-    // For now, let's just add it to the local state
-    if (editPointLeader) {
-      console.log("Selected point :", selectedPoint);
-      // If editing an existing pointLeader, update the existing entry
-      setPointLeaders((prevPointLeaders) =>
-        prevPointLeaders.map((pointLeader) =>
-          pointLeader.id === editPointLeader.id
-            ? {
-                ...newPointLeader,
-                id: pointLeader.id,
-                point: selectedPoint,
-              }
-            : pointLeader
-        )
-      );
+    setLoading(true);
 
-      setEditPointLeader(null);
+    if (editPointLeader) {
+      fetch("http://localhost:8080/api/users/update", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          newName: newPointLeader.name,
+          leaderID: editPointLeader.pointLeaderId,
+          currentUsername: editPointLeader.user.username,
+          newUsername: newPointLeader.username,
+          newPassword: newPointLeader.password,
+          newEmail: newPointLeader.email,
+          phoneNumber: newPointLeader.phoneNumber,
+          pointID: selectedPoint,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to update user");
+          }
+          setSuccessMessage("Updated successfully");
+          setTimeout(() => {
+            setSuccessMessage(null);
+          }, 1000);
+          fetchPointLeaders();
+        })
+        .catch((error) => {
+          console.error("Error updating user:", error);
+        })
+        .finally(() => setLoading(false));
     } else {
-      // If adding a new pointLeader, add it to the local state
       setPointLeaders((prevPointLeaders) => [
         ...prevPointLeaders,
         {
@@ -116,24 +122,25 @@ const GrantPointLeaderAccount = () => {
           point: selectedPoint,
         },
       ]);
-    }
 
-    // Reset the form
-    setNewPointLeader({
-      name: "",
-      username: "",
-      password: "",
-      phoneNumber: "",
-      email: "",
-    });
-    setSelectedPoint(null);
-  
+      setNewPointLeader({
+        name: "",
+        username: "",
+        password: "",
+        phoneNumber: "",
+        email: "",
+        point: null,
+      });
+      setSelectedPoint(null);
+
+      setLoading(false);
+      setSuccessMessage("Account granted successfully");
+      setTimeout(() => setSuccessMessage(null), 3000); // Reset success message after 3 seconds
+    }
   };
 
   const handleEditAccount = (pointLeader) => {
-    // Set the current pointLeader to the edit state
     setEditPointLeader(pointLeader);
-    // Fill the form with the existing pointLeader's data
     setNewPointLeader({
       name: pointLeader.name,
       username: pointLeader.user.username,
@@ -141,13 +148,11 @@ const GrantPointLeaderAccount = () => {
       phoneNumber: pointLeader.phoneNumber,
       email: pointLeader.user.email,
     });
-    // Set the selected point for edit
     setSelectedPoint(
       pointLeader.transactionPoint
         ? pointLeader.transactionPoint.transactionPointId
         : pointLeader.gatheringPoint.gatheringPointId + transactionPoints.length
     );
-    console.log("selectedPoint:", selectedPoint);
   };
 
   return (
@@ -155,6 +160,7 @@ const GrantPointLeaderAccount = () => {
       <Heading as="h2" size="xl" mb={4}>
         Manage Point Leader Account: {selectedPoint}
       </Heading>
+
       <FormControl mb={4}>
         <FormLabel>Name</FormLabel>
         <Input
@@ -233,9 +239,19 @@ const GrantPointLeaderAccount = () => {
           ))}
         </Select>
       </FormControl>
+
       <Button colorScheme="teal" onClick={handleGrantAccount}>
         {editPointLeader ? "Update Account" : "Grant Account"}
       </Button>
+      {loading && <Spinner ml="10px" size="md" color="teal" />}
+
+      {/* Display success message if exists */}
+      {successMessage && (
+        <Alert status="success" mb={4}>
+          <AlertIcon />
+          {successMessage}
+        </Alert>
+      )}
       <Box mt={8}>
         <Heading as="h3" size="lg" mb={4}>
           Point Leader Accounts
@@ -246,7 +262,6 @@ const GrantPointLeaderAccount = () => {
               <Th>ID</Th>
               <Th>Name</Th>
               <Th>Username</Th>
-              <Th>Password</Th>
               <Th>Phone Number</Th>
               <Th>Point</Th>
               <Th>Email</Th>
@@ -259,7 +274,6 @@ const GrantPointLeaderAccount = () => {
                 <Td>{pointLeader.pointLeaderId}</Td>
                 <Td>{pointLeader.name}</Td>
                 <Td>{pointLeader.user ? pointLeader.user.username : ""}</Td>
-                <Td>{pointLeader.user ? pointLeader.user.password : ""}</Td>
                 <Td>{pointLeader.phoneNumber}</Td>
                 <Td>
                   {pointLeader.transactionPoint

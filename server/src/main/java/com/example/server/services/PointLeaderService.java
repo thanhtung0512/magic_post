@@ -2,6 +2,7 @@ package com.example.server.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,21 @@ public class PointLeaderService {
         pointLeaders.addAll(getAllPointLeaderAtTransactionPoint());
         return pointLeaders;
 
+    }
+
+    public Optional<PointLeaderAtGatheringPoint> getPointLeaderGatheringPointById(Long id) {
+        return pointLeaderAtGatheringPointRepository.findById(id);
+    }
+
+    public Optional<PointLeaderAtTransactionPoint> getPointLeaderAtTransactionPoint(Long id) {
+        return pointLeaderAtTransactionPointRepository.findById(id);
+    }
+
+    public void savePointLeaderTransactionPoint(PointLeaderAtTransactionPoint pointLeaderAtTransactionPoint) {
+        pointLeaderAtTransactionPointRepository.save(pointLeaderAtTransactionPoint);
+    }
+
+    public void savePointLeaderAtGatheringPoint(PointLeaderAtGatheringPoint pointLeaderAtGatheringPoint) {
+        pointLeaderAtGatheringPointRepository.save(pointLeaderAtGatheringPoint);
     }
 }
