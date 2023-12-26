@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 @Entity
 @Data
 @Table(name = "PointLeaderAtGatheringPoint")
-@IdClass(PointLeaderAtGatheringPointId.class)
 public class PointLeaderAtGatheringPoint extends PointLeader {
 
     @Id
@@ -15,7 +14,7 @@ public class PointLeaderAtGatheringPoint extends PointLeader {
     @Column(name = "LeaderID")
     private Long pointLeaderId;
 
-    @Id
+ 
     @OneToOne
     @JoinColumn(name = "gatheringPointId")
     private GatheringPoint gatheringPoint;

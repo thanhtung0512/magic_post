@@ -6,6 +6,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateUserRequest {
+    private String newName;
+    private Long leaderID;
     private String currentUsername;
     private String newUsername;
     private String newPassword;

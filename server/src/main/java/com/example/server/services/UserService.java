@@ -17,6 +17,10 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
     public void updateUser(String currentUsername, String newUsername, String newPassword, String newEmail) {
         Optional<User> existingUser = userRepository.findByUsername(currentUsername);
 

@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "PointLeaderAtTransactionPoint")
 @Data
-@IdClass(PointLeaderAtTransactionPointId.class)
+
 public class PointLeaderAtTransactionPoint extends PointLeader {
 
     @Id
@@ -15,7 +15,7 @@ public class PointLeaderAtTransactionPoint extends PointLeader {
     @Column(name = "LeaderID")
     private Long pointLeaderId;
 
-    @Id
+
     @ManyToOne
     @JoinColumn(name = "transactionPointId")
     private TransactionPoint transactionPoint;
