@@ -28,4 +28,9 @@ public class TransactionPointController {
     public List<TransactionPoint> getAllTransactionPoints() {
         return transactionPointService.getAllTransactionPoints();
     }
+
+    @GetMapping("/without-leader")
+    public List<TransactionPoint> getAllTransactionPointsWithoutLeader() {
+        return transactionPointService.getAllTransactionPointsWithoutLeader();
+    }
 }

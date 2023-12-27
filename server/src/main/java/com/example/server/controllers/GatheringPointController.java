@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.server.domain.GatheringPoint;
+import com.example.server.domain.TransactionPoint;
 import com.example.server.services.GatheringPointService;
 
 @RestController
@@ -20,5 +21,10 @@ public class GatheringPointController {
     @GetMapping
     public ResponseEntity<List<GatheringPoint>> getAllGatheringPoints() {
         return ResponseEntity.ok(gatheringPointService.getAllGatheringPoints());
+    }
+
+    @GetMapping("/without-leader")
+    public List<GatheringPoint> getAllTransactionPointsWithoutLeader() {
+        return gatheringPointService.getAllGatheringPointsWithoutLeader();
     }
 }

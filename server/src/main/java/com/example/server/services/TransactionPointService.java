@@ -26,4 +26,17 @@ public class TransactionPointService {
     public Optional<TransactionPoint> findById(Long id) {
         return transactionPointRepository.findById(id);
     }
+
+    @Autowired
+    private PointLeaderAtTransactionPointService pointLeaderAtTransactionPointService;
+
+    public List<TransactionPoint> getAllTransactionPointsWithoutLeader() {
+        // Get all TransactionPoint IDs that have an associated
+        // PointLeaderAtTransactionPoint
+        List<Long> transactionPointIdsWithLeader = pointLeaderAtTransactionPointService.getAllTransactionPointIds();
+
+        // Get all TransactionPoints where the ID is not in the list of TransactionPoint
+        // IDs with a leader
+        return transactionPointRepository.findAllByIdNotIn(transactionPointIdsWithLeader);
+    }
 }

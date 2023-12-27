@@ -35,15 +35,26 @@ const GrantPointLeaderAccount = () => {
   const [loading, setLoading] = useState(false); // Loading state
   const [successMessage, setSuccessMessage] = useState(null); // Success message state
 
-  useEffect(() => {
-    fetchPointLeaders();
-    fetch("http://localhost:8080/api/transaction-points")
+  const fetchTransactionPointsWithoutLeader = () => {
+    fetch("http://localhost:8080/api/transaction-points/without-leader")
       .then((response) => response.json())
       .then((data) => setTransactionPoints(data));
+  };
 
-    fetch("http://localhost:8080/api/gathering-points")
+  const fetchGatheringPointsWithoutLeader = () => {
+    fetch("http://localhost:8080/api/gathering-points/without-leader")
       .then((response) => response.json())
       .then((data) => setGatheringPoints(data));
+  };
+
+  const fetchAll = () => {
+    fetchPointLeaders();
+    fetchTransactionPointsWithoutLeader();
+    fetchGatheringPointsWithoutLeader();
+  };
+
+  useEffect(() => {
+    fetchAll();
   }, []);
 
   const fetchPointLeaders = () => {
@@ -183,6 +194,7 @@ const GrantPointLeaderAccount = () => {
 
       setLoading(false);
       setSuccessMessage("Account granted successfully");
+      fetchAll();
       setTimeout(() => setSuccessMessage(null), 3000); // Reset success message after 3 seconds
     }
   };

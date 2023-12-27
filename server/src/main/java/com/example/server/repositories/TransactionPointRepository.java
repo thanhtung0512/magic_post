@@ -2,6 +2,7 @@ package com.example.server.repositories;
 
 import com.example.server.domain.TransactionPoint;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,4 +17,7 @@ public interface TransactionPointRepository extends JpaRepository<TransactionPoi
     long count();
 
     Optional<TransactionPoint> findById(Long id);
+
+    @Query("SELECT t FROM TransactionPoint t WHERE t.transactionPointId NOT IN :ids")
+    List<TransactionPoint> findAllByIdNotIn(List<Long> ids);
 }
