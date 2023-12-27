@@ -128,7 +128,6 @@ const GrantPointLeaderAccount = () => {
           setTimeout(() => {
             setSuccessMessage(null);
           }, 1000);
-          fetchPointLeaders();
         })
         .catch((error) => {
           console.error("Error updating user:", error);
@@ -167,7 +166,6 @@ const GrantPointLeaderAccount = () => {
           setTimeout(() => {
             setSuccessMessage(null);
           }, 1000);
-          fetchPointLeaders();
         })
         .catch((error) => {
           console.error("Error updating user:", error);
@@ -194,9 +192,10 @@ const GrantPointLeaderAccount = () => {
 
       setLoading(false);
       setSuccessMessage("Account granted successfully");
-      fetchAll();
+
       setTimeout(() => setSuccessMessage(null), 3000); // Reset success message after 3 seconds
     }
+    fetchAll();
   };
 
   const handleEditAccount = (pointLeader) => {

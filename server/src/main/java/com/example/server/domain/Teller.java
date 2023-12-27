@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "Teller")
 public class Teller {
 
@@ -21,4 +23,11 @@ public class Teller {
     @OneToOne
     @JoinColumn(name="userId")
     private User user;
+
+
+    @Column(name = "Name")
+    private String name;
+
+    @Column(name = "PhoneNumber")
+    private String phoneNumber;
 }

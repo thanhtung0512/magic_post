@@ -40,6 +40,11 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
     public void updateUser(String currentUsername, String newUsername, String newPassword, String newEmail) {
         Optional<User> existingUser = userRepository.findByUsername(currentUsername);
 

@@ -92,17 +92,7 @@ const DashboardPage = () => {
     <Box width='100%' paddingTop={2} >
       <Flex justify="space-between" mb={9}>
         
-        <CustomStat
-          label="Total Orders"
-          value="128"
-          imageLink="/assests/images/totalOrder.png"
-        />
-
-        <CustomStat
-          label="Total Delivered"
-          value="112"
-          imageLink="/assests/images/totalDelivered.png"
-        />
+        
         <CustomStat
           label="Total Orders"
           value="128"
