@@ -124,6 +124,44 @@ const GrantPointLeaderAccount = () => {
         })
         .finally(() => setLoading(false));
     } else {
+      fetch("http://localhost:8080/api/users/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          newName: newPointLeader.name,
+          newUsername: newPointLeader.username,
+          newPassword: newPointLeader.password,
+          newEmail: newPointLeader.email,
+          phoneNumber: newPointLeader.phoneNumber,
+          pointID: selectedPoint,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to create Point leader");
+          }
+          setSuccessMessage("Created account point leader successfully");
+          setNewPointLeader({
+            name: "",
+            username: "",
+            password: "",
+            phoneNumber: "",
+            email: "",
+            point: null,
+          });
+          setEditPointLeader(null);
+          setSelectedPoint(null);
+          setTimeout(() => {
+            setSuccessMessage(null);
+          }, 1000);
+          fetchPointLeaders();
+        })
+        .catch((error) => {
+          console.error("Error updating user:", error);
+        })
+        .finally(() => setLoading(false));
       setPointLeaders((prevPointLeaders) => [
         ...prevPointLeaders,
         {

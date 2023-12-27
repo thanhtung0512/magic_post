@@ -19,6 +19,7 @@ import com.example.server.domain.PointLeaderAtGatheringPoint;
 import com.example.server.domain.PointLeaderAtTransactionPoint;
 import com.example.server.domain.TransactionPoint;
 import com.example.server.domain.User;
+import com.example.server.dto.request.CreateUserRequest;
 import com.example.server.dto.request.UpdateUserRequest;
 import com.example.server.services.GatheringPointService;
 import com.example.server.services.PointLeaderService;
@@ -111,5 +112,16 @@ public class UserController {
             }
         }
         return ResponseEntity.ok("Updated successfully");
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<String> createNewLeaderPoint(@RequestBody CreateUserRequest request) {
+        try {
+            
+            return userService.create(request);
+        } catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.ok("Exception when create point leader account " + e.getMessage());
+        }
     }
 }
