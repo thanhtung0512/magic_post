@@ -104,6 +104,16 @@ const GrantPointLeaderAccount = () => {
             throw new Error("Failed to update user");
           }
           setSuccessMessage("Updated successfully");
+          setNewPointLeader({
+            name: "",
+            username: "",
+            password: "",
+            phoneNumber: "",
+            email: "",
+            point: null,
+          });
+          setEditPointLeader(null);
+          setSelectedPoint(null);
           setTimeout(() => {
             setSuccessMessage(null);
           }, 1000);
