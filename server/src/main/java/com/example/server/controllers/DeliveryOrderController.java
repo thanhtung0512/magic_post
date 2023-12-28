@@ -41,7 +41,7 @@ public class DeliveryOrderController {
     }
 
     @PostMapping("/{orderID}/status")
-    @PreAuthorize("hasRole('BOSS')")
+    // @PreAuthorize("hasRole('BOSS')")
     public ResponseEntity<String> updateDeliveryOrderStatus(
             @PathVariable Long orderID,
             @RequestBody UpdateStatusRequest updateStatusRequest) {
