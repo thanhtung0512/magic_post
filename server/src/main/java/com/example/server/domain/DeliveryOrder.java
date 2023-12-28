@@ -66,4 +66,10 @@ public class DeliveryOrder {
 
     @Column(name = "Weight")
     private int weight;
+
+    @Column(name = "SenderName")
+    private String senderName;
+
+    @Column(name = "RecipientName")
+    private String recipientName;
 }

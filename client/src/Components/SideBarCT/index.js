@@ -158,7 +158,7 @@ const getSidebarItems = (userRole) => {
     case "tellerTransaction":
       return [
         { to: "/record-goods", label: "Record Goods" },
-        { to: "/create-delivery-orders", label: "Create Delivery Orders" },
+        { to: "/create-delivery-orders", label: "Forward Orders" },
         {
           to: "/confirmation-arriving-at-collection",
           label: "Confirmation at Collection Point",

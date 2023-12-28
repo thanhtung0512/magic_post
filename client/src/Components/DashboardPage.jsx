@@ -83,7 +83,7 @@ const DashboardPage = () => {
       }
     };
 
-    fetchData();
+    // fetchData();
   }, []);
 
  

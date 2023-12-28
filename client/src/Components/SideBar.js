@@ -132,9 +132,7 @@ const getSidebarItems = (userRole) => {
   const currentRole = currentUser.roles[0];
   console.log(currentRole);
   switch (currentRole) {
-    case "ROLE_TELLER":
-      userRole = "tellerTransaction";
-      break;
+    List<DeliveryOrder> findByStatus(String status);
     case "ROLE_BOSS":
       userRole = "companyLeader";
       break;
