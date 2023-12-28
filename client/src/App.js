@@ -55,7 +55,8 @@ function App() {
         <Route path="/profile" element={<MainLayout />} />
         <Route path="/confirmation-from-transaction-point" element={<MainLayout />} />
         <Route path="/create-delivery-orders-destination" element={<MainLayout />} />
-        
+        <Route path="/make-shipping" element={<MainLayout />} />
+        <Route path="/success-handling" element={<MainLayout />} />
       </Routes>
     </ChakraProvider>
   );

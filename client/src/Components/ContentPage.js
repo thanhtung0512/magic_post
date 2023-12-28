@@ -20,6 +20,10 @@ import TellerOrderForm from "./RoleContent/Teller/TellerOrderForm";
 import ForwardOrderTable from "./RoleContent/Teller/ForwardOrderTable";
 import ConfirmOngoingOrderTable from "./RoleContent/Staff/ConfirmOngoingOrderTable";
 import RequestSenderGatheringToRecipientGathering from "./RoleContent/Staff/RequestSenderGatheringToRecipientGathering";
+import HandleFailOrder from "./RoleContent/Teller/HandleFailOrder";
+import MakeShipping from "./RoleContent/Teller/MakeShipping";
+import SuccessOrders from "./RoleContent/Teller/SuccessOrders";
+
 const ContentPage = ({ title, isSideBarOpening }) => {
   const fontSize = useBreakpointValue({ base: "md", md: "xl" });
   const deliveryOrderDataWithPendingCancelled = [
@@ -107,13 +111,32 @@ const ContentPage = ({ title, isSideBarOpening }) => {
       case "/confirmation-from-transaction-point":
         return (
           <>
-            <ConfirmOngoingOrderTable/>
+            <ConfirmOngoingOrderTable />
           </>
         );
-        case "/create-delivery-orders-destination":
+      case "/create-delivery-orders-destination":
         return (
           <>
-            <RequestSenderGatheringToRecipientGathering/>
+            <RequestSenderGatheringToRecipientGathering />
+          </>
+        );
+      case "/failed-delivery-handling":
+        return (
+          <>
+            <HandleFailOrder />
+          </>
+        );
+
+      case "/make-shipping":
+        return (
+          <>
+            <MakeShipping />
+          </>
+        );
+      case "/success-handling":
+        return (
+          <>
+            <SuccessOrders />
           </>
         );
       // Add more cases as needed

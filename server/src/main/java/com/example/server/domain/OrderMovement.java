@@ -28,6 +28,10 @@ public class OrderMovement {
     @JoinColumn(name = "gatheringPointId")
     private GatheringPoint gatheringPoint;
 
+    @ManyToOne
+    @JoinColumn(name = "DestGatheringPointID")
+    private GatheringPoint destGatheringPoint;
+
     @Column(name = "MovementType", nullable = false)
     private String movementType;
 
