@@ -73,6 +73,7 @@ public class WebSecurityConfig {
             .requestMatchers("/api/teller").permitAll()
             .requestMatchers("/api/order-movements").permitAll()
             .requestMatchers("/api/order-movements/**").permitAll()
+            .requestMatchers("/api/transaction-gathering").permitAll()
             .anyRequest().authenticated());
 
     http.authenticationProvider(authenticationProvider());

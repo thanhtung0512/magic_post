@@ -21,4 +21,5 @@ public class TransactionPoint {
     private String address;
 
     // Getters and setters
+
 }
