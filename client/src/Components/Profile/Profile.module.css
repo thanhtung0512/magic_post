@@ -31,7 +31,7 @@
   
   ul li:before {
     content: "•";
-    color: teal;
+    color: #01904a;
     display: inline-block;
     width: 1em;
     margin-left: -1em;

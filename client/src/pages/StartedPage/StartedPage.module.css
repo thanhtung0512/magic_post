@@ -9,7 +9,7 @@
     width: 100%;
     height: 100px;
     display: flex;
-    border-bottom: 3px solid darkcyan;
+    border-bottom: 3px solid #01904a;
     border-radius: 8px;
     padding: 10px;
     align-items: center;
@@ -36,7 +36,7 @@
     align-items: center;
     height: fit-content;
     width: fit-content;
-    border: 1px solid darkcyan;
+    border: 1px solid #01904a;
     padding: 15px;
     border-radius: 20px;
     font-size: 18px;
@@ -51,7 +51,7 @@
     align-items: center;
     height: fit-content;
     width: fit-content;
-    background-color: darkcyan;
+    background-color: #01904a;
     color: white;
     border: 1px solid white;
     padding: 15px;

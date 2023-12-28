@@ -192,7 +192,7 @@ const Login = () => {
         </FormControl>
 
         <Button
-          colorScheme="teal"
+          colorScheme="#01904a"
           type="submit"
           width="full"
           disabled={loading}
@@ -208,7 +208,7 @@ const Login = () => {
 
         {message && (
           <Flex justifyContent="center" alignItems="center" mt={2}>
-            <Text color="teal" fontSize="md">
+            <Text color="#01904a" fontSize="md">
               {message}
             </Text>
           </Flex>
@@ -219,7 +219,7 @@ const Login = () => {
 
       <Box mt={4}>
         Don't have an account?{" "}
-        <ChakraLink color="teal" href="/register">
+        <ChakraLink color="#01904a" href="/register">
           Register here.
         </ChakraLink>
       </Box>

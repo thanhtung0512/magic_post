@@ -25,8 +25,8 @@ const ManagePointsPage = () => {
   };
 
   return (
-    <Box>
-      <Heading size="lg" mb={4}>
+    <Box p={4}>
+      <Heading as="h2" size="xl" mb={4}>
         Manage Points
       </Heading>
       <Button onClick={handleManageTransactionPlaces} colorScheme="blue" mr={4}>

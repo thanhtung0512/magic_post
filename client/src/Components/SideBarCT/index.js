@@ -44,7 +44,7 @@ const SideBarCT = ({ userRole, activeNavItem, onNavItemClick }) => {
         align="start"
         spacing={3}
         p={4}
-        paddingTop="50px"
+        paddingTop="70px"
         borderRadius="8px"
         bg="teal"
         color="black"
@@ -61,7 +61,7 @@ const SideBarCT = ({ userRole, activeNavItem, onNavItemClick }) => {
           position="absolute"
           bg="teal"
           left={isSidebarOpen ? "0px" : "270px"}
-          top="0px"
+          top="20px"
           width="40px"
           height="40px"
           fontSize="24px"
@@ -81,7 +81,7 @@ const SideBarCT = ({ userRole, activeNavItem, onNavItemClick }) => {
           <NavItem
             style={{ textAlign: "left" }}
             key={item.to}
-            top="30px"
+            top="70px"
             to={item.to}
             activeNavItem={activeNavItem}
             onClick={() => onNavItemClick(item.to, isSidebarOpen)}

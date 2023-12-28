@@ -349,7 +349,7 @@ const Register = () => {
               />
             </FormControl>
             <Button
-              colorScheme="teal"
+              colorScheme="#01904a"
               type="submit"
               width="full"
               disabled={loading}
@@ -367,7 +367,7 @@ const Register = () => {
         {message && (
           <div className="form-group">
             <div
-              style={{ color: successful ? "teal" : "red" }}
+              style={{ color: successful ? "#01904a" : "red" }}
               className="alert"
               role="alert"
             >
@@ -380,7 +380,7 @@ const Register = () => {
 
       <Box mt={4}>
         Already have an account?{" "}
-        <ChakraLink color="teal" href="/">
+        <ChakraLink color="#01904a" href="/">
           Login here.
         </ChakraLink>
       </Box>
