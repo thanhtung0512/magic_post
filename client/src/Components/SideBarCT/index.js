@@ -64,17 +64,15 @@ const SideBarCT = ({ userRole, activeNavItem, onNavItemClick }) => {
           top="0px"
           width="40px"
           height="40px"
-          fontSize='24px'
-          color='white'
+          fontSize="24px"
+          color="white"
           _hover={{
-            backgroundColor: 'white',
-            border: '3px solid teal',
-            color:'teal'
+            backgroundColor: "white",
+            border: "3px solid teal",
+            coclor: "teal",
           }}
-        animation='0.3s'
-        transition="left 0.3s ease-in-out"
-
-
+          animation="0.3s"
+          transition="left 0.3s ease-in-out"
         >
           {isSidebarOpen ? "←" : "→"}
           {/* <p className={style.arrow}>{isSidebarOpen ? "←" : "→"}</p> */}
@@ -116,6 +114,9 @@ const getSidebarItems = (userRole) => {
   const currentRole = currentUser.roles[0];
   console.log(currentRole);
   switch (currentRole) {
+    case "ROLE_TELLER":
+      userRole = "tellerTransaction";
+      break;
     case "ROLE_BOSS":
       userRole = "companyLeader";
       break;

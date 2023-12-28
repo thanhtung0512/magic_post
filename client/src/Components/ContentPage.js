@@ -10,12 +10,13 @@ import GrantTellerAccount from "./RoleContent/PointLeaderTransaction/GrantTeller
 import TransactionStatistic from "./RoleContent/PointLeaderTransaction/TransactionStatistic";
 import UserTracking from "./RoleContent/User/UserTracking";
 // import Profile from "./Profile";
-import {Profile} from "../Components";
+import { Profile } from "../Components";
 import LeafletMap from "./LeafletMap";
 import DashboardPage from "./DashboardPage";
 import AuthService from "../services/auth.service";
 import DeliveryOrderTable from "./DeliveryOrderTable";
 import GrantPointLeaderAccount from "./RoleContent/CompanyLeader/GrantPointLeaderAccount";
+import TellerOrderForm from "./RoleContent/Teller/TellerOrderForm";
 const ContentPage = ({ title, isSideBarOpening }) => {
   const fontSize = useBreakpointValue({ base: "md", md: "xl" });
   const deliveryOrderDataWithPendingCancelled = [
@@ -88,6 +89,12 @@ const ContentPage = ({ title, isSideBarOpening }) => {
             <Profile />
           </>
         );
+      case "/record-goods":
+        return (
+          <>
+            <TellerOrderForm />
+          </>
+        );
 
       // Add more cases as needed
       default:
@@ -110,8 +117,8 @@ const ContentPage = ({ title, isSideBarOpening }) => {
   };
 
   return (
-    <Flex className="container" >
-       <Box
+    <Flex className="container">
+      <Box
         flex="1"
         p={4}
         borderLeft={{ base: "none", md: "1px solid #E2E8F0" }}
@@ -125,7 +132,7 @@ const ContentPage = ({ title, isSideBarOpening }) => {
         </Text> */}
 
         {renderContent()}
-      </Box> 
+      </Box>
       {/* <Flex width='100%' className="ContentPagetest">{renderContent()}</Flex> */}
     </Flex>
   );
