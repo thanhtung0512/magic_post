@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import style from './Teller.module.css'
 import {
   Box,
   FormControl,
@@ -156,24 +157,12 @@ const TellerOrderForm = () => {
         [
           "Sender Name",
           "Sender Address",
-          "Sender Phone Number",
-          "Sender Postal Code",
-        ],
-        "",
-        "text",
-        (label, value) =>
-          setFormData({
-            ...formData,
-            [label.toLowerCase().replace(" ", "")]: value,
-          })
-      )}
-
-      {generateFormControls(
-        [
+          "Sender phonenumber",
+          "Sender portal code",
           "Recipient Name",
           "Recipient Address",
-          "Recipient Phone Number",
-          "Recipient Postal Code",
+          "Recipient phonenumber",
+          "Recipient portal code",
         ],
         "",
         "text",
@@ -183,11 +172,10 @@ const TellerOrderForm = () => {
             [label.toLowerCase().replace(" ", "")]: value,
           })
       )}
-
       <FormControl>
-        <FormLabel fontWeight="bold">Order Type</FormLabel>
+        <FormLabel fontWeight="bold">Type Orders</FormLabel>
         <Select
-          placeholder="Select an Order Type"
+          placeholder="Select type orders"
           mb={4}
           onChange={(e) =>
             setFormData({ ...formData, orderType: e.target.value })
@@ -199,7 +187,7 @@ const TellerOrderForm = () => {
       </FormControl>
 
       {generateFormControls(
-        ["Main Fare", "Extra Fare", "Sum Fare"],
+        ["Main Fare", "Extra Fare", "Sum Fare","Net Weight", "Conversion Weight"],
         "",
         "text",
         (label, value) =>
@@ -208,19 +196,8 @@ const TellerOrderForm = () => {
             [label.toLowerCase().replace(" ", "")]: value,
           })
       )}
-
-      {generateFormControls(
-        ["Net Weight", "Conversion Weight"],
-        "kg",
-        "text",
-        (label, value) =>
-          setFormData({
-            ...formData,
-            [label.toLowerCase().replace(" ", "")]: value,
-          })
-      )}
       <Button colorScheme="teal" onClick={handleRecordClick}>
-        Record
+        Ghi nhận
       </Button>
 
       <Modal
@@ -318,7 +295,7 @@ const TellerOrderForm = () => {
 
             {/* Part 11 */}
             <Box mb={4}>
-              <b>Take from recipient:</b> COD: 0, Thu thêm: 0, Tổng: 0
+              <b>Thu thêm từ người nhận:</b> COD: 0, Thu thêm: 0, Tổng: 0
             </Box>
 
             {/* Part 12 */}
@@ -329,23 +306,23 @@ const TellerOrderForm = () => {
 
             {/* Part 13 */}
             <Box mb={4}>
-              <b>Post Offices Accepted:</b> Chữ kí của Giao dịch viên:{" "}
-              <Input placeholder="Teller Signature" />
+              <b>Chữ kí của giao dịch viên:</b> {" "}
+              <Input placeholder="" />
             </Box>
 
             {/* Part 14 */}
             <Box mb={4}>
-              <b>Ngày giờ nhận:</b> ...h.../.../.../2...{" "}
-              <Input placeholder="Recipient Signature" />
+              <b>Ngày giờ nhận:</b> ...8:00AM.../...28.../...12.../...2023...{" "}
             </Box>
             {/* button to render this modal to PDF */}
-
-            <Button colorScheme="teal" onClick={handlePrintPDF}>
-              Print as PDF
-            </Button>
-            <Button colorScheme="teal" onClick={handleModalClose}>
-              Close
-            </Button>
+            <div className={style.printBtn}>
+              <Button colorScheme="teal" onClick={handlePrintPDF}>
+                In ra PDF
+              </Button>
+              <Button colorScheme="teal" onClick={handleModalClose}>
+                Đóng
+              </Button>
+            </div>
           </ModalBody>
         </ModalContent>
 

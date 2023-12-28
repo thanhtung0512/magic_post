@@ -15,3 +15,7 @@
 .arrow:hover{
     color: teal;
 }
+
+.NavItem{
+    font-size: 25px;
+}

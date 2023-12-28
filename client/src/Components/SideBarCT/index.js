@@ -69,7 +69,7 @@ const SideBarCT = ({ userRole, activeNavItem, onNavItemClick }) => {
           _hover={{
             backgroundColor: "white",
             border: "3px solid teal",
-            coclor: "teal",
+            color: "teal",
           }}
           animation="0.3s"
           transition="left 0.3s ease-in-out"
@@ -79,6 +79,7 @@ const SideBarCT = ({ userRole, activeNavItem, onNavItemClick }) => {
         </Button>
         {sidebarItems.map((item) => (
           <NavItem
+            style={{ textAlign: "left" }}
             key={item.to}
             top="30px"
             to={item.to}
@@ -157,24 +158,24 @@ const getSidebarItems = (userRole) => {
       ];
     case "tellerTransaction":
       return [
-        { to: "/record-goods", label: "Record Goods" },
-        { to: "/create-delivery-orders", label: "Create Delivery Orders" },
+        { to: "/record-goods", label: "Record goods" },
+        { to: "/create-delivery-orders", label: "Create delivery orders" },
         {
           to: "/confirmation-arriving-at-collection",
-          label: "Confirmation at Collection Point",
+          label: "Confirm Arriving Collection",
         },
         {
           to: "/create-orders-recipient",
-          label: "Create Orders for Recipient",
+          label: "Create Orders Recipient",
         },
         {
           to: "/confirmation-delivered-recipient",
-          label: "Confirmation of Delivered Goods",
+          label: "Confirm Delievered",
         },
-        { to: "/failed-delivery-handling", label: "Failed Delivery Handling" },
+        { to: "/failed-delivery-handling", label: "Failed Delivery" },
         {
           to: "/statistics-transferred-rows",
-          label: "Statistics on Transferred Rows",
+          label: "Statistics of tranfered",
         },
         {
           to: "/profile",
