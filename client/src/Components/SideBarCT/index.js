@@ -158,21 +158,11 @@ const getSidebarItems = (userRole) => {
       ];
     case "tellerTransaction":
       return [
-        { to: "/record-goods", label: "Record goods" },
-        { to: "/create-delivery-orders", label: "Create delivery orders" },
-        {
-          to: "/confirmation-arriving-at-collection",
-          label: "Confirm Arriving Collection",
-        },
-        {
-          to: "/create-orders-recipient",
-          label: "Create Orders Recipient",
-        },
-        {
-          to: "/confirmation-delivered-recipient",
-          label: "Confirm Delievered",
-        },
-        { to: "/failed-delivery-handling", label: "Failed Delivery" },
+        { to: "/record-goods", label: "Record Goods" },
+        { to: "/create-delivery-orders", label: "Forward/ Ongoing Orders" },
+        { to: "/make-shipping", label: "Make shipping" },
+        { to: "/failed-delivery-handling", label: "Failed Delivery Handling" },
+        { to: "/success-handling", label: "Success Orders" },
         {
           to: "/statistics-transferred-rows",
           label: "Statistics of tranfered",
@@ -198,20 +188,13 @@ const getSidebarItems = (userRole) => {
       return [
         {
           to: "/confirmation-from-transaction-point",
-          label: "Confirmation from Transaction Point",
+          label: "Confirm ongoing orders",
         },
         {
           to: "/create-delivery-orders-destination",
-          label: "Create Delivery Orders (Destination)",
+          label: "Forward orders",
         },
-        {
-          to: "/confirmation-orders-received",
-          label: "Confirmation of Orders Received",
-        },
-        {
-          to: "/create-delivery-orders-destination-transaction",
-          label: "Create Delivery Orders (Destination Transaction)",
-        },
+
         {
           to: "/profile",
           label: "Profile",

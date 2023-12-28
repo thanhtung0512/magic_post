@@ -26,4 +26,10 @@ public class Customer {
 
     @Column(name = "PhoneNumber")
     private String phoneNumber;
+
+    @Column(name = "Latitude")
+    private double latitude;
+
+    @Column(name = "Longitude")
+    private double longitude;
 }

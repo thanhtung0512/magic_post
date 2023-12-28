@@ -25,37 +25,37 @@ public class OrderMovementController {
         return orderMovementService.getAllOrderMovements();
     }
 
-    @GetMapping("/transaction/in/{transactionPointID}")
+    @GetMapping("/transaction/in/{userId}")
     public ResponseEntity<List<OrderMovement>> ordersGoInSpecificTransactionPoint(
-            @PathVariable("transactionPointID") Long transactionPointID) {
+            @PathVariable("userId") Long userId) {
 
         List<OrderMovement> ordersGoInSpecificTransactionPoint = orderMovementService
-                .ordersGoInSpecificTransactionPoint(transactionPointID);
+                .ordersGoInSpecificTransactionPoint(userId);
         return ResponseEntity.ok(ordersGoInSpecificTransactionPoint);
     }
 
-    @GetMapping("/transaction/out/{transactionPointID}")
+    @GetMapping("/transaction/out/{userId}")
     public ResponseEntity<List<OrderMovement>> ordersGoOutFromSpecificTransactionPoint(
-            @PathVariable("transactionPointID") Long transactionPointID) {
+            @PathVariable("userId") Long userId) {
         List<OrderMovement> ordersGoOutFromSpecificTransactionPoint = orderMovementService
-                .ordersGoOutTransactionPoint(transactionPointID);
+                .ordersGoOutTransactionPoint(userId);
         return ResponseEntity.ok(ordersGoOutFromSpecificTransactionPoint);
 
     }
 
-    @GetMapping("/gathering/in/{gatheringPointID}")
+    @GetMapping("/gathering/in/{userId}")
     public ResponseEntity<List<OrderMovement>> ordersGoInSpecificGatheringPoint(
-            @PathVariable("gatheringPointID") Long gatheringPointID) {
+            @PathVariable("userId") Long userId) {
         List<OrderMovement> ordersGoInSpecificGatheringPoint = orderMovementService
-                .ordersGoInGatheringPoint(gatheringPointID);
+                .ordersGoInGatheringPoint(userId);
         return ResponseEntity.ok(ordersGoInSpecificGatheringPoint);
     }
 
-    @GetMapping("/gathering/out/{gatheringPointID}")
+    @GetMapping("/gathering/out/{userId}")
     public ResponseEntity<List<OrderMovement>> ordersGoOutSpecificGatheringPoint(
-            @PathVariable("gatheringPointID") Long gatheringPointID) {
+            @PathVariable("userId") Long userId) {
         List<OrderMovement> ordersGoOutGatheringPoint = orderMovementService
-                .ordersGoOutGatheringPoint(gatheringPointID);
+                .ordersGoOutGatheringPoint(userId);
         return ResponseEntity.ok(ordersGoOutGatheringPoint);
     }
     // Additional REST endpoints if needed

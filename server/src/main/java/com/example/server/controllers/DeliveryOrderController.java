@@ -7,7 +7,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.server.domain.DeliveryOrder;
+import com.example.server.domain.User;
+import com.example.server.dto.request.TellerCreateOrder;
 import com.example.server.services.DeliveryOrderService;
+import com.example.server.services.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.List;
@@ -16,6 +19,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/delivery-orders")
 public class DeliveryOrderController {
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private DeliveryOrderService deliveryOrderService;
@@ -35,11 +41,10 @@ public class DeliveryOrderController {
     }
 
     @PostMapping("/{orderID}/status")
-    @PreAuthorize("hasRole('BOSS')")
+    // @PreAuthorize("hasRole('BOSS')")
     public ResponseEntity<String> updateDeliveryOrderStatus(
             @PathVariable Long orderID,
-            @RequestBody UpdateStatusRequest updateStatusRequest
-    ) {
+            @RequestBody UpdateStatusRequest updateStatusRequest) {
         try {
             Optional<DeliveryOrder> optionalDeliveryOrder = deliveryOrderService.getDeliveryOrderById(orderID);
 
@@ -56,6 +61,24 @@ public class DeliveryOrderController {
             return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR).body("Failed to update status");
         }
     }
+
+    @GetMapping("/get-by-status/{status}/{userId}")
+    public ResponseEntity<List<DeliveryOrder>> getByStatus(@PathVariable("status") String status, @PathVariable("userId") Long userId) {
+        return ResponseEntity.ok(deliveryOrderService.findByStatus(status,userId));
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<String> tellerCreateOrder(@RequestBody TellerCreateOrder tellerCreateOrder) {
+        // get all information from request body
+        deliveryOrderService.createOrder(tellerCreateOrder);
+        
+        return ResponseEntity.ok("Create order successfully");
+    }
+
+    //get orders from specific point (transaction/ gathering) (userId teller/staff) , status
+    // @GetMapping("/{userId}/{status}") 
+
+    
 
     // Class for the request body when updating the status
     public static class UpdateStatusRequest {

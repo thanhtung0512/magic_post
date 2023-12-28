@@ -61,6 +61,7 @@ public class WebSecurityConfig {
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**").permitAll()
             .requestMatchers("/api/delivery-orders").permitAll()
+            .requestMatchers("/api/delivery-orders/**").permitAll()
             .requestMatchers("/api/transaction-points").permitAll()
             .requestMatchers("/api/transaction-points/**").permitAll()
             .requestMatchers("/api/gathering-points").permitAll()
@@ -73,6 +74,7 @@ public class WebSecurityConfig {
             .requestMatchers("/api/teller").permitAll()
             .requestMatchers("/api/order-movements").permitAll()
             .requestMatchers("/api/order-movements/**").permitAll()
+            .requestMatchers("/api/transaction-gathering").permitAll()
             .anyRequest().authenticated());
 
     http.authenticationProvider(authenticationProvider());

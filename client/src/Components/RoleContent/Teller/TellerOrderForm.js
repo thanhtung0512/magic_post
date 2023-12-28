@@ -25,25 +25,11 @@ import {
 } from "@chakra-ui/react";
 import QRCode from "qrcode.react";
 import ReactToPdf from "react-to-pdf";
+import AuthService from "../../../services/auth.service";
 const TellerOrderForm = () => {
   const ref = useRef();
   const modalRef = useRef();
-  //   const [formData, setFormData] = useState({
-  //     senderName: "",
-  //     senderAddress: "",
-  //     senderPhoneNumber: "",
-  //     senderPostalCode: "",
-  //     recipientName: "",
-  //     recipientAddress: "",
-  //     recipientPhoneNumber: "",
-  //     recipientPostalCode: "",
-  //     orderType: "",
-  //     mainFare: "",
-  //     extraFare: "",
-  //     sumFare: "",
-  //     netWeight: "",
-  //     conversionWeight: "",
-  //   });
+  const currentUser = AuthService.getCurrentUser();
   const [formData, setFormData] = useState({
     sendername: "",
     senderaddress: "",
@@ -114,7 +100,47 @@ const TellerOrderForm = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleRecordClick = () => {
+  const handleRecordClick = async () => {
+    try {
+      // Make a POST request to the API
+      const response = await fetch(
+        "http://localhost:8080/api/delivery-orders/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            senderName: formData.sendername,
+            senderAddress: formData.senderaddress,
+            senderPhoneNumber: formData.senderphonenumber,
+            senderPostalCode: formData.senderpostalcode,
+            recipientName: formData.recipientname,
+            recipientAddress: formData.recipientaddress,
+            recipientPhoneNumber: formData.recipientphonenumber,
+            recipientPostalCode: formData.recipientpostalcode,
+            orderType: formData.ordertype,
+            mainFare: parseFloat(formData.mainfare) || 0,
+            extraFare: parseFloat(formData.extrafare) || 0,
+            netWeight: parseFloat(formData.netweight) || 0,
+            conversionWeight: parseFloat(formData.conversionweight) || 0,
+            userId: currentUser.id, // Replace with the actual userId
+          }),
+        }
+      );
+
+      if (response.ok) {
+        console.log("Order recorded successfully");
+        // Optionally, you can perform additional actions after a successful recording
+      } else {
+        console.error("Failed to record order");
+        // Optionally, you can handle the error or show a notification to the user
+      }
+    } catch (error) {
+      console.error("Error recording order", error);
+      // Optionally, you can handle the error or show a notification to the user
+    }
+
     setIsModalOpen(true);
   };
 
