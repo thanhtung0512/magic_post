@@ -62,9 +62,9 @@ public class DeliveryOrderController {
         }
     }
 
-    @GetMapping("/get-by-status/{status}")
-    public ResponseEntity<List<DeliveryOrder>> getByStatus(@PathVariable("status") String status) {
-        return ResponseEntity.ok(deliveryOrderService.findByStatus(status));
+    @GetMapping("/get-by-status/{status}/{userId}")
+    public ResponseEntity<List<DeliveryOrder>> getByStatus(@PathVariable("status") String status, @PathVariable("userId") Long userId) {
+        return ResponseEntity.ok(deliveryOrderService.findByStatus(status,userId));
     }
 
     @PostMapping("/create")
@@ -74,6 +74,11 @@ public class DeliveryOrderController {
         
         return ResponseEntity.ok("Create order successfully");
     }
+
+    //get orders from specific point (transaction/ gathering) (userId teller/staff) , status
+    // @GetMapping("/{userId}/{status}") 
+
+    
 
     // Class for the request body when updating the status
     public static class UpdateStatusRequest {

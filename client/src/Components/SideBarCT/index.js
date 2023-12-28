@@ -197,11 +197,11 @@ const getSidebarItems = (userRole) => {
       return [
         {
           to: "/confirmation-from-transaction-point",
-          label: "Confirmation from Transaction Point",
+          label: "Confirm ongoing order",
         },
         {
           to: "/create-delivery-orders-destination",
-          label: "Create Delivery Orders (Destination)",
+          label: "Forward to Destination Gathering Point",
         },
         {
           to: "/confirmation-orders-received",

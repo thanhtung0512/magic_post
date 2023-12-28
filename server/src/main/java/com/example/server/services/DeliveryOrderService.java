@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.server.domain.DeliveryOrder;
 import com.example.server.domain.GatheringPoint;
+import com.example.server.domain.StaffAtGatheringPoint;
 import com.example.server.domain.Teller;
 import com.example.server.domain.TransactionPoint;
 import com.example.server.domain.TransactionPointGatheringPoint;
@@ -13,6 +14,7 @@ import com.example.server.domain.User;
 import com.example.server.dto.request.TellerCreateOrder;
 import com.example.server.exceptions.OrderNotFoundException;
 import com.example.server.repositories.DeliveryOrderRepository;
+import com.example.server.repositories.StaffRepository;
 import com.example.server.repositories.TellerRepository;
 import com.example.server.repositories.UserRepository;
 import com.example.server.utilities.CacheUtility;
@@ -21,6 +23,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +46,9 @@ public class DeliveryOrderService {
     private DeliveryOrderRepository deliveryOrderRepository;
 
     @Autowired
+    private StaffRepository staffRepository;
+
+    @Autowired
     private CacheUtility cacheUtility;
 
     public List<DeliveryOrder> getAllDeliveryOrders() throws JsonProcessingException {
@@ -50,8 +56,59 @@ public class DeliveryOrderService {
         return deliveryOrderRepository.findAll();
     }
 
-    public List<DeliveryOrder> findByStatus(String status) {
-        return deliveryOrderRepository.findByStatus(status);
+    public List<DeliveryOrder> findByStatus(String status, Long userId) {
+        List<DeliveryOrder> resultList = new ArrayList<>();
+        List<DeliveryOrder> deliveryOrdersWithoutCheckingPointId = deliveryOrderRepository.findByStatus(status);
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            Optional<Teller> tellerOptional = tellerRepository.findByUser(user);
+            Optional<StaffAtGatheringPoint> staffOptional = staffRepository.findByUser(user);
+
+            if (tellerOptional.isPresent()) {
+                // Transaction point
+                TransactionPoint transactionPoint = tellerOptional.get().getTransactionPoint();
+                Long currentTransactionPointId = transactionPoint.getTransactionPointId();
+                for (DeliveryOrder deliveryOrder : deliveryOrdersWithoutCheckingPointId) {
+                    Long senderTransactionPointId = deliveryOrder.getSenderTransactionPoint().getTransactionPointId();
+                    Long recipientTransactionPointId = deliveryOrder.getRecipientTransactionPoint()
+                            .getTransactionPointId();
+                    if (senderTransactionPointId == currentTransactionPointId
+                            || recipientTransactionPointId == currentTransactionPointId) {
+                        resultList.add(deliveryOrder);
+                    }
+                }
+            } else {
+                // find gathering point correspond to the transaction point in the order data
+                GatheringPoint currentGatheringPoint = staffOptional.get().getGatheringPoint();
+                Long currentGatheringPointId = currentGatheringPoint.getGatheringPointId();
+                for (DeliveryOrder deliveryOrder : deliveryOrdersWithoutCheckingPointId) {
+                    TransactionPoint senderTransactionPoint = deliveryOrder.getSenderTransactionPoint();
+                    TransactionPoint recipientTransactionPoint = deliveryOrder.getRecipientTransactionPoint();
+
+                    // find these two corresponding gathering point
+                    Long senderGatheringPointId = new Long(-1);
+                    Long recipientGatheringPointId = new Long(-2);
+                    Optional<TransactionPointGatheringPoint> senderTrans_Gathering = transactionPointGatheringPointService
+                            .findByTransactionPoint(senderTransactionPoint);
+                    Optional<TransactionPointGatheringPoint> recieptTrans_Gathering = transactionPointGatheringPointService
+                            .findByTransactionPoint(recipientTransactionPoint);
+                    if (senderTrans_Gathering.isPresent()) {
+                        senderGatheringPointId = senderTrans_Gathering.get().getGatheringPoint().getGatheringPointId();
+                    }
+                    if (recieptTrans_Gathering.isPresent()) {
+                        recipientGatheringPointId = recieptTrans_Gathering.get().getGatheringPoint()
+                                .getGatheringPointId();
+                    }
+
+                    if (currentGatheringPointId == senderGatheringPointId
+                            || currentGatheringPointId == recipientGatheringPointId) {
+                        resultList.add(deliveryOrder);
+                    }
+                }
+            }
+        }
+        return resultList;
     }
 
     public Optional<DeliveryOrder> getDeliveryOrderById(Long orderID) {

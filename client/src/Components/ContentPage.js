@@ -18,6 +18,8 @@ import DeliveryOrderTable from "./DeliveryOrderTable";
 import GrantPointLeaderAccount from "./RoleContent/CompanyLeader/GrantPointLeaderAccount";
 import TellerOrderForm from "./RoleContent/Teller/TellerOrderForm";
 import ForwardOrderTable from "./RoleContent/Teller/ForwardOrderTable";
+import ConfirmOngoingOrderTable from "./RoleContent/Staff/ConfirmOngoingOrderTable";
+import RequestSenderGatheringToRecipientGathering from "./RoleContent/Staff/RequestSenderGatheringToRecipientGathering";
 const ContentPage = ({ title, isSideBarOpening }) => {
   const fontSize = useBreakpointValue({ base: "md", md: "xl" });
   const deliveryOrderDataWithPendingCancelled = [
@@ -100,6 +102,18 @@ const ContentPage = ({ title, isSideBarOpening }) => {
         return (
           <>
             <ForwardOrderTable />
+          </>
+        );
+      case "/confirmation-from-transaction-point":
+        return (
+          <>
+            <ConfirmOngoingOrderTable/>
+          </>
+        );
+        case "/create-delivery-orders-destination":
+        return (
+          <>
+            <RequestSenderGatheringToRecipientGathering/>
           </>
         );
       // Add more cases as needed

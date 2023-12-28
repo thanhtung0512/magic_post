@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useTable, useSortBy } from "react-table";
 import { Box, Select, Tooltip, Button } from "@chakra-ui/react";
 import AuthService from "../../../services/auth.service";
-const ForwardOrderTable = () => {
-  const currentUser = AuthService.getCurrentUser();
+const RequestSenderGatheringToRecipientGathering = () => {
   const [data, setData] = useState([]);
+  const currentUser = AuthService.getCurrentUser();
   const [editableStatusRow, setEditableStatusRow] = useState(null);
+  const status = "Need_forward";
   useEffect(() => {
     // Fetch data from the API when the component mounts
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/api/delivery-orders/get-by-status/Need Forward To Sender Gathering Point/" +
+        const response1 = await fetch(
+          "http://localhost:3000/api/delivery-orders/get-by-status/Sender Gathering Accepted/" +
             currentUser.id,
           {
             method: "GET",
@@ -20,10 +21,10 @@ const ForwardOrderTable = () => {
             // other options...
           }
         );
-        const jsonData = await response.json();
-
+        const jsonData1 = await response1.json();
+  
         const response2 = await fetch(
-          "http://localhost:3000/api/delivery-orders/get-by-status/Forward to Destination Transaction/" +
+          "http://localhost:3000/api/delivery-orders/get-by-status/Recipient Gathering Accepted/" +
             currentUser.id,
           {
             method: "GET",
@@ -33,15 +34,15 @@ const ForwardOrderTable = () => {
           }
         );
         const jsonData2 = await response2.json();
-        const concatenatedData = jsonData.concat(jsonData2);
+  
+        const concatenatedData = jsonData1.concat(jsonData2);
         setData(concatenatedData);
-        // setData(jsonData);
-        console.log("Data from API:", jsonData);
+        console.log("Data from API:", concatenatedData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
+  
     fetchData();
   }, []);
 
@@ -78,16 +79,23 @@ const ForwardOrderTable = () => {
                   <option value="Processing">Processing</option>
                   <option value="Pending">Pending</option>
                   <option value="Cancelled">Cancelled</option> */}
-                  <option value="Need Forward To Sender Gathering Point">
-                    Need Forward To Sender Gathering Point
+                  {/* <option value="Need_forward">Need Forward</option> */}
+                  <option value="Cancelled">Cancelled</option>
+                  <option value="Waiting Recipient Gathering Point Accept">
+                    Waiting Recipient Gathering Point Accept
                   </option>
-                  <option value="Waiting Sender Gathering Point Accept">
-                    Waiting Sender Gathering Point Accept
+                  <option value="Forward to Destination Transaction">
+                    Forward to Destination Transaction
                   </option>
 
-                  <option value="Order At Destination Transaction">
-                    Order At Destination Transaction
+                  {/* <option value=" Sender Gathering Accepted">
+                    Sender Gathering Accepted
                   </option>
+
+                  <option value="Sender Gathering Declined">
+                    {" "}
+                    Sender Gathering Declined
+                  </option> */}
                 </Select>
                 <Button
                   size="sm"
@@ -242,4 +250,4 @@ const ForwardOrderTable = () => {
   );
 };
 
-export default ForwardOrderTable;
+export default RequestSenderGatheringToRecipientGathering;

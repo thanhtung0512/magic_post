@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useTable, useSortBy } from "react-table";
 import { Box, Select, Tooltip, Button } from "@chakra-ui/react";
 import AuthService from "../../../services/auth.service";
-const ForwardOrderTable = () => {
-  const currentUser = AuthService.getCurrentUser();
+const ConfirmOngoingOrderTable = () => {
   const [data, setData] = useState([]);
   const [editableStatusRow, setEditableStatusRow] = useState(null);
+  const status = "Need_forward";
+  const currentUser = AuthService.getCurrentUser();
   useEffect(() => {
     // Fetch data from the API when the component mounts
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/delivery-orders/get-by-status/Need Forward To Sender Gathering Point/" +
+          "http://localhost:3000/api/delivery-orders/get-by-status/Waiting Sender Gathering Point Accept/" +
             currentUser.id,
           {
             method: "GET",
@@ -23,7 +24,7 @@ const ForwardOrderTable = () => {
         const jsonData = await response.json();
 
         const response2 = await fetch(
-          "http://localhost:3000/api/delivery-orders/get-by-status/Forward to Destination Transaction/" +
+          "http://localhost:3000/api/delivery-orders/get-by-status/Waiting Recipient Gathering Point Accept/" +
             currentUser.id,
           {
             method: "GET",
@@ -35,7 +36,6 @@ const ForwardOrderTable = () => {
         const jsonData2 = await response2.json();
         const concatenatedData = jsonData.concat(jsonData2);
         setData(concatenatedData);
-        // setData(jsonData);
         console.log("Data from API:", jsonData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -78,15 +78,28 @@ const ForwardOrderTable = () => {
                   <option value="Processing">Processing</option>
                   <option value="Pending">Pending</option>
                   <option value="Cancelled">Cancelled</option> */}
-                  <option value="Need Forward To Sender Gathering Point">
-                    Need Forward To Sender Gathering Point
-                  </option>
-                  <option value="Waiting Sender Gathering Point Accept">
-                    Waiting Sender Gathering Point Accept
+                  {/* <option value="Need_forward">Need Forward</option> */}
+                  {/* <option value="Forwarded Gathering Point">
+                    Forwarded Gathering Point
+                  </option> */}
+
+                  <option value="Sender Gathering Accepted">
+                    Sender Gathering Accepted
                   </option>
 
-                  <option value="Order At Destination Transaction">
-                    Order At Destination Transaction
+                  <option value="Sender Gathering Declined">
+                    {" "}
+                    Sender Gathering Declined
+                  </option>
+
+                  <option value="Recipient Gathering Accepted">
+                    {" "}
+                    Recipient Gathering Accepted
+                  </option>
+
+                  <option value="Recipient Gathering Declined">
+                    {" "}
+                    Recipient Gathering Declined
                   </option>
                 </Select>
                 <Button
@@ -242,4 +255,4 @@ const ForwardOrderTable = () => {
   );
 };
 
-export default ForwardOrderTable;
+export default ConfirmOngoingOrderTable;

@@ -72,4 +72,10 @@ public class DeliveryOrder {
 
     @Column(name = "RecipientName")
     private String recipientName;
+
+    @Column(name = "RecipientLatitude")
+    private double latitude;
+
+    @Column(name = "RecipientLongitude")
+    private double longitude;
 }
