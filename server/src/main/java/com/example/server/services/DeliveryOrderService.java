@@ -46,7 +46,8 @@ public class DeliveryOrderService {
     private CacheUtility cacheUtility;
 
     public List<DeliveryOrder> getAllDeliveryOrders() throws JsonProcessingException {
-        return cacheUtility.getAllDeliveryOrders();
+        // return cacheUtility.getAllDeliveryOrders();
+        return deliveryOrderRepository.findAll();
     }
 
     public List<DeliveryOrder> findByStatus(String status) {
@@ -55,7 +56,7 @@ public class DeliveryOrderService {
 
     public Optional<DeliveryOrder> getDeliveryOrderById(Long orderID) {
         try {
-            return cacheUtility.getDeliveryOrderById(orderID);
+            return deliveryOrderRepository.findById(orderID);
         } catch (Exception e) {
             System.out.println("Order not found with ID: " + orderID);
         }
