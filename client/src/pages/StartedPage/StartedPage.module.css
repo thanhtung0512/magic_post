@@ -3,6 +3,7 @@
     width: 100%;
     flex-direction: column;
     align-items: center;
+    cursor: pointer;
 }
 
 .header{
@@ -42,6 +43,7 @@
     font-size: 18px;
     text-transform: uppercase;
     font-weight: 600;
+    transition: 0.5s;
     
 
 }
@@ -59,6 +61,25 @@
     font-size: 18px;
     text-transform: uppercase;
     font-weight: 600;
+    transition: 0.5s;
+}
+
+.login:hover{
+    background-color: white;
+    color: #01904a;
+    border: 1px solid #01904a;
+    cursor: pointer;
+    scale: 125%;
+    margin: 0px 10px;
+}
+.func:hover{
+    background-color: #01904a;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+    scale: 125%;
+    margin: 0px 10px;
+
 }
 
 .contentStart{
@@ -82,14 +103,29 @@
     justify-content: center;
     align-items: center;
 }
+
 .num{
     font-size: 90px;
     font-weight: 600;
+    transition: 0.5s;
+}
+.num:hover{
+    color: #01904a;
+    scale: 125%;
+    margin-right: 30px;
+    margin-left: 20px;
 }
 .rig{
     display: flex;
     flex-direction: column;
     font-size: 28px;
+    transition: 0.5s;
+}
+.rig:hover{
+    color: #01904a;
+    scale: 125%;
+    margin-left: 30px;
+    font-weight: 600;
 }
 
 .content2{

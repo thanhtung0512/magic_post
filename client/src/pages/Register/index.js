@@ -122,172 +122,6 @@ const Register = () => {
   };
 
   return (
-    // <Flex direction="column" align="center" justify="center" height="100vh">
-    //   {/* Logo */}
-    //   <Text fontSize="3xl" fontWeight="bold" mb={4}>
-    //     MagicPost
-    //   </Text>
-    //   <Box
-    //     p={8}
-    //     maxWidth="400px"
-    //     borderWidth={1}
-    //     borderRadius={8}
-    //     boxShadow="lg"
-    //   >
-    //     <Heading mb={4}>Register</Heading>
-
-    //     <Form onSubmit={handleRegister} ref={form}>
-    //       {!successful && (
-    //         <div>
-    //           {" "}
-    //           <FormControl mb={4}>
-    //             <FormLabel>Username</FormLabel>
-    //             <Input
-    //               type="text"
-    //               placeholder="Enter your username"
-    //               name="username"
-    //               value={username}
-    //               onChange={onChangeUsername}
-    //               validations={[required, vusername]}
-    //             />
-    //           </FormControl>
-    //           <FormControl mb={4}>
-    //             <FormLabel>Email address</FormLabel>
-    //             <Input
-    //               type="email"
-    //               placeholder="Enter your email"
-    //               name="email"
-    //               value={email}
-    //               onChange={onChangeEmail}
-    //               validations={[required, validEmail]}
-    //             />
-    //           </FormControl>
-    //           <FormControl mb={4}>
-    //             <FormLabel>Password</FormLabel>
-    //             <Input
-    //               type="password"
-    //               placeholder="Enter your password"
-    //               name="password"
-    //               value={password}
-    //               onChange={onChangePassword}
-    //               validations={[required, vpassword]}
-    //             />
-    //           </FormControl>
-    //           <Button
-    //             colorScheme="teal"
-    //             type="submit"
-    //             width="full"
-    //             disabled={loading}
-    //           >
-    //             {loading ? (
-    //               <>
-    //                 Signing up... <Spinner size="sm" ml={2} />
-    //               </>
-    //             ) : (
-    //               "Sign Up"
-    //             )}
-    //           </Button>
-    //         </div>
-    //       )}
-    //       {message && (
-    //         <div className="form-group">
-    //           <div
-    //             style={{ color: successful ? "teal" : "red" }}
-    //             className="alert"
-    //             role="alert"
-    //           >
-    //             {message}
-    //           </div>
-    //         </div>
-    //       )}
-    //       <CheckButton style={{ display: "none" }} ref={checkBtn} />
-    //     </Form>
-
-    //     <Box mt={4}>
-    //       Already have an account?{" "}
-    //       <ChakraLink color="teal" href="/">
-    //         Login here.
-    //       </ChakraLink>
-    //     </Box>
-    //   </Box>
-    // </Flex>
-    // <div className={style.container}>
-    //   <div className={style.logo}>
-    //     <img
-    //       src="Screenshot_2023-11-15_143213-removebg-preview.png"
-    //       width="200"
-    //       height="200"
-    //     ></img>
-    //     <div className={style.CompanyName}>Magic Post</div>
-    //   </div>
-    //   <h2 className={style.title}>Đăng ký</h2>
-    //   <form className={style.form} onSubmit={handleRegister} ref={form}>
-    //     {!successful && (
-    //       <div className={style.subform}>
-    //         <div className={style.input}>
-    //           <label for="username" class="form-label">
-    //             Tên tài khoản
-    //           </label>
-    //           <input
-    //             name="username"
-    //             type="text"
-    //             placeholder="Vui lòng nhập tên tài khoản"
-    //             minlength="4"
-    //             maxlength="24"
-    //             title="Vui lòng nhập tài khoản"
-    //           ></input>
-    //         </div>
-
-    //         <div className={style.input}>
-    //           <label for="username" class="form-label">
-    //             Email
-    //           </label>
-    //           <input
-    //             name="username"
-    //             type="text"
-    //             placeholder="Vui lòng nhập Email"
-    //             minlength="4"
-    //             maxlength="24"
-    //             title="Vui lòng nhập Email"
-    //           ></input>
-    //         </div>
-    //         <div className={style.input}>
-    //           <label for="username" class="form-label">
-    //             Mật khẩu
-    //           </label>
-    //           <input
-    //             name="username"
-    //             type="text"
-    //             placeholder="Vui lòng nhập mật khẩu"
-    //             minlength="4"
-    //             maxlength="24"
-    //             title="Vui lòng nhập mật khẩu"
-    //           ></input>
-    //         </div>
-    //         <div className={style.group}>
-    //           <button disabled={loading} type="submit" ref={checkBtn}>
-    //             {loading ? (
-    //               <>
-    //                 Signing up... <Spinner size="sm" ml={2} />
-    //               </>
-    //             ) : (
-    //               "Sign Up"
-    //             )}
-    //           </button>
-    //         </div>
-    //         <div className={style.redirect}>
-    //           <p>Bạn chưa có tài khoản ?</p>
-    //           <Link to="/login">Đăng nhập</Link>
-    //         </div>
-
-    //       </div>
-    //     )}
-    //   </form>
-    //   <div className={style.license}>
-    //     Khi đăng ký, tôi đồng ý với các Điều khoản sử dụng và Chính sách bảo mật
-    //     của MagicPost.
-    //   </div>
-    // </div>
     <Flex
       direction="column"
       align="center"
@@ -301,15 +135,15 @@ const Register = () => {
         height="200"
       ></img>
       <Text
-        fontSize="3xl"
-        fontWeight="bold"
+        // fontSize="3xl"
+        // fontWeight="bold"
         mb={4}
         className={style.CompanyName}
       >
         MagicPost
       </Text>
 
-      <Heading mb={4}>Register</Heading>
+      <Heading className={style.title} mb={4}>Register</Heading>
 
       <Form onSubmit={handleRegister} ref={form} className={style.form}>
         {!successful && (
@@ -380,7 +214,7 @@ const Register = () => {
 
       <Box mt={4}>
         Already have an account?{" "}
-        <ChakraLink color="#01904a" href="/">
+        <ChakraLink color="#01904a" href="/login">
           Login here.
         </ChakraLink>
       </Box>

@@ -23,9 +23,11 @@ const StartedPage = () => {
           <span>Magic Post</span>
         </div>
         <div className={stlye.func}>Home</div>
-        <div className={stlye.func}>Search</div>
         <div className={stlye.login}>
           <Link to="/login">Login</Link>
+        </div>
+        <div className={stlye.func}>
+          <Link to="/register">Register</Link>
         </div>
         <div></div>
       </div>
