@@ -19,6 +19,10 @@ import com.example.server.repositories.TellerRepository;
 import com.example.server.repositories.UserRepository;
 import com.example.server.utilities.CacheUtility;
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
@@ -26,7 +30,9 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DeliveryOrderService {
@@ -42,6 +48,13 @@ public class DeliveryOrderService {
     @Autowired
     private TellerRepository tellerRepository;
 
+    private final EntityManager entityManager;
+
+    // Inject the EntityManager through constructor
+    public DeliveryOrderService(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
     @Autowired
     private DeliveryOrderRepository deliveryOrderRepository;
 
@@ -54,6 +67,19 @@ public class DeliveryOrderService {
     public List<DeliveryOrder> getAllDeliveryOrders() throws JsonProcessingException {
         // return cacheUtility.getAllDeliveryOrders();
         return deliveryOrderRepository.findAll();
+    }
+
+    public long countAllDeliveryOrders() {
+        return deliveryOrderRepository.count();
+    }
+
+    public int getSumOfPrices() {
+        return deliveryOrderRepository.getSumOfPrices();
+    }
+
+    // Optionally, count by status
+    public long countDeliveryOrdersByStatus(String status) {
+        return deliveryOrderRepository.countByStatus(status);
     }
 
     public List<DeliveryOrder> findByStatus(String status, Long userId) {
@@ -123,6 +149,49 @@ public class DeliveryOrderService {
 
     public void saveDeliveryOrder(DeliveryOrder deliveryOrder) {
         deliveryOrderRepository.save(deliveryOrder);
+    }
+
+    public List<Map<String, Object>> countDeliveryByMonths() {
+        String sql = "SELECT MONTH(delivery_order.date) as month, COUNT(delivery_order.orderId) as orders FROM DeliveryOrder delivery_order GROUP BY MONTH(delivery_order.date)";
+        Query query = entityManager.createNativeQuery(sql);
+
+        @SuppressWarnings("unchecked")
+        List<Object[]> result = query.getResultList();
+
+        return result.stream()
+                .map(objArray -> Map.of("month", objArray[0], "orders", objArray[1]))
+                .collect(Collectors.toList());
+
+    }
+
+    public List<Map<String, Object>> countOrdersByStatusOnEachMonth() {
+        String sql = "SELECT MONTH(delivery_order.date) as month, " +
+                "SUM(CASE WHEN delivery_order.status = 'Delivered Successfully' THEN 1 ELSE 0 END) as completed, " +
+                "SUM(CASE WHEN delivery_order.status = 'Failed, return to transaction point' THEN 1 ELSE 0 END) as failed "
+                +
+                "FROM DeliveryOrder delivery_order GROUP BY MONTH(delivery_order.date)";
+
+        Query query = entityManager.createNativeQuery(sql);
+
+        @SuppressWarnings("unchecked")
+        List<Object[]> result = query.getResultList();
+
+        return result.stream()
+                .map(objArray -> Map.of(
+                        "month", objArray[0],
+                        "completed", objArray[1],
+                        "failed", objArray[2]))
+                .collect(Collectors.toList());
+    }
+
+    public List<Map<String, Object>> sumPricesByStatusOnEachMonth() {
+        List<Object[]> result = deliveryOrderRepository.sumPricesByStatusOnEachMonth();
+        return result.stream()
+                .map(objArray -> Map.of(
+                        "month", objArray[0],
+                        "completedPrice", objArray[1],
+                        "failedPrice", objArray[2]))
+                .collect(Collectors.toList());
     }
 
     public void createOrder(TellerCreateOrder tellerCreateOrder) {

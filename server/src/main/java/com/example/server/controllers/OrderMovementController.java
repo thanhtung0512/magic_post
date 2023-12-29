@@ -25,7 +25,8 @@ public class OrderMovementController {
         return orderMovementService.getAllOrderMovements();
     }
 
-    @GetMapping("/transaction/in/{userId}")
+    // Transaction IN 
+    @GetMapping("/transaction/in/userID/{userId}")
     public ResponseEntity<List<OrderMovement>> ordersGoInSpecificTransactionPoint(
             @PathVariable("userId") Long userId) {
 
@@ -34,7 +35,17 @@ public class OrderMovementController {
         return ResponseEntity.ok(ordersGoInSpecificTransactionPoint);
     }
 
-    @GetMapping("/transaction/out/{userId}")
+    @GetMapping("/transaction/in/transactionPointID/{transactionPointID}")
+    public ResponseEntity<List<OrderMovement>> ordersGoInSpecificTransactionPointUsingTransactionPointID(
+            @PathVariable("transactionPointID") Long transactionPointID) {
+
+        List<OrderMovement> ordersGoInSpecificTransactionPoint = orderMovementService
+                .ordersGoInSpecificTransactionPoint_TransactionPointID(transactionPointID);
+        return ResponseEntity.ok(ordersGoInSpecificTransactionPoint);
+    }
+
+    // Transaction OUT
+    @GetMapping("/transaction/out/userID/{userId}")
     public ResponseEntity<List<OrderMovement>> ordersGoOutFromSpecificTransactionPoint(
             @PathVariable("userId") Long userId) {
         List<OrderMovement> ordersGoOutFromSpecificTransactionPoint = orderMovementService
@@ -43,7 +54,19 @@ public class OrderMovementController {
 
     }
 
-    @GetMapping("/gathering/in/{userId}")
+
+    @GetMapping("/transaction/out/transactionPointID/{transactionPointID}")
+    public ResponseEntity<List<OrderMovement>> ordersGoOutFromSpecificTransactionPoint_TransactionPointID(
+            @PathVariable("transactionPointID") Long transactionPointID) {
+        List<OrderMovement> ordersGoOutFromSpecificTransactionPoint = orderMovementService
+                .ordersGoOutTransactionPoint_TransactionPointID(transactionPointID);
+        return ResponseEntity.ok(ordersGoOutFromSpecificTransactionPoint);
+
+    }
+
+    //Gathering IN
+
+    @GetMapping("/gathering/in/userID/{userId}")
     public ResponseEntity<List<OrderMovement>> ordersGoInSpecificGatheringPoint(
             @PathVariable("userId") Long userId) {
         List<OrderMovement> ordersGoInSpecificGatheringPoint = orderMovementService
@@ -51,12 +74,32 @@ public class OrderMovementController {
         return ResponseEntity.ok(ordersGoInSpecificGatheringPoint);
     }
 
-    @GetMapping("/gathering/out/{userId}")
+
+    @GetMapping("/gathering/in/gatheringPointID/{gatheringPointID}")
+    public ResponseEntity<List<OrderMovement>> ordersGoInSpecificGatheringPoint_GatheringPointID(
+            @PathVariable("gatheringPointID") Long gatheringPointID) {
+        List<OrderMovement> ordersGoInSpecificGatheringPoint = orderMovementService
+                .ordersGoInGatheringPoint_GatheringPointID(gatheringPointID);
+        return ResponseEntity.ok(ordersGoInSpecificGatheringPoint);
+    }
+
+
+    // Gathering OUT
+    @GetMapping("/gathering/out/userID/{userId}")
     public ResponseEntity<List<OrderMovement>> ordersGoOutSpecificGatheringPoint(
             @PathVariable("userId") Long userId) {
         List<OrderMovement> ordersGoOutGatheringPoint = orderMovementService
                 .ordersGoOutGatheringPoint(userId);
         return ResponseEntity.ok(ordersGoOutGatheringPoint);
     }
+
+    @GetMapping("/gathering/out/gatheringPointID/{gatheringPointID}")
+    public ResponseEntity<List<OrderMovement>> ordersGoOutSpecificGatheringPoint_GatheringPointID(
+            @PathVariable("gatheringPointID") Long gatheringPointID) {
+        List<OrderMovement> ordersGoOutGatheringPoint = orderMovementService
+                .ordersGoOutGatheringPoint_GatheringPointID(gatheringPointID);
+        return ResponseEntity.ok(ordersGoOutGatheringPoint);
+    }
+
     // Additional REST endpoints if needed
 }

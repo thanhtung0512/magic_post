@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
 import ComplexChart from "./ComplexChart";
 import BeautifulChart from "./BeautifulChart";
@@ -23,8 +23,10 @@ import RequestSenderGatheringToRecipientGathering from "./RoleContent/Staff/Requ
 import HandleFailOrder from "./RoleContent/Teller/HandleFailOrder";
 import MakeShipping from "./RoleContent/Teller/MakeShipping";
 import SuccessOrders from "./RoleContent/Teller/SuccessOrders";
+import InOutOrderTransaction from "./RoleContent/PointLeaderTransaction/InOutOrderTransaction";
 
 const ContentPage = ({ title, isSideBarOpening }) => {
+  const [ordersByStatusData, setOrdersByStatusData] = useState([]);
   const fontSize = useBreakpointValue({ base: "md", md: "xl" });
   const deliveryOrderDataWithPendingCancelled = [
     { month: "Jan", completed: 10, pending: 5, cancelled: 2 },
@@ -35,7 +37,24 @@ const ContentPage = ({ title, isSideBarOpening }) => {
     { month: "Jun", completed: 27, pending: 5, cancelled: 12 },
     // ... more data
   ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response6 = await fetch(
+          "http://localhost:8080/api/delivery-orders/count-by-status-on-each-month"
+        );
+        const ordersByStatusData = await response6.json();
+        setOrdersByStatusData(ordersByStatusData);
 
+        // setData(allDeliveryOrdersData);
+        // console.log("Data from API:", allDeliveryOrdersData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   const customColors = ["#3182CE", "#E53E3E", "#48BB78"];
   const renderContent = () => {
     const currentUser = AuthService.getCurrentUser();
@@ -75,18 +94,22 @@ const ContentPage = ({ title, isSideBarOpening }) => {
       case "/transaction-point-statistics":
         return (
           <>
-            <ComplexChart data={deliveryOrderDataWithPendingCancelled} />
-            <BeautifulChart
-              data={deliveryOrderDataWithPendingCancelled}
-              colors={customColors}
-            />
+            <ComplexChart data={ordersByStatusData} />
+            <BeautifulChart data={ordersByStatusData} colors={customColors} />
           </>
         );
+      case "/in-out-orders":
+        return (
+          <>
+            <InOutOrderTransaction />
+          </>
+        );
+        return <></>;
       case "/lookup-status":
         return (
           <>
             <UserTracking />
-            <LeafletMap />
+            {/* <LeafletMap /> */}
           </>
         );
 
@@ -149,7 +172,7 @@ const ContentPage = ({ title, isSideBarOpening }) => {
             ) : currentRole == "ROLE_CUSTOMER" ? (
               <>
                 <UserTracking />
-                <LeafletMap />
+                {/* <LeafletMap /> */}
               </>
             ) : (
               <></>
