@@ -17,8 +17,10 @@ import {
   Alert,
   AlertIcon,
 } from "@chakra-ui/react";
-
+import AuthService from "../../../services/auth.service";
 const GrantTellerAccount = () => {
+  const currentUser = AuthService.getCurrentUser();
+  const currentUserId = currentUser.id;
   const [newTeller, setNewTeller] = useState({
     name: "",
     username: "",
@@ -49,7 +51,11 @@ const GrantTellerAccount = () => {
   }, []);
 
   const fetchTellers = () => {
-    fetch("http://localhost:8080/api/teller")
+    const apiUrl = currentUserId === 1
+      ? "http://localhost:8080/api/staff"
+      : "http://localhost:8080/api/teller";
+  
+    fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => setTellers(data))
       .catch((error) => {
@@ -205,8 +211,10 @@ const GrantTellerAccount = () => {
   return (
     <Box p={4} overflowY="scroll" maxH="80vh">
       <Heading as="h2" size="xl" mb={4}>
-        Manage Teller Account: {newTeller.transactionPointId}
-      </Heading>
+      {currentUserId === 1
+        ? `Manage Staff Account`
+        : `Manage Teller Account`}
+    </Heading>
 
       <FormControl mb={4}>
         <FormLabel>Name</FormLabel>
@@ -297,7 +305,10 @@ const GrantTellerAccount = () => {
       )}
       <Box mt={8}>
         <Heading as="h3" size="lg" mb={4}>
-          Teller Accounts
+        {currentUserId === 1
+        ? `Staff Accounts`
+        : `Teller Accounts`}
+       
         </Heading>
         <Table variant="striped" colorScheme="gray">
           <Thead>
@@ -308,21 +319,19 @@ const GrantTellerAccount = () => {
               <Th>Phone Number</Th>
               <Th>Transaction Point</Th>
               <Th>Email</Th>
-           
             </Tr>
           </Thead>
           <Tbody>
             {tellers.map((teller) => (
               <Tr key={teller.tellerId}>
-                <Td>{teller.tellerId}</Td>
+                <Td>{teller.tellerId ? teller.tellerId : teller.staffId }</Td>
                 <Td>{teller.name}</Td>
                 <Td>{teller.user ? teller.user.username : ""}</Td>
                 <Td>{teller.phoneNumber}</Td>
                 <Td>
-                  {teller.transactionPoint ? teller.transactionPoint.name : ""}
+                  {teller.transactionPoint ? teller.transactionPoint.name : teller.gatheringPoint.name}
                 </Td>
                 <Td>{teller.user ? teller.user.email : ""}</Td>
-                
               </Tr>
             ))}
           </Tbody>

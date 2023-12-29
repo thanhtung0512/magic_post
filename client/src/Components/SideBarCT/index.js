@@ -135,21 +135,29 @@ const getSidebarItems = (userRole) => {
       userRole = "staffGathering";
       break;
   }
+  const currentUserId = currentUser.id;
   switch (userRole) {
     case "companyLeader":
       return [
         { to: "/dashboard", label: "Dashboard" },
-        { to: "/manage-points", label: "Manage Points" },
+        { to: "/manage-points", label: "All Points" },
         { to: "/manage-account-managers", label: "Manage Account" },
-        { to: "/view-statistics", label: "View Statistics" },
+        { to: "/view-statistics", label: "Manage All Orders" },
         { to: "/profile", label: "Profile" },
       ];
     case "pointLeaderTransaction":
       return [
-        { to: "/grant-teller-accounts", label: "Grant Teller Accounts" },
+        {
+          to: "/grant-teller-accounts",
+          label: currentUserId === 1 ? "Grant Staff Accounts" : "Grant Teller Accounts",
+        },
         {
           to: "/transaction-point-statistics",
-          label: "Transaction Point Statistics",
+          label: "Statistics",
+        },
+        {
+          to: "/in-out-orders",
+          label: "In/ Out Orders",
         },
         {
           to: "/profile",
@@ -177,7 +185,7 @@ const getSidebarItems = (userRole) => {
         { to: "/manage-employee-accounts", label: "Manage Employee Accounts" },
         {
           to: "/gathering-point-statistics",
-          label: "Gathering Point Statistics",
+          label: "Statistics",
         },
         {
           to: "/profile",
